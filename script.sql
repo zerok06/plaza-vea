@@ -4,6 +4,27 @@ go
 drop database plaza_vea
 go
 
+-- creacion con datos especificos
+
+CREATE DATABASE SupermercadoDB
+ON 
+(
+    NAME = SupermercadoDB_dat,
+    FILENAME = 'C:\SQLData\SupermercadoDB.mdf',  -- Ruta del archivo MDF
+    SIZE = 500MB,                                -- Tamaño inicial del archivo MDF
+    MAXSIZE = UNLIMITED,                         -- Sin límite de crecimiento máximo
+    FILEGROWTH = 100MB                           -- Incremento del tamaño del archivo MDF
+)
+LOG ON
+(
+    NAME = SupermercadoDB_log,
+    FILENAME = 'E:\SQLLogs\SupermercadoDB.ldf',  -- Ruta del archivo LDF
+    SIZE = 100MB,                                -- Tamaño inicial del archivo LDF
+    MAXSIZE = 1GB,                               -- Tamaño máximo del archivo LDF
+    FILEGROWTH = 50MB                            -- Incremento del tamaño del archivo LDF
+);
+
+	
 use plaza_vea
 go
 -- 1. Productos y Categorías
