@@ -27,11 +27,32 @@ LOG ON
 	
 use plaza_vea
 go
+
+-- FABIOLA
+-- GUSTABO
+-- IVAN
+-- MICHAEL
+-- JOSE
+
+	--  DDL (DROP)
+	-- DML (SELECT, UPDATE, INSERT y DELETE)
+	
 -- 1. Productos y Categorías
 CREATE TABLE Categorias (
     id_categoria INT PRIMARY KEY IDENTITY(1, 1),
     nombre VARCHAR(100) NOT NULL
 );
+
+SELECT * FROM categorias
+go
+ insert into
+go
+update
+	
+
+DROP TABLE Categorias
+go
+
 
 CREATE TABLE Subcategorias (
     id_subcategoria INT PRIMARY KEY IDENTITY(1, 1),
