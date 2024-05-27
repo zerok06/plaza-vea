@@ -6,7 +6,7 @@ go
 
 -- creacion con datos especificos
 
-CREATE DATABASE SupermercadoDB
+CREATE DATABASE plaza_vea
 ON 
 (
     NAME = SupermercadoDB_dat,
@@ -37,21 +37,11 @@ go
 	--  DDL (DROP)
 	-- DML (SELECT, UPDATE, INSERT y DELETE)
 	
--- 1. Productos y Categorías
+
 CREATE TABLE Categorias (
     id_categoria INT PRIMARY KEY IDENTITY(1, 1),
     nombre VARCHAR(100) NOT NULL
 );
-
-SELECT * FROM categorias
-go
- insert into
-go
-update
-	
-
-DROP TABLE Categorias
-go
 
 
 CREATE TABLE Subcategorias (
@@ -87,7 +77,7 @@ CREATE TABLE Productos (
     FOREIGN KEY (id_unidad) REFERENCES UnidadesDeMedida(id_unidad)
 );
 
--- 2. Inventarios
+
 CREATE TABLE InventarioGeneral (
     id_inventario INT PRIMARY KEY IDENTITY(1, 1),
     id_producto INT,
@@ -120,7 +110,7 @@ CREATE TABLE MovimientosInventario (
     FOREIGN KEY (id_almacen) REFERENCES Almacenes(id_almacen)
 );
 
--- 3. Ventas y Clientes
+
 CREATE TABLE Clientes (
     id_cliente INT PRIMARY KEY IDENTITY(1, 1),
     nombre VARCHAR(100) NOT NULL,
@@ -154,7 +144,7 @@ CREATE TABLE DetallesVenta (
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
 );
 
--- 4. Empleados y Recursos Humanos
+
 CREATE TABLE Empleados (
     id_empleado INT PRIMARY KEY IDENTITY(1, 1),
     nombre VARCHAR(100) NOT NULL,
@@ -195,7 +185,7 @@ CREATE TABLE HorariosTrabajo (
     FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
 );
 
--- 5. Logística y Distribución
+
 CREATE TABLE FlotasTransporte (
     id_flota INT PRIMARY KEY IDENTITY(1, 1),
     descripcion VARCHAR(100)
@@ -240,7 +230,7 @@ CREATE TABLE CuentasPorPagar (
     FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor)
 );
 
--- 2. Inventarios (Continuación)
+
 CREATE TABLE RequisicionesInventario (
     id_requisicion INT PRIMARY KEY IDENTITY(1, 1),
     id_almacen INT,
@@ -282,7 +272,7 @@ CREATE TABLE RecepcionProductos (
     FOREIGN KEY (id_orden) REFERENCES OrdenesCompra(id_orden)
 );
 
--- 3. Ventas y Clientes (Continuación)
+
 CREATE TABLE DevolucionesClientes (
     id_devolucion INT PRIMARY KEY IDENTITY(1, 1),
     id_venta INT,
@@ -323,7 +313,7 @@ CREATE TABLE HistorialCupones (
     FOREIGN KEY (id_cupon) REFERENCES CuponesDescuentos(id_cupon)
 );
 
--- 4. Empleados y Recursos Humanos (Continuación)
+
 CREATE TABLE Asistencias (
     id_asistencia INT PRIMARY KEY IDENTITY(1, 1),
     id_empleado INT,
@@ -373,7 +363,7 @@ CREATE TABLE Nominas (
     FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
 );
 
--- 5. Logística y Distribución (Continuación)
+
 CREATE TABLE OrdenesTransferencia (
     id_transferencia INT PRIMARY KEY IDENTITY(1, 1),
     id_almacen_origen INT,
@@ -394,7 +384,7 @@ CREATE TABLE DetallesTransferencia (
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
 );
 
--- 6. Finanzas y Contabilidad (Continuación)
+
 CREATE TABLE TransaccionesFinancieras (
     id_transaccion INT PRIMARY KEY IDENTITY(1, 1),
     tipo_transaccion varchar(30),
@@ -443,7 +433,7 @@ CREATE TABLE AuditoriasInternas (
     resultados TEXT
 );
 
--- 7. Seguridad y Control
+
 CREATE TABLE AccesosUsuario (
     id_acceso INT PRIMARY KEY IDENTITY(1, 1),
     id_empleado INT,
@@ -503,7 +493,7 @@ CREATE TABLE ControlPerdidas (
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
 );
 
--- 8. Marketing y Relaciones Públicas
+
 CREATE TABLE CampanasMarketing (
     id_campana INT PRIMARY KEY IDENTITY(1, 1),
     nombre VARCHAR(100),
@@ -553,7 +543,7 @@ CREATE TABLE Patrocinios (
     monto DECIMAL(10, 2)
 );
 
--- 9. Mantenimiento y Servicios
+
 CREATE TABLE EquiposMaquinaria (
     id_equipo INT PRIMARY KEY IDENTITY(1, 1),
     nombre VARCHAR(100),
@@ -606,7 +596,7 @@ CREATE TABLE IncidentesMantenimiento (
     FOREIGN KEY (id_equipo) REFERENCES EquiposMaquinaria(id_equipo)
 );
 
--- 10. Información General y Configuración
+
 CREATE TABLE Tiendas (
     id_tienda INT PRIMARY KEY IDENTITY(1, 1),
     nombre VARCHAR(100),
@@ -994,3 +984,82 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON SCHEMA::RelacionesPublicas TO gerente_ma
 
 -- 10. Usuario de Seguridad
 GRANT SELECT, INSERT, UPDATE, DELETE ON SCHEMA::Seguridad TO usuario_seguridad;
+
+
+
+
+-- FILEGROUPS
+-- Instanciacion de FileGroups
+
+ALTER DATABASE plaza_vea
+ADD FILEGROUP SALES;
+
+ALTER DATABASE plaza_vea
+ADD FILEGROUP INVENTORY;
+
+ALTER DATABASE plaza_vea
+ADD FILEGROUP HR;
+
+ALTER DATABASE plaza_vea
+ADD FILEGROUP FINANCE;
+
+ALTER DATABASE plaza_vea
+ADD FILEGROUP MARKETING;
+
+ALTER DATABASE plaza_vea
+ADD FILEGROUP MAINTENANCE;
+
+-- Creacion de Archivos NDF
+ALTER DATABASE plaza_vea
+ADD FILE (
+    NAME = 'SalesData',
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.ZEROK\MSSQL\DATA\SalesData.ndf',
+    SIZE = 10MB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 10MB
+) TO FILEGROUP SALES;
+
+ALTER DATABASE plaza_vea
+ADD FILE (
+    NAME = 'InventoryData',
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.ZEROK\MSSQL\DATA\InventoryData.ndf',
+    SIZE = 10MB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 10MB
+) TO FILEGROUP INVENTORY;
+
+ALTER DATABASE plaza_vea
+ADD FILE (
+    NAME = 'HRData',
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.ZEROK\MSSQL\DATA\HRData.ndf',
+    SIZE = 10MB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 10MB
+) TO FILEGROUP HR;
+
+ALTER DATABASE plaza_vea
+ADD FILE (
+    NAME = 'FinanceData',
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.ZEROK\MSSQL\DATA\FinanceData.ndf',
+    SIZE = 10MB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 10MB
+) TO FILEGROUP FINANCE;
+
+ALTER DATABASE plaza_vea
+ADD FILE (
+    NAME = 'MarketingData',
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.ZEROK\MSSQL\DATA\MarketingData.ndf',
+    SIZE = 10MB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 10MB
+) TO FILEGROUP MARKETING;
+
+ALTER DATABASE plaza_vea
+ADD FILE (
+    NAME = 'MaintenanceData',
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.ZEROK\MSSQL\DATA\MaintenanceData.ndf',
+    SIZE = 10MB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 10MB
+) TO FILEGROUP MAINTENANCE;
