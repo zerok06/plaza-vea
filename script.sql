@@ -10,7 +10,7 @@ CREATE DATABASE plaza_vea
 ON 
 (
     NAME = plaza_vea_dat,
-    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.ZEROKSERVER\MSSQL\DATA\plaza_vea_dat.mdf',  -- Ruta del archivo MDF
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.ZEROK\MSSQL\DATA\plaza_vea_dat.mdf',  -- Ruta del archivo MDF
     SIZE = 500MB,                                -- Tamaño inicial del archivo MDF
     MAXSIZE = UNLIMITED,                         -- Sin límite de crecimiento máximo
     FILEGROWTH = 100MB                           -- Incremento del tamaño del archivo MDF
@@ -18,7 +18,7 @@ ON
 LOG ON
 (
     NAME = plaza_vea_log,
-    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.ZEROKSERVER\MSSQL\DATA\plaza_vea_log.ldf',  -- Ruta del archivo LDF
+    FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL16.ZEROK\MSSQL\DATA\plaza_vea_log.ldf',  -- Ruta del archivo LDF
     SIZE = 100MB,                                -- Tamaño inicial del archivo LDF
     MAXSIZE = 1GB,                               -- Tamaño máximo del archivo LDF
     FILEGROWTH = 50MB                            -- Incremento del tamaño del archivo LDF
@@ -735,6 +735,3827 @@ INSERT INTO Paises (nombre) VALUES ('Perú');
 INSERT INTO Regiones (id_pais, nombre) VALUES (1, 'Lima');
 INSERT INTO TiposDocumento (descripcion) VALUES ('DNI');
 INSERT INTO Monedas (nombre, simbolo) VALUES ('Nuevo Sol', 'S/');
+
+-- Insercion de datos
+-- Categorias
+-- insert
+
+INSERT INTO Categorias (nombre) 
+VALUES 
+('Alimentos'),
+('Electrónica'),
+('Ropa'),
+('Muebles'),
+('Hogar y Cocina'),
+('Juguetes'),
+('Zapatillas'),
+('Salud y Belleza'),
+('Libros'),
+('Deportes'),
+('Accesorios para Vehículos'),
+('Bebidas'),
+('Computadoras'),
+('Teléfonos'),
+('Videojuegos'),
+('Instrumentos Musicales'),
+('Oficina y Papelería'),
+('Mascotas'),
+('Jardinería'),
+('Herramientas'),
+('Relojes'),
+('Joyas'),
+('Cámaras y Fotografía'),
+('Software'),
+('Productos de Limpieza'),
+('Artículos de Viaje'),
+('Maternidad'),
+('Baño'),
+('Bolsos y Carteras'),
+('Decoración'),
+('Fitness'),
+('Moda Infantil'),
+('Cuidado del Cabello'),
+('Perfumes'),
+('Protección y Seguridad'),
+('Artículos de Bebé'),
+('Electrodomésticos'),
+('Lencería'),
+('Accesorios para Mascotas'),
+('Almacenamiento y Organización'),
+('Audio y Video'),
+('Artículos de Caza y Pesca'),
+('Bicicletas y Accesorios'),
+('Cuidado de la Piel'),
+('Cuidado Oral'),
+('Lentes y Accesorios'),
+('Ropa Deportiva'),
+('Suplementos Nutricionales'),
+('Video y Entretenimiento');
+-- select
+Select*from Categorias;
+SELECT * FROM Categorias WHERE id_categoria = 1;
+SELECT * FROM Categorias WHERE nombre LIKE '%Electro%';
+SELECT nombre FROM Categorias;
+SELECT COUNT(*) AS total_categorias FROM Categorias;
+---update
+UPDATE Categorias SET nombre= 'Electrodomesticos'where id_categoria = 2;
+UPDATE Categorias SET nombre = 'Casa' WHERE nombre LIKE '%Hogar%';
+UPDATE Categorias SET nombre = 'Vestimenta' WHERE id_categoria = 3;
+UPDATE Categorias SET nombre = 'Juguetes y Juegos' WHERE nombre = 'Juguetes';
+UPDATE Categorias SET nombre = 'Alimentos y Bebidas' WHERE id_categoria = 1;
+
+---delete
+DELETE FROM Categorias WHERE id_categoria=2;
+DELETE FROM Categorias WHERE id_categoria = 4;
+DELETE FROM Categorias WHERE nombre LIKE '%Electro%';
+DELETE FROM Categorias WHERE id_categoria = 5 AND nombre = 'Hogar y Cocina';
+DELETE FROM Categorias WHERE id_categoria > 7;
+
+---drop
+DROP TABLE Categorias;
+
+
+-- Subcategorias
+---select
+Select*from Subcategorias;
+SELECT * FROM Subcategorias WHERE id_subcategoria = 1;
+SELECT * FROM Subcategorias WHERE id_categoria = 2;
+SELECT nombre FROM Subcategorias;
+SELECT id_categoria, COUNT(*) AS total_subcategorias FROM Subcategorias GROUP BY id_categoria;
+
+---insert
+INSERT INTO Subcategorias (id_categoria, nombre) 
+VALUES 
+(1, 'Frescos'),
+(1, 'Congelados'),
+(1, 'Lácteos'),
+(1, 'Panadería'),
+(1, 'Bebidas no Alcohólicas'),
+(1, 'Snacks'),
+(1, 'Despensa'),
+(2, 'Celulares'),
+(2, 'Cámaras'),
+(2, 'Audio y Video'),
+(2, 'Televisores'),
+(2, 'Computadoras'),
+(2, 'Consolas de Videojuegos'),
+(2, 'Accesorios Electrónicos'),
+(3, 'Ropa de Niños'),
+(3, 'Ropa Deportiva'),
+(3, 'Accesorios de Ropa'),
+(3, 'Calzado'),
+(3, 'Ropa Interior'),
+(3, 'Hombres'),
+(3, 'Mujeres'),
+(4, 'Sala'),
+(4, 'Dormitorio'),
+(4, 'Comedor'),
+(4, 'Oficina'),
+(4, 'Exterior'),
+(4, 'Cocina'),
+(4, 'Baño'),
+(5, 'Cocina'),
+(5, 'Decoración Hogar'),
+(5, 'Electrodomésticos'),
+(5, 'Organización Hogar'),
+(5, 'Jardín'),
+(6, 'Muñecas'),
+(6, 'Juegos de Mesa'),
+(6, 'Juguetes Educativos'),
+(6, 'Juguetes Electrónicos'),
+(6, 'Juguetes de Construcción'),
+(6, 'Juguetes de Aventura'),
+(6, 'Vehículos de Juguete'),
+(7, 'Zapatillas de Hombre'),
+(7, 'Zapatillas de Mujer'),
+(7, 'Zapatillas de Niños'),
+(7, 'Zapatillas Deportivas'),
+(7, 'Botas'),
+(8, 'Maquillaje'),
+(8, 'Cuidado de la Piel'),
+(8, 'Cuidado del Cabello'),
+(8, 'Perfumes'),
+(8, 'Salud y Bienestar');
+
+---update
+UPDATE Subcategorias SET nombre= 'TV y Video' where id_subcategoria = 3;
+UPDATE Subcategorias SET nombre = 'Electrodomésticos' WHERE id_subcategoria = 2;
+UPDATE Subcategorias SET nombre = 'Electrónica para el hogar' WHERE id_categoria = 2;
+UPDATE Subcategorias SET id_categoria = 3 WHERE id_subcategoria = 4;
+UPDATE Subcategorias SET nombre = 'Verduras Frescas' WHERE id_subcategoria = 1;
+
+---delete
+DELETE FROM Subcategorias WHERE id_subcategoria=4;
+DELETE FROM Subcategorias WHERE nombre LIKE '%Electro%';
+DELETE FROM Subcategorias WHERE id_categoria > 5;
+DELETE FROM Subcategorias WHERE id_subcategoria = 5 AND nombre = 'Juguetes Educativos';
+DELETE FROM Subcategorias WHERE id_categoria = 3;
+
+---drop
+DROP TABLE Subcategorias;
+
+
+--- Marcas
+--select
+Select*from Marcas;
+SELECT * FROM Marcas WHERE id_marca = 1;
+SELECT * FROM Marcas WHERE nombre LIKE '%Nike%';
+SELECT nombre FROM Marcas;
+SELECT COUNT(*) AS total_marcas FROM Marcas;
+
+---insert
+INSERT INTO Marcas (nombre) 
+VALUES 
+('Nike'),
+('Adidas'),
+('Apple'),
+('Samsung'),
+('Microsoft'),
+('Sony'),
+('LG'),
+('Lenovo'),
+('Huawei'),
+('Dell'),
+('HP'),
+('Asus'),
+('Bosch'),
+('Whirlpool'),
+('Philips'),
+('Panasonic'),
+('Tefal'),
+('Nestlé'),
+('Coca-Cola'),
+('Pepsi'),
+('Unilever'),
+('Procter & Gamble'),
+('LÓ\Oréal'),
+('Maybelline'),
+('Nivea'),
+('Colgate'),
+('Gillette'),
+('Johnson & Johnson'),
+('Kellogg\s'),
+('Heinz'),
+('Danone'),
+('Red Bull'),
+('Xiaomi'),
+('Google'),
+('Amazon'),
+('Intel'),
+('AMD'),
+('Logitech'),
+('Canon'),
+('Nikon'),
+('Puma'),
+('Reebok'),
+('Under Armour'),
+('New Balance'),
+('Tommy Hilfiger'),
+('Levi\s'),
+('Zara'),
+('H&M'),
+('Gucci'),
+('Prada');
+
+---update
+UPDATE Marcas SET nombre= 'Apple Inc.' where id_marca = 3;
+UPDATE Marcas SET nombre = 'Adidas Originals' WHERE nombre LIKE '%Adidas%';
+UPDATE Marcas SET nombre = 'Sony Corporation' WHERE nombre = 'Sony';
+UPDATE Marcas SET nombre = 'Adidas AG' WHERE id_marca = 2;
+UPDATE Marcas SET nombre = 'Nike Inc.' WHERE id_marca = 1;
+
+---delete
+DELETE FROM Marcas WHERE id_marca=2;
+DELETE FROM Marcas WHERE nombre LIKE '%Microsoft%';
+DELETE FROM Marcas WHERE nombre = 'Huawei';
+DELETE FROM Marcas WHERE id_marca > 7;
+DELETE FROM Marcas WHERE id_marca = 5 AND nombre = 'Samsung';
+
+---drop
+DROP TABLE Marcas;
+
+
+---UNIDADES DE MEDIDA
+--select
+SELECT * FROM UnidadesDeMedida;
+SELECT * FROM UnidadesDeMedida WHERE id_unidad = 1;
+SELECT * FROM UnidadesDeMedida WHERE nombre LIKE '%Metro%';
+Select*from UnidadesDeMedida WHERE nombre LIKE '%o%';
+SELECT nombre, abreviacion FROM UnidadesDeMedida;
+
+---insert
+INSERT INTO UnidadesDeMedida (nombre, abreviacion) 
+VALUES 
+('Metro', 'm'),
+('Kilogramo', 'kg'),
+('Litro', 'L'),
+('Pieza', 'pz'),
+('Metro cuadrado', 'm²'),
+('Centímetro', 'cm'),
+('Milímetro', 'mm'),
+('Gramo', 'g'),
+('Mililitro', 'ml'),
+('Tonelada', 't'),
+('Hora', 'h'),
+('Minuto', 'min'),
+('Segundo', 's'),
+('Día', 'd'),
+('Semana', 'sem'),
+('Mes', 'mes'),
+('Año', 'año'),
+('Decímetro', 'dm'),
+('Microgramo', 'µg'),
+('Nanogramo', 'ng'),
+('Pulgada', 'in'),
+('Pie', 'ft'),
+('Yarda', 'yd'),
+('Milla', 'mi'),
+('Onza', 'oz'),
+('Libra', 'lb'),
+('Galón', 'gal'),
+('Cuarto de galón', 'qt'),
+('Pinta', 'pt'),
+('Taza', 'cup'),
+('Decilitro', 'dl'),
+('Hectolitro', 'hl'),
+('Celsius', '°C'),
+('Fahrenheit', '°F'),
+('Kelvin', 'K'),
+('Newton', 'N'),
+('Joule', 'J'),
+('Watt', 'W'),
+('Pascal', 'Pa'),
+('Volt', 'V'),
+('Ampere', 'A'),
+('Ohm', 'Ω'),
+('Siemens', 'S'),
+('Hertz', 'Hz'),
+('Lux', 'lx'),
+('Candela', 'cd'),
+('Mole', 'mol'),
+('Rad', 'rd'),
+('Gray', 'Gy');
+
+---update
+UPDATE UnidadesDeMedida SET nombre= 'Galon' where id_unidad = 3;
+UPDATE UnidadesDeMedida SET nombre = 'Centímetro', abreviacion = 'cm' WHERE id_unidad = 1;
+UPDATE UnidadesDeMedida SET nombre = 'Kilo' WHERE nombre LIKE '%Kilogramo%';
+UPDATE UnidadesDeMedida SET nombre = 'Metro Cúbico', abreviacion = 'm³' WHERE id_unidad = 4;
+UPDATE UnidadesDeMedida SET nombre = 'Unidad', abreviacion = 'unid' WHERE nombre = 'Pieza';
+
+---delete
+DELETE FROM UnidadesDeMedida WHERE len(abreviacion)>3;
+DELETE FROM UnidadesDeMedida WHERE id_unidad = 4;
+DELETE FROM UnidadesDeMedida WHERE nombre LIKE '%Metro%';
+DELETE FROM UnidadesDeMedida WHERE nombre = 'Litro';
+DELETE FROM UnidadesDeMedida WHERE id_unidad > 3;
+
+---drop
+DROP TABLE UnidadesDeMedida;
+
+
+---PRODUCTOS
+--select
+Select*from Productos;
+SELECT * FROM Productos WHERE id_producto = 1;
+SELECT * FROM Productos WHERE precio > 100;
+SELECT nombre, precio FROM Productos;
+SELECT id_subcategoria, COUNT(*) AS total_productos FROM Productos GROUP BY id_subcategoria;
+
+---insert
+INSERT INTO Productos (nombre, descripcion, id_subcategoria, id_marca, id_unidad, precio, stock_minimo, stock_maximo)
+VALUES 
+('Laptop', 'Laptop de última generación', 2, 4, 1, 1299.99, 5, 50),
+('Camisa', 'Camisa de algodón para hombre', 3, 2, 4, 29.99, 20, 200),
+('Cama King Size', 'Cama King Size con cabecera de madera', 4, 1, 5, 899.99, 2, 20),
+('Libro de Cocina', 'Libro de recetas internacionales', 7, 6, 7, 19.99, 10, 100),
+('Reproductor de MP3', 'Reproductor de MP3 con capacidad de 32GB', 2, 5, 1, 49.99, 15, 150),
+('Smartphone', 'Smartphone con pantalla de 6.5 pulgadas', 2, 4, 1, 599.99, 10, 100),
+('Televisor 4K', 'Televisor 4K UHD de 55 pulgadas', 2, 3, 1, 799.99, 3, 30),
+('Zapatillas Deportivas', 'Zapatillas deportivas para correr', 7, 1, 4, 89.99, 25, 250),
+('Guitarra Eléctrica', 'Guitarra eléctrica con amplificador', 6, 8, 1, 199.99, 5, 50),
+('Microondas', 'Microondas con grill de 25L', 5, 12, 1, 99.99, 8, 80),
+('Mesa de Comedor', 'Mesa de comedor de madera para 6 personas', 4, 14, 5, 299.99, 2, 20),
+('Cámara Digital', 'Cámara digital de 24MP', 2, 10, 1, 349.99, 4, 40),
+('Perfume', 'Perfume de 100ml para mujer', 8, 22, 3, 79.99, 15, 150),
+('Monitor 27"', 'Monitor LED de 27 pulgadas', 2, 4, 1, 199.99, 10, 100),
+('Tostadora', 'Tostadora de 4 ranuras', 5, 13, 1, 49.99, 10, 100),
+('Tablet', 'Tablet con pantalla de 10 pulgadas', 2, 4, 1, 399.99, 5, 50),
+('Sofá', 'Sofá de tres plazas', 4, 1, 5, 499.99, 1, 10),
+('Reloj Inteligente', 'Reloj inteligente con GPS', 2, 6, 1, 149.99, 20, 200),
+('Auriculares Bluetooth', 'Auriculares Bluetooth con cancelación de ruido', 2, 5, 1, 129.99, 30, 300),
+('Impresora Láser', 'Impresora láser multifuncional', 2, 9, 1, 249.99, 2, 20),
+('Frigorífico', 'Frigorífico con congelador inferior', 5, 12, 1, 999.99, 1, 10),
+('Batidora', 'Batidora de mano', 5, 13, 1, 29.99, 20, 200),
+('Altavoz Bluetooth', 'Altavoz Bluetooth portátil', 2, 10, 1, 59.99, 15, 150),
+('Cafetera', 'Cafetera de cápsulas', 5, 15, 1, 89.99, 10, 100),
+('Barra de Sonido', 'Barra de sonido con subwoofer', 2, 3, 1, 199.99, 5, 50),
+('Ventilador', 'Ventilador de torre', 5, 16, 1, 49.99, 8, 80),
+('Plancha de Vapor', 'Plancha de vapor con sistema antical', 5, 11, 1, 39.99, 12, 120),
+('Cámara de Seguridad', 'Cámara de seguridad para exterior', 2, 17, 1, 99.99, 5, 50),
+('Lámpara LED', 'Lámpara LED de escritorio', 5, 13, 1, 19.99, 20, 200),
+('Cuna para Bebé', 'Cuna de madera con barandillas', 4, 18, 5, 299.99, 2, 20),
+('Robot Aspirador', 'Robot aspirador con conexión WiFi', 5, 19, 1, 299.99, 3, 30),
+('Máquina de Coser', 'Máquina de coser portátil', 5, 11, 1, 199.99, 4, 40),
+('Cámara Deportiva', 'Cámara deportiva resistente al agua', 2, 10, 1, 149.99, 10, 100),
+('Espejo Inteligente', 'Espejo inteligente con luz LED', 8, 20, 1, 89.99, 10, 100),
+('Impresora 3D', 'Impresora 3D de alta precisión', 2, 21, 1, 499.99, 1, 10),
+('Juego de Ollas', 'Juego de ollas de acero inoxidable', 5, 14, 1, 129.99, 10, 100),
+('Taladro Inalámbrico', 'Taladro inalámbrico con batería recargable', 5, 16, 1, 89.99, 8, 80),
+('Router WiFi', 'Router WiFi de doble banda', 2, 17, 1, 69.99, 10, 100),
+('Impresora Fotográfica', 'Impresora fotográfica de alta calidad', 2, 9, 1, 249.99, 2, 20),
+('Teclado Mecánico', 'Teclado mecánico retroiluminado', 2, 22, 1, 99.99, 20, 200),
+('Bicicleta Eléctrica', 'Bicicleta eléctrica con motor de 250W', 10, 23, 1, 899.99, 2, 20),
+('Reloj de Pulsera', 'Reloj de pulsera de acero inoxidable', 8, 24, 1, 149.99, 10, 100),
+('Mochila', 'Mochila resistente al agua', 8, 25, 4, 39.99, 30, 300),
+('Cafetera Espresso', 'Cafetera espresso automática', 5, 15, 1, 149.99, 5, 50),
+('Deshumidificador', 'Deshumidificador de 20L', 5, 19, 1, 199.99, 5, 50),
+('Barbacoa', 'Barbacoa de carbón portátil', 5, 26, 1, 99.99, 8, 80),
+('Aspiradora', 'Aspiradora sin bolsa', 5, 12, 1, 149.99, 5, 50),
+('Cámara Instantánea', 'Cámara instantánea con 10 películas', 2, 10, 1, 99.99, 10, 100),
+('Freidora de Aire', 'Freidora de aire de 3.5L', 5, 27, 1, 79.99, 10, 100),
+('Juego de Maletas', 'Juego de maletas rígidas', 4, 28, 5, 199.99, 3, 30);
+
+---update
+UPDATE Productos SET precio= 549.99 where id_producto = 1;
+UPDATE Productos SET nombre = 'Laptop Gaming', precio = 1599.99 WHERE id_producto = 1;
+UPDATE Productos SET precio = 39.99 WHERE id_subcategoria = 3;
+UPDATE Productos SET stock_maximo = 200 WHERE id_producto = 5;
+UPDATE Productos SET descripcion = 'Camisa de algodón para hombre de alta calidad' WHERE nombre = 'Camisa';
+
+---delete
+DELETE FROM Productos WHERE id_producto=2;
+DELETE FROM Productos WHERE precio < 10;
+DELETE FROM Productos WHERE id_producto = 5 AND nombre = 'Reproductor de MP3';
+DELETE FROM Productos WHERE id_producto > 7;
+DELETE FROM Productos WHERE id_producto = 4;
+
+---drop
+DROP TABLE Productos;
+
+
+---INVENTARIO GENERAL
+--select
+Select*from InventarioGeneral;
+SELECT COUNT(*) AS total_registros FROM InventarioGeneral;
+SELECT * FROM InventarioGeneral WHERE cantidad < 10;
+SELECT cantidad FROM InventarioGeneral WHERE id_producto = 1;
+SELECT P.nombre AS nombre_producto, IG.cantidad FROM InventarioGeneral IG INNER JOIN Productos P ON IG.id_producto = P.id_producto;
+
+---insert
+INSERT INTO InventarioGeneral (id_producto, cantidad) 
+VALUES 
+(1, 50),
+(2, 100),
+(3, 25),
+(4, 10),
+(5, 150),
+(6, 75),
+(7, 30),
+(8, 200),
+(9, 40),
+(10, 60),
+(11, 15),
+(12, 120),
+(13, 45),
+(14, 90),
+(15, 35),
+(16, 110),
+(17, 80),
+(18, 140),
+(19, 70),
+(20, 55),
+(21, 130),
+(22, 25),
+(23, 95),
+(24, 85),
+(25, 20),
+(26, 105),
+(27, 50),
+(28, 75),
+(29, 100),
+(30, 150),
+(31, 60),
+(32, 40),
+(33, 200),
+(34, 30),
+(35, 15),
+(36, 80),
+(37, 140),
+(38, 110),
+(39, 70),
+(40, 55),
+(41, 45),
+(42, 95),
+(43, 120),
+(44, 35),
+(45, 130),
+(46, 85),
+(47, 25),
+(48, 105),
+(49, 50),
+(50, 90);
+
+---update
+UPDATE InventarioGeneral SET cantidad= 75 where id_producto = 4;
+UPDATE InventarioGeneral SET cantidad = 15 WHERE id_producto = 2;
+UPDATE InventarioGeneral SET cantidad = 20 WHERE id_producto = 3;
+UPDATE InventarioGeneral SET cantidad = cantidad + 10;
+UPDATE InventarioGeneral SET cantidad = 50 WHERE id_producto = 1;
+
+---delete
+DELETE FROM InventarioGeneral WHERE id_inventario = 2;
+DELETE FROM InventarioGeneral WHERE id_inventario > 10;
+DELETE FROM InventarioGeneral WHERE id_producto = 5 AND cantidad = 25;
+DELETE FROM InventarioGeneral WHERE cantidad < 5;
+DELETE FROM InventarioGeneral WHERE id_inventario = 4;
+
+---drop
+DROP TABLE InventarioGeneral;
+
+
+---INVENTARIO GENERAL
+--select
+Select*from InventarioGeneral;
+SELECT COUNT(*) AS total_registros FROM InventarioGeneral;
+SELECT * FROM InventarioGeneral WHERE cantidad < 10;
+SELECT cantidad FROM InventarioGeneral WHERE id_producto = 1;
+SELECT P.nombre AS nombre_producto, IG.cantidad FROM InventarioGeneral IG INNER JOIN Productos P ON IG.id_producto = P.id_producto;
+
+---insert
+INSERT INTO InventarioGeneral (id_producto, cantidad) 
+VALUES 
+(1, 50),
+(2, 100),
+(3, 25),
+(4, 10),
+(5, 150),
+(6, 75),
+(7, 30),
+(8, 200),
+(9, 40),
+(10, 60),
+(11, 15),
+(12, 120),
+(13, 45),
+(14, 90),
+(15, 35),
+(16, 110),
+(17, 80),
+(18, 140),
+(19, 70),
+(20, 55),
+(21, 130),
+(22, 25),
+(23, 95),
+(24, 85),
+(25, 20),
+(26, 105),
+(27, 50),
+(28, 75),
+(29, 100),
+(30, 150),
+(31, 60),
+(32, 40),
+(33, 200),
+(34, 30),
+(35, 15),
+(36, 80),
+(37, 140),
+(38, 110),
+(39, 70),
+(40, 55),
+(41, 45),
+(42, 95),
+(43, 120),
+(44, 35),
+(45, 130),
+(46, 85),
+(47, 25),
+(48, 105),
+(49, 50),
+(50, 90);
+
+---update
+UPDATE InventarioGeneral SET cantidad= 75 where id_producto = 4;
+UPDATE InventarioGeneral SET cantidad = 15 WHERE id_producto = 2;
+UPDATE InventarioGeneral SET cantidad = 20 WHERE id_producto = 3;
+UPDATE InventarioGeneral SET cantidad = cantidad + 10;
+UPDATE InventarioGeneral SET cantidad = 50 WHERE id_producto = 1;
+
+---delete
+DELETE FROM InventarioGeneral WHERE id_inventario = 2;
+DELETE FROM InventarioGeneral WHERE id_inventario > 10;
+DELETE FROM InventarioGeneral WHERE id_producto = 5 AND cantidad = 25;
+DELETE FROM InventarioGeneral WHERE cantidad < 5;
+DELETE FROM InventarioGeneral WHERE id_inventario = 4;
+
+---drop
+DROP TABLE InventarioGeneral;
+
+---ALMACENES
+--select
+Select*from Almacenes;
+SELECT * FROM Almacenes WHERE id_almacen = 1;
+SELECT * FROM Almacenes WHERE nombre LIKE '%Central%';
+SELECT nombre, ubicacion FROM Almacenes;
+SELECT COUNT(*) AS total_almacenes FROM Almacenes;
+
+---insert
+INSERT INTO Almacenes (nombre, ubicacion) 
+VALUES 
+('Almacén de Reservas', 'Calle Reservas 789, Ciudad'),
+('Almacén Central', 'Avenida Central 012, Ciudad'),
+('Almacén Norte', 'Calle Norte 456, Ciudad'),
+('Almacén Sur', 'Avenida Sur 789, Ciudad'),
+('Almacén de Pruebas', 'Calle de Pruebas 123, Ciudad'),
+('Almacén Este', 'Avenida Este 345, Ciudad'),
+('Almacén Oeste', 'Calle Oeste 678, Ciudad'),
+('Almacén Internacional', 'Avenida Internacional 910, Ciudad'),
+('Almacén de Exportación', 'Calle Exportación 111, Ciudad'),
+('Almacén de Importación', 'Avenida Importación 222, Ciudad'),
+('Almacén de Productos Perecederos', 'Calle Perecederos 333, Ciudad'),
+('Almacén de Equipos Electrónicos', 'Avenida Electrónicos 444, Ciudad'),
+('Almacén de Muebles', 'Calle Muebles 555, Ciudad'),
+('Almacén de Textiles', 'Avenida Textiles 666, Ciudad'),
+('Almacén de Juguetes', 'Calle Juguetes 777, Ciudad'),
+('Almacén de Alimentos', 'Avenida Alimentos 888, Ciudad'),
+('Almacén de Bebidas', 'Calle Bebidas 999, Ciudad'),
+('Almacén de Ropa', 'Avenida Ropa 101, Ciudad'),
+('Almacén de Calzado', 'Calle Calzado 202, Ciudad'),
+('Almacén de Accesorios', 'Avenida Accesorios 303, Ciudad'),
+('Almacén de Herramientas', 'Calle Herramientas 404, Ciudad'),
+('Almacén de Deportes', 'Avenida Deportes 505, Ciudad'),
+('Almacén de Cosméticos', 'Calle Cosméticos 606, Ciudad'),
+('Almacén de Papelería', 'Avenida Papelería 707, Ciudad'),
+('Almacén de Libros', 'Calle Libros 808, Ciudad'),
+('Almacén de Juguetes Electrónicos', 'Avenida Juguetes Electrónicos 909, Ciudad'),
+('Almacén de Material Escolar', 'Calle Material Escolar 100, Ciudad'),
+('Almacén de Productos de Limpieza', 'Avenida Productos de Limpieza 200, Ciudad'),
+('Almacén de Artículos para Mascotas', 'Calle Artículos para Mascotas 300, Ciudad'),
+('Almacén de Jardinería', 'Avenida Jardinería 400, Ciudad'),
+('Almacén de Decoración', 'Calle Decoración 500, Ciudad'),
+('Almacén de Automóviles', 'Avenida Automóviles 600, Ciudad'),
+('Almacén de Motocicletas', 'Calle Motocicletas 700, Ciudad'),
+('Almacén de Bicicletas', 'Avenida Bicicletas 800, Ciudad'),
+('Almacén de Suministros Médicos', 'Calle Suministros Médicos 900, Ciudad'),
+('Almacén de Electrodomésticos', 'Avenida Electrodomésticos 1000, Ciudad'),
+('Almacén de Productos Orgánicos', 'Calle Productos Orgánicos 110, Ciudad'),
+('Almacén de Artículos de Oficina', 'Avenida Artículos de Oficina 220, Ciudad'),
+('Almacén de Artículos para el Hogar', 'Calle Artículos para el Hogar 330, Ciudad'),
+('Almacén de Ferretería', 'Avenida Ferretería 440, Ciudad'),
+('Almacén de Pinturas', 'Calle Pinturas 550, Ciudad'),
+('Almacén de Material de Construcción', 'Avenida Material de Construcción 660, Ciudad'),
+('Almacén de Productos para Bebés', 'Calle Productos para Bebés 770, Ciudad'),
+('Almacén de Electrónica de Consumo', 'Avenida Electrónica de Consumo 880, Ciudad'),
+('Almacén de Mantenimiento', 'Calle Mantenimiento 990, Ciudad'),
+('Almacén de Logística', 'Avenida Logística 111, Ciudad');
+
+---update
+UPDATE Almacenes SET ubicacion= 'Nueva ubicacion' where id_almacen = 1;
+UPDATE Almacenes SET nombre = 'Almacén Principal', ubicacion = 'Avenida Principal 123, Ciudad' WHERE id_almacen = 1;
+UPDATE Almacenes SET nombre = 'Norte 2' WHERE nombre LIKE '%Norte%';
+UPDATE Almacenes SET ubicacion = 'Calle Nueva 456, Ciudad' WHERE id_almacen = 3;
+UPDATE Almacenes SET ubicacion = 'Calle Vieja 789, Ciudad' WHERE id_almacen = 2;
+UPDATE Almacenes SET nombre = 'Almacén de Reservas y Devoluciones' WHERE nombre = 'Almacén de Reservas';
+
+---delete
+DELETE FROM Almacenes WHERE nombre='Almacen Central';
+DELETE FROM Almacenes WHERE id_almacen = 4;
+DELETE FROM Almacenes WHERE nombre LIKE '%Pruebas%';
+DELETE FROM Almacenes WHERE id_almacen = 5 AND nombre = 'Almacén de Pruebas';
+DELETE FROM Almacenes WHERE id_almacen > 7;
+
+---drop
+DROP TABLE Almacenes;
+
+---SECCIONES ALMACEN
+--select
+Select*from SeccionesAlmacen;
+SELECT * FROM SeccionesAlmacen WHERE id_almacen = 2;
+SELECT SA.nombre AS nombre_seccion, A.nombre AS nombre_almacen FROM SeccionesAlmacen SA INNER JOIN Almacenes A ON SA.id_almacen = A.id_almacen;
+SELECT * FROM SeccionesAlmacen WHERE nombre LIKE '%Libros%';
+SELECT COUNT(*) AS total_secciones FROM SeccionesAlmacen;
+
+---insert
+INSERT INTO SeccionesAlmacen (id_almacen, nombre) 
+VALUES 
+(2, 'Sección de Hogar'),
+(3, 'Sección de Alimentos'),
+(1, 'Sección de Muebles'),
+(2, 'Sección de Libros'),
+(3, 'Sección de Cuidado Personal'),
+(1, 'Sección de Electrónica'),
+(2, 'Sección de Juguetes'),
+(3, 'Sección de Ropa'),
+(1, 'Sección de Deportes'),
+(2, 'Sección de Ferretería'),
+(3, 'Sección de Jardinería'),
+(1, 'Sección de Automóviles'),
+(2, 'Sección de Mascotas'),
+(3, 'Sección de Bebidas'),
+(1, 'Sección de Lácteos'),
+(2, 'Sección de Congelados'),
+(3, 'Sección de Vinos'),
+(1, 'Sección de Panadería'),
+(2, 'Sección de Frutas'),
+(3, 'Sección de Verduras'),
+(1, 'Sección de Pescados'),
+(2, 'Sección de Carnes'),
+(3, 'Sección de Material Escolar'),
+(1, 'Sección de Papelería'),
+(2, 'Sección de Artículos de Oficina'),
+(3, 'Sección de Juguetes Electrónicos'),
+(1, 'Sección de Cosméticos'),
+(2, 'Sección de Herramientas'),
+(3, 'Sección de Decoración'),
+(1, 'Sección de Pinturas'),
+(2, 'Sección de Material de Construcción'),
+(3, 'Sección de Productos Orgánicos'),
+(1, 'Sección de Electrodomésticos'),
+(2, 'Sección de Bicicletas'),
+(3, 'Sección de Motocicletas'),
+(1, 'Sección de Productos de Limpieza'),
+(2, 'Sección de Suministros Médicos'),
+(3, 'Sección de Artículos para el Hogar'),
+(1, 'Sección de Electrónica de Consumo'),
+(2, 'Sección de Mantenimiento'),
+(3, 'Sección de Logística'),
+(1, 'Sección de Productos para Bebés'),
+(2, 'Sección de Decoración'),
+(3, 'Sección de Textiles'),
+(1, 'Sección de Calzado'),
+(2, 'Sección de Accesorios');
+
+---update
+UPDATE SeccionesAlmacen SET nombre= 'Seccion de Moda' where id_seccion = 2;
+UPDATE SeccionesAlmacen SET nombre = 'Electrónicos y Tecnología' WHERE nombre LIKE '%Electrónicos%';
+UPDATE SeccionesAlmacen SET nombre = 'Sección de Hogar y Cocina' WHERE id_almacen = 3;
+UPDATE SeccionesAlmacen SET nombre = 'Sección de Moda' WHERE nombre = 'Sección de Ropa';
+UPDATE SeccionesAlmacen SET nombre = 'Sección de Accesorios' WHERE id_almacen = 1;
+
+---delete
+DELETE FROM SeccionesAlmacen WHERE id_seccion=3;
+DELETE FROM SeccionesAlmacen WHERE nombre LIKE '%Herramientas%';
+DELETE FROM SeccionesAlmacen WHERE nombre = 'Sección de Juguetes';
+DELETE FROM SeccionesAlmacen WHERE id_seccion = 5 AND nombre = 'Sección de Tecnología';
+DELETE FROM SeccionesAlmacen WHERE id_seccion > 7;
+
+---drop
+DROP TABLE SeccionesAlmacen;
+
+
+
+---MOVIMIENTOS INVENTARIO
+--select
+Select*from MovimientosInventario;
+SELECT * FROM MovimientosInventario WHERE id_producto = 3 AND tipo_movimiento = 'entrada';
+SELECT * FROM MovimientosInventario WHERE id_almacen = 2 AND tipo_movimiento = 'salida';
+SELECT * FROM MovimientosInventario WHERE CAST(fecha AS DATE) = '2024-05-28';
+SELECT COUNT(*) AS total_entradas FROM MovimientosInventario WHERE tipo_movimiento = 'entrada';
+
+---insert
+INSERT INTO MovimientosInventario (id_producto, id_almacen, cantidad, tipo_movimiento)
+VALUES 
+(1, 1, 20, 'entrada'),
+(2, 2, 15, 'salida'),
+(3, 1, 10, 'entrada'),
+(4, 2, 5, 'salida'),
+(5, 3, 25, 'entrada'),
+(6, 2, 30, 'entrada'),
+(7, 1, 40, 'salida'),
+(8, 3, 50, 'entrada'),
+(9, 1, 20, 'salida'),
+(10, 2, 15, 'entrada'),
+(11, 1, 25, 'salida'),
+(12, 3, 10, 'entrada'),
+(13, 2, 35, 'entrada'),
+(14, 1, 45, 'salida'),
+(15, 3, 55, 'entrada'),
+(16, 2, 20, 'salida'),
+(17, 1, 30, 'entrada'),
+(18, 3, 40, 'entrada'),
+(19, 2, 50, 'salida'),
+(20, 1, 25, 'entrada'),
+(21, 3, 35, 'salida'),
+(22, 2, 45, 'entrada'),
+(23, 1, 55, 'salida'),
+(24, 3, 20, 'entrada'),
+(25, 2, 30, 'entrada'),
+(26, 1, 40, 'salida'),
+(27, 3, 50, 'entrada'),
+(28, 2, 20, 'salida'),
+(29, 1, 30, 'entrada'),
+(30, 3, 40, 'entrada'),
+(31, 2, 25, 'salida'),
+(32, 1, 35, 'entrada'),
+(33, 3, 45, 'entrada'),
+(34, 2, 20, 'salida'),
+(35, 1, 30, 'entrada'),
+(36, 3, 40, 'entrada'),
+(37, 2, 50, 'salida'),
+(38, 1, 25, 'entrada'),
+(39, 3, 35, 'salida'),
+(40, 2, 45, 'entrada'),
+(41, 1, 55, 'salida'),
+(42, 3, 20, 'entrada'),
+(43, 2, 30, 'entrada'),
+(44, 1, 40, 'salida'),
+(45, 3, 50, 'entrada'),
+(46, 2, 20, 'salida'),
+(47, 1, 30, 'entrada'),
+(48, 3, 40, 'entrada'),
+(49, 2, 25, 'salida'),
+(50, 1, 35, 'entrada');
+---update
+UPDATE MovimientosInventario SET cantidad= 30 where id_movimiento = 1;
+UPDATE MovimientosInventario SET tipo_movimiento = 'salida' WHERE id_movimiento = 3;
+UPDATE MovimientosInventario SET fecha = '2024-05-30 09:45:00' WHERE id_movimiento = 2;
+UPDATE MovimientosInventario SET cantidad = 15 WHERE id_movimiento = 4;
+UPDATE MovimientosInventario SET tipo_movimiento = 'entrada' WHERE id_movimiento = 5;
+
+---delete
+DELETE FROM MovimientosInventario WHERE id_movimiento=2;
+DELETE FROM MovimientosInventario WHERE tipo_movimiento = 'salida';
+DELETE FROM MovimientosInventario WHERE id_producto = 2;
+DELETE FROM MovimientosInventario WHERE id_movimiento = 7 AND cantidad = 25;
+DELETE FROM MovimientosInventario WHERE id_movimiento > 15;
+
+---drop
+DROP TABLE MovimientosInventario;
+
+
+---CLIENTES
+--select
+Select*from Clientes;
+SELECT * FROM Clientes WHERE nombre = 'Juan';
+SELECT * FROM Clientes WHERE correo IS NOT NULL;
+SELECT CONCAT(nombre, ' ', apellido) AS nombre_completo FROM Clientes;
+SELECT COUNT(*) AS total_clientes FROM Clientes;
+
+---insert
+INSERT INTO Clientes (nombre, apellido, correo, telefono)
+VALUES 
+('Juan', 'Perez', 'juan.perez@example.com', '123-456-789'),
+('Ana', 'Gomez', 'ana.gomez@example.com', '234-567-890'),
+('Luis', 'Martinez', 'luis.martinez@example.com', '345-678-901'),
+('Maria', 'Lopez', 'maria.lopez@example.com', '456-789-012'),
+('Carlos', 'Diaz', 'carlos.diaz@example.com', '567-890-123'),
+('Sofia', 'Rodriguez', 'sofia.rodriguez@example.com', '678-901-234'),
+('Jorge', 'Hernandez', 'jorge.hernandez@example.com', '789-012-345'),
+('Fernanda', 'Garcia', 'fernanda.garcia@example.com', '890-123-456'),
+('Diego', 'Sanchez', 'diego.sanchez@example.com', '901-234-567'),
+('Valentina', 'Perez', 'valentina.perez@example.com', '012-345-678'),
+('Mateo', 'Gonzalez', 'mateo.gonzalez@example.com', '123-456-789'),
+('Camila', 'Ramirez', 'camila.ramirez@example.com', '234-567-890'),
+('Nicolas', 'Torres', 'nicolas.torres@example.com', '345-678-901'),
+('Isabella', 'Diaz', 'isabella.diaz@example.com', '456-789-012'),
+('Daniel', 'Martinez', 'daniel.martinez@example.com', '567-890-123'),
+('Paula', 'Lopez', 'paula.lopez@example.com', '678-901-234'),
+('Gabriel', 'Castro', 'gabriel.castro@example.com', '789-012-345'),
+('Alejandra', 'Gomez', 'alejandra.gomez@example.com', '890-123-456'),
+('Santiago', 'Hernandez', 'santiago.hernandez@example.com', '901-234-567'),
+('Valeria', 'Santos', 'valeria.santos@example.com', '012-345-678'),
+('Martin', 'Alvarez', 'martin.alvarez@example.com', '123-456-789'),
+('Emma', 'Gutierrez', 'emma.gutierrez@example.com', '234-567-890'),
+('Juan', 'Flores', 'juan.flores@example.com', '345-678-901'),
+('Luciana', 'Molina', 'luciana.molina@example.com', '456-789-012'),
+('Facundo', 'Rojas', 'facundo.rojas@example.com', '567-890-123'),
+('Catalina', 'Suarez', 'catalina.suarez@example.com', '678-901-234'),
+('Benjamin', 'Castillo', 'benjamin.castillo@example.com', '789-012-345'),
+('Emilia', 'Acosta', 'emilia.acosta@example.com', '890-123-456'),
+('Tomas', 'Blanco', 'tomas.blanco@example.com', '901-234-567'),
+('Renata', 'Ibanez', 'renata.ibanez@example.com', '012-345-678'),
+('Julian', 'Vargas', 'julian.vargas@example.com', '123-456-789'),
+('Agustina', 'Luna', 'agustina.luna@example.com', '234-567-890'),
+('Matias', 'Paz', 'matias.paz@example.com', '345-678-901'),
+('Julieta', 'Moreno', 'julieta.moreno@example.com', '456-789-012'),
+('Maximiliano', 'Ortega', 'maximiliano.ortega@example.com', '567-890-123'),
+('Mia', 'Vazquez', 'mia.vazquez@example.com', '678-901-234'),
+('Lorenzo', 'Gimenez', 'lorenzo.gimenez@example.com', '789-012-345'),
+('Emma', 'Aguirre', 'emma.aguirre@example.com', '890-123-456'),
+('Bautista', 'Rivas', 'bautista.rivas@example.com', '901-234-567'),
+('Renata', 'Mendez', 'renata.mendez@example.com', '012-345-678'),
+('Alex', 'Herrera', 'alex.herrera@example.com', '123-456-789'),
+('Valentino', 'Silva', 'valentino.silva@example.com', '234-567-890'),
+('Delfina', 'Pereyra', 'delfina.pereyra@example.com', '345-678-901'),
+('Thiago', 'Fernandez', 'thiago.fernandez@example.com', '456-789-012'),
+('Martina', 'Martinez', 'martina.martinez@example.com', '567-890-123');
+---update
+UPDATE Clientes SET telefono= '987-654-321' where id cliente = 1;
+UPDATE Clientes SET correo = 'nuevo.correo@example.com' WHERE id_cliente = 1;
+UPDATE Clientes SET apellido = 'González' WHERE id_cliente = 3;
+UPDATE Clientes SET nombre = 'María' WHERE id_cliente = 4;
+UPDATE Clientes SET correo = 'otro.correo@example.com' WHERE id_cliente = 5;
+
+---delete
+DELETE FROM Clientes WHERE id_cliente=3;
+DELETE FROM Clientes WHERE id_cliente = 10;
+DELETE FROM Clientes WHERE correo IS NULL;
+DELETE FROM Clientes WHERE nombre = 'Carlos' AND apellido = 'Díaz';
+DELETE FROM Clientes WHERE id_cliente > 15;
+
+---drop
+DROP TABLE Clientes;
+
+
+---METODOS PAGO
+--select
+Select*from MetodosPago WHERE nombre='Paypal';
+SELECT * FROM MetodosPago;
+SELECT * FROM MetodosPago WHERE id_metodo = 3;
+SELECT * FROM MetodosPago WHERE nombre LIKE '%Tarjeta%';
+SELECT COUNT(*) AS total_metodos_pago FROM MetodosPago;
+
+---insert
+INSERT INTO MetodosPago (nombre)
+VALUES
+('Tarjeta de Crédito'),
+('Tarjeta de Débito'),
+('PayPal'),
+('Transferencia Bancaria'),
+('Efectivo'),
+('Bitcoin'),
+('Apple Pay'),
+('Google Pay'),
+('Samsung Pay'),
+('Venmo'),
+('Zelle'),
+('Stripe'),
+('Square'),
+('American Express'),
+('Mastercard'),
+('Visa'),
+('Discover'),
+('Diners Club'),
+('JCB'),
+('Alipay'),
+('WeChat Pay'),
+('Pagaré'),
+('Cheque'),
+('Giro Postal'),
+('Western Union'),
+('MoneyGram'),
+('Bitcoin Cash'),
+('Ethereum'),
+('Litecoin'),
+('Stellar'),
+('Ripple'),
+('Dash'),
+('Monero'),
+('Zcash'),
+('Tron'),
+('Dogecoin'),
+('Cardano'),
+('EOS'),
+('Tezos'),
+('Chainlink'),
+('Polkadot'),
+('USD Coin'),
+('Tether'),
+('Binance Coin'),
+('Solana'),
+('Aave'),
+('Uniswap'),
+('Compound');
+
+---update
+UPDATE MetodosPago SET nombre= 'Pago en Efectivo' where id_metodo=5;
+UPDATE MetodosPago SET nombre = 'Tarjeta de Crédito' WHERE id_metodo = 1;
+UPDATE MetodosPago SET nombre = 'Transferencia Bancaria' WHERE nombre LIKE '%Bancaria%';
+UPDATE MetodosPago SET nombre = 'Cheque' WHERE id_metodo = 4;
+UPDATE MetodosPago SET nombre = 'PayPal' WHERE id_metodo = 5;
+
+---delete
+DELETE FROM MetodosPago WHERE nombre LIKE '%Tarjeta%';
+DELETE FROM MetodosPago WHERE id_metodo = 10;
+DELETE FROM MetodosPago WHERE nombre = 'Transferencia Bancaria';
+DELETE FROM MetodosPago WHERE id_metodo = 15 AND nombre = 'Cheque';
+DELETE FROM MetodosPago WHERE id_metodo > 7;
+
+---drop
+DROP TABLE MetodosPago;
+
+
+---VENTAS
+--select
+Select*from Ventas;
+SELECT * FROM Ventas WHERE id_cliente = 3;
+SELECT * FROM Ventas WHERE CAST(fecha AS DATE) = '2024-05-28';
+SELECT COUNT(*) AS total_ventas FROM Ventas;
+SELECT * FROM Ventas WHERE id_metodo = 2;
+
+---insert
+INSERT INTO Ventas (id_cliente, id_metodo, total) 
+VALUES
+(1, 1, 150.75),
+(2, 3, 230.50),
+(3, 2, 99.99),
+(4, 5, 320.00),
+(5, 4, 180.25),
+(6, 1, 275.00),
+(7, 3, 150.25),
+(8, 2, 200.99),
+(9, 5, 425.75),
+(10, 4, 150.50),
+(11, 1, 210.00),
+(12, 3, 175.25),
+(13, 2, 300.99),
+(14, 5, 150.75),
+(15, 4, 180.50),
+(16, 1, 250.00),
+(17, 3, 200.25),
+(18, 2, 175.99),
+(19, 5, 350.75),
+(20, 4, 120.50),
+(21, 1, 185.00),
+(22, 3, 250.25),
+(23, 2, 225.99),
+(24, 5, 280.75),
+(25, 4, 190.50),
+(26, 1, 275.00),
+(27, 3, 150.25),
+(28, 2, 200.99),
+(29, 5, 425.75),
+(30, 4, 150.50),
+(31, 1, 210.00),
+(32, 3, 175.25),
+(33, 2, 300.99),
+(34, 5, 150.75),
+(35, 4, 180.50),
+(36, 1, 250.00),
+(37, 3, 200.25),
+(38, 2, 175.99),
+(39, 5, 350.75),
+(40, 4, 120.50),
+(41, 1, 185.00),
+(42, 3, 250.25),
+(43, 2, 225.99),
+(44, 5, 280.75),
+(45, 4, 190.50)
+
+---update
+UPDATE Ventas SET total=250.00 where id_venta = 2;
+UPDATE Ventas SET id_metodo = 1 WHERE id_venta = 1;
+UPDATE Ventas SET fecha = '2024-05-30 15:30:00' WHERE id_venta = 3;
+UPDATE Ventas SET id_metodo = 4 WHERE id_venta = 4;
+UPDATE Ventas SET total = 180.50 WHERE id_venta = 5;
+
+---delete
+DELETE FROM Ventas WHERE id_cliente=4;
+DELETE FROM Ventas WHERE id_venta = 10;
+DELETE FROM Ventas WHERE CAST(fecha AS DATE) = '2024-05-27';
+DELETE FROM Ventas WHERE id_venta = 7 AND total = 320.00;
+DELETE FROM Ventas WHERE id_venta > 15;
+
+---drop
+DROP TABLE Ventas;
+
+
+---DETALLES VENTA
+--select
+SELECT * FROM DetallesVenta;
+Select id_detalle, id_venta, id_producto, cantidadn precio_unitario FROM DetallesVenta;
+SELECT * FROM DetallesVenta WHERE id_venta = 3;
+SELECT id_producto, SUM(cantidad) AS total_vendido FROM DetallesVenta GROUP BY id_producto;
+SELECT id_producto, SUM(cantidad * precio_unitario) AS total_ingresos FROM DetallesVenta GROUP BY id_producto;
+
+---insert
+INSERT INTO DetallesVenta (id_venta, id_producto, cantidad, precio_unitario) 
+VALUES 
+(1, 1, 2, 75.38),
+(2, 2, 3, 76.83),
+(3, 4, 5, 19.99),
+(4, 5, 1, 320.00),
+(5, 1, 3, 70.50),
+(6, 2, 2, 75.25),
+(7, 3, 1, 99.50),
+(8, 4, 4, 22.75),
+(9, 5, 2, 310.50),
+(10, 1, 4, 72.80),
+(11, 2, 2, 80.25),
+(12, 3, 3, 98.75),
+(13, 4, 6, 20.50),
+(14, 5, 2, 300.25),
+(15, 1, 5, 70.75),
+(16, 2, 1, 78.99),
+(17, 3, 2, 97.25),
+(18, 4, 7, 18.50),
+(19, 5, 3, 312.75),
+(20, 1, 2, 73.80),
+(21, 2, 3, 79.25),
+(22, 3, 4, 96.75),
+(23, 4, 8, 17.50),
+(24, 5, 4, 315.25),
+(25, 1, 6, 75.75),
+(26, 2, 2, 76.99),
+(27, 3, 1, 95.25),
+(28, 4, 9, 16.50),
+(29, 5, 5, 318.75),
+(30, 1, 3, 78.80),
+(31, 2, 4, 77.25),
+(32, 3, 2, 94.75),
+(33, 4, 10, 15.50),
+(34, 5, 6, 321.25),
+(35, 1, 7, 80.75),
+(36, 2, 1, 75.99),
+(37, 3, 3, 93.25),
+(38, 4, 11, 14.50),
+(39, 5, 7, 323.75),
+(40, 1, 4, 82.80),
+(41, 2, 5, 74.25),
+(42, 3, 4, 92.75),
+(43, 4, 12, 13.50),
+(44, 5, 8, 326.25),
+(45, 1, 8, 85.75)
+
+---update
+UPDATE DetallesVenta SET precio_unitario= 85.00 where id_categoria_detalle = 3;
+UPDATE DetallesVenta SET cantidad = 5 WHERE id_detalle = 1;
+UPDATE DetallesVenta SET cantidad = 10 WHERE id_detalle = 3;
+UPDATE DetallesVenta SET precio_unitario = 29.99 WHERE id_detalle = 2;
+UPDATE DetallesVenta SET precio_unitario = 19.99 WHERE id_detalle = 4;
+
+---delete
+DELETE FROM DetallesVenta WHERE id_detalle=4;
+DELETE FROM DetallesVenta WHERE id_detalle = 10;
+DELETE FROM DetallesVenta WHERE id_producto = 3;
+DELETE FROM DetallesVenta WHERE id_detalle = 7 AND cantidad = 5;
+DELETE FROM DetallesVenta WHERE id_detalle > 15;
+
+---drop
+DROP TABLE DetallesVenta;
+
+
+---EMPLEADOS
+--select
+Select nombre,correo from Empleados;
+SELECT e.nombre, e.apellido, v.id_venta, v.fecha, v.total FROM Empleados e INNER JOIN Ventas v ON e.id_empleado = v.id_empleado;
+SELECT e.nombre, e.apellido, v.id_venta, v.fecha, v.total FROM Empleados e LEFT JOIN Ventas v ON e.id_empleado = v.id_empleado;
+SELECT e.nombre, e.apellido, e.correo FROM Empleados e LEFT JOIN Ventas v ON e.id_empleado = v.id_empleado;
+SELECT CONCAT(e.nombre, ' ', e.apellido) AS nombre_completo, e.fecha_nacimiento FROM Empleados e;
+
+---insert
+INSERT INTO Empleados (nombre, apellido, fecha_nacimiento, correo, telefono, direccion) 
+VALUES 
+('Juan', 'Perez', '1985-03-15', 'juan.perez@example.com', '123-456-7890', 'Calle Falsa 123, Ciudad'),
+('Ana', 'Gomez', '1990-07-22', 'ana.gomez@example.com', '234-567-8901', 'Avenida Siempre Viva 742, Ciudad'),
+('Luis', 'Martinez', '1978-11-30', 'luis.martinez@example.com', '345-678-9012', 'Boulevard Central 456, Ciudad'),
+('Maria', 'Lopez', '1982-05-20', 'maria.lopez@example.com', '456-789-0123', 'Calle del Sol 789, Ciudad'),
+('Carlos', 'Diaz', '1988-09-10', 'carlos.diaz@example.com', '567-890-1234', 'Plaza Mayor 321, Ciudad'),
+('Sofia', 'Rodriguez', '1987-04-18', 'sofia.rodriguez@example.com', '678-901-2345', 'Avenida Libertad 987, Ciudad'),
+('Jorge', 'Hernandez', '1992-10-25', 'jorge.hernandez@example.com', '789-012-3456', 'Calle Principal 654, Ciudad'),
+('Fernanda', 'Garcia', '1984-08-12', 'fernanda.garcia@example.com', '890-123-4567', 'Avenida Independencia 345, Ciudad'),
+('Diego', 'Sanchez', '1989-06-28', 'diego.sanchez@example.com', '901-234-5678', 'Calle de la Paz 876, Ciudad'),
+('Valentina', 'Perez', '1995-12-05', 'valentina.perez@example.com', '012-345-6789', 'Boulevard Estrella 210, Ciudad'),
+('Mateo', 'Gonzalez', '1986-02-14', 'mateo.gonzalez@example.com', '123-456-7890', 'Plaza del Sol 543, Ciudad'),
+('Camila', 'Ramirez', '1993-09-03', 'camila.ramirez@example.com', '234-567-8901', 'Avenida Central 876, Ciudad'),
+('Nicolas', 'Torres', '1983-07-17', 'nicolas.torres@example.com', '345-678-9012', 'Calle Mayor 109, Ciudad'),
+('Isabella', 'Diaz', '1980-04-30', 'isabella.diaz@example.com', '456-789-0123', 'Boulevard del Río 876, Ciudad'),
+('Daniel', 'Martinez', '1991-11-20', 'daniel.martinez@example.com', '567-890-1234', 'Plaza de la Constitución 543, Ciudad'),
+('Paula', 'Lopez', '1987-03-08', 'paula.lopez@example.com', '678-901-2345', 'Calle del Mar 987, Ciudad'),
+('Gabriel', 'Castro', '1982-08-25', 'gabriel.castro@example.com', '789-012-3456', 'Avenida del Bosque 210, Ciudad'),
+('Alejandra', 'Gomez', '1989-01-12', 'alejandra.gomez@example.com', '890-123-4567', 'Calle de la Luna 654, Ciudad'),
+('Santiago', 'Hernandez', '1994-06-19', 'santiago.hernandez@example.com', '901-234-5678', 'Boulevard del Centro 876, Ciudad'),
+('Valeria', 'Santos', '1986-11-03', 'valeria.santos@example.com', '012-345-6789', 'Plaza del Carmen 543, Ciudad'),
+('Martin', 'Alvarez', '1990-02-18', 'martin.alvarez@example.com', '123-456-7890', 'Avenida del Parque 876, Ciudad'),
+('Emma', 'Gutierrez', '1981-09-15', 'emma.gutierrez@example.com', '234-567-8901', 'Calle del Campo 987, Ciudad'),
+('Juan', 'Flores', '1984-05-28', 'juan.flores@example.com', '345-678-9012', 'Boulevard del Norte 210, Ciudad'),
+('Luciana', 'Molina', '1993-03-10', 'luciana.molina@example.com', '456-789-0123', 'Avenida del Este 543, Ciudad'),
+('Facundo', 'Rojas', '1988-10-27', 'facundo.rojas@example.com', '567-890-1234', 'Calle de la Montaña 876, Ciudad'),
+('Catalina', 'Suarez', '1985-07-04', 'catalina.suarez@example.com', '678-901-2345', 'Plaza de la Victoria 987, Ciudad'),
+('Benjamin', 'Castillo', '1992-04-21', 'benjamin.castillo@example.com', '789-012-3456', 'Avenida del Trabajo 210, Ciudad'),
+('Emilia', 'Acosta', '1983-01-14', 'emilia.acosta@example.com', '890-123-4567', 'Calle de la Paz 543, Ciudad'),
+('Tomas', 'Blanco', '1996-08-31', 'tomas.blanco@example.com', '901-234-5678', 'Boulevard del Río 210, Ciudad'),
+('Renata', 'Ibanez', '1987-11-18', 'renata.ibanez@example.com', '012-345-6789', 'Plaza de la Constitución 543, Ciudad'),
+('Julian', 'Vargas', '1991-03-05', 'julian.vargas@example.com', '123-456-7890', 'Avenida Principal 876, Ciudad'),
+('Agustina', 'Luna', '1984-10-12', 'agustina.luna@example.com', '234-567-8901', 'Calle del Mar 987, Ciudad'),
+('Matias', 'Paz', '1995-05-29', 'matias.paz@example.com', '345-678-9012', 'Boulevard del Sol 210, Ciudad'),
+('Julieta', 'Moreno', '1986-12-16', 'julieta.moreno@example.com', '456-789-0123', 'miramar');
+
+---update
+UPDATE Empleados SET telefono= '987-654-3218' where id_empleado = 1;
+UPDATE Empleados SET correo = 'nuevo_correo@example.com' WHERE id_empleado = 2;
+UPDATE Empleados SET direccion = 'Nueva dirección, Ciudad' WHERE nombre = 'Juan' AND apellido = 'Perez';
+UPDATE Empleados SET nombre = 'Pedro', apellido = 'Gomez' WHERE id_empleado = 4;
+UPDATE Empleados SET fecha_nacimiento = '1990-01-15' WHERE id_empleado = 3;
+
+---delete
+DELETE FROM Empleados WHERE apellido='Lopez';
+DELETE FROM Empleados WHERE id_empleado = 5;
+DELETE FROM Empleados WHERE fecha_nacimiento IS NULL;
+DELETE FROM Empleados WHERE direccion = 'Dirección a eliminar';
+DELETE FROM Empleados WHERE telefono IS NULL;
+
+---drop
+DROP TABLE Empleados;
+
+
+-- 1. TABLA Departamentos
+INSERT INTO Departamentos (nombre) VALUES ('Recursos Humanos');
+INSERT INTO Departamentos (nombre) VALUES ('Finanzas');
+INSERT INTO Departamentos (nombre) VALUES ('IT');
+INSERT INTO Departamentos (nombre) VALUES ('Marketing');
+INSERT INTO Departamentos (nombre) VALUES ('Ventas');
+INSERT INTO Departamentos (nombre) VALUES ('Logística');
+INSERT INTO Departamentos (nombre) VALUES ('Compras');
+INSERT INTO Departamentos (nombre) VALUES ('Producción');
+INSERT INTO Departamentos (nombre) VALUES ('Investigación y Desarrollo');
+INSERT INTO Departamentos (nombre) VALUES ('Servicio al Cliente');
+INSERT INTO Departamentos (nombre) VALUES ('Legal');
+INSERT INTO Departamentos (nombre) VALUES ('Calidad');
+INSERT INTO Departamentos (nombre) VALUES ('Mantenimiento');
+INSERT INTO Departamentos (nombre) VALUES ('Relaciones Públicas');
+INSERT INTO Departamentos (nombre) VALUES ('Proyectos');
+INSERT INTO Departamentos (nombre) VALUES ('Auditoría');
+INSERT INTO Departamentos (nombre) VALUES ('Seguridad');
+INSERT INTO Departamentos (nombre) VALUES ('Sostenibilidad');
+INSERT INTO Departamentos (nombre) VALUES ('Innovación');
+INSERT INTO Departamentos (nombre) VALUES ('E-commerce');
+INSERT INTO Departamentos (nombre) VALUES ('Desarrollo de Negocios');
+INSERT INTO Departamentos (nombre) VALUES ('Planeación Estratégica');
+INSERT INTO Departamentos (nombre) VALUES ('Capacitación');
+INSERT INTO Departamentos (nombre) VALUES ('Comunicación');
+INSERT INTO Departamentos (nombre) VALUES ('Administración');
+INSERT INTO Departamentos (nombre) VALUES ('Análisis de Datos');
+INSERT INTO Departamentos (nombre) VALUES ('Gestión de Talento');
+INSERT INTO Departamentos (nombre) VALUES ('Operaciones');
+INSERT INTO Departamentos (nombre) VALUES ('Relaciones Gubernamentales');
+INSERT INTO Departamentos (nombre) VALUES ('Expansión Internacional');
+INSERT INTO Departamentos (nombre) VALUES ('Logística Internacional');
+INSERT INTO Departamentos (nombre) VALUES ('Asesoría Jurídica');
+INSERT INTO Departamentos (nombre) VALUES ('Control de Inventarios');
+INSERT INTO Departamentos (nombre) VALUES ('Soporte Técnico');
+INSERT INTO Departamentos (nombre) VALUES ('Atención al Proveedor');
+INSERT INTO Departamentos (nombre) VALUES ('Control de Calidad');
+INSERT INTO Departamentos (nombre) VALUES ('Desarrollo Sostenible');
+INSERT INTO Departamentos (nombre) VALUES ('Gestión Ambiental');
+INSERT INTO Departamentos (nombre) VALUES ('Relaciones Industriales');
+INSERT INTO Departamentos (nombre) VALUES ('Optimización de Procesos');
+INSERT INTO Departamentos (nombre) VALUES ('Inteligencia de Negocios');
+INSERT INTO Departamentos (nombre) VALUES ('Ciberseguridad');
+INSERT INTO Departamentos (nombre) VALUES ('Gestión del Conocimiento');
+INSERT INTO Departamentos (nombre) VALUES ('Transporte');
+INSERT INTO Departamentos (nombre) VALUES ('Logística de Distribución');
+INSERT INTO Departamentos (nombre) VALUES ('Redes y Telecomunicaciones');
+INSERT INTO Departamentos (nombre) VALUES ('Diseño');
+INSERT INTO Departamentos (nombre) VALUES ('Producción Audiovisual');
+INSERT INTO Departamentos (nombre) VALUES ('Gestión de Eventos');
+
+
+SELECT * FROM Departamentos WHERE nombre LIKE 'Recursos Humanos';
+SELECT * FROM Departamentos WHERE id_departamento BETWEEN 1 AND 10;
+SELECT nombre FROM Departamentos WHERE nombre LIKE '%Finanzas%';
+SELECT id_departamento, nombre FROM Departamentos ORDER BY nombre ASC;
+SELECT COUNT(*) AS TotalDepartamentos FROM Departamentos;
+
+
+UPDATE Departamentos SET nombre = 'Recursos Humanos y Desarrollo' WHERE nombre = 'Recursos Humanos';
+UPDATE Departamentos SET nombre = 'IT y Sistemas' WHERE nombre = 'IT';
+UPDATE Departamentos SET nombre = 'Finanzas Corporativas' WHERE nombre = 'Finanzas';
+UPDATE Departamentos SET nombre = 'Marketing Digital' WHERE nombre = 'Marketing';
+UPDATE Departamentos SET nombre = 'Ventas Nacionales' WHERE nombre = 'Ventas';
+
+DELETE FROM Departamentos WHERE nombre = 'Logística';
+DELETE FROM Departamentos WHERE nombre = 'Producción';
+DELETE FROM Departamentos WHERE id_departamento = 25;
+DELETE FROM Departamentos WHERE id_departamento = 30;
+DELETE FROM Departamentos WHERE nombre = 'Seguridad';
+
+DROP TABLE Departamentos;
+
+-- 2. TABLA PuestosTrabajo
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (1, 'Gerente de Recursos Humanos');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (1, 'Asistente de Recursos Humanos');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (2, 'Director Financiero');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (2, 'Analista Financiero');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (3, 'Desarrollador de Software');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (3, 'Administrador de Sistemas');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (4, 'Gerente de Marketing');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (4, 'Especialista en SEO');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (5, 'Representante de Ventas');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (5, 'Coordinador de Ventas');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (6, 'Gerente de Logística');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (6, 'Supervisor de Almacén');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (7, 'Comprador');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (7, 'Asistente de Compras');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (8, 'Supervisor de Producción');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (8, 'Operario de Producción');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (9, 'Investigador');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (9, 'Asistente de Investigación');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (10, 'Representante de Servicio al Cliente');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (10, 'Supervisor de Servicio al Cliente');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (11, 'Abogado Corporativo');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (11, 'Asistente Legal');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (12, 'Gerente de Calidad');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (12, 'Inspector de Calidad');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (13, 'Técnico de Mantenimiento');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (13, 'Supervisor de Mantenimiento');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (14, 'Especialista en Relaciones Públicas');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (14, 'Asistente de Relaciones Públicas');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (15, 'Gerente de Proyectos');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (15, 'Coordinador de Proyectos');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (16, 'Auditor Interno');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (16, 'Asistente de Auditoría');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (17, 'Oficial de Seguridad');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (17, 'Supervisor de Seguridad');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (18, 'Gerente de Sostenibilidad');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (18, 'Analista de Sostenibilidad');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (19, 'Especialista en Innovación');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (19, 'Coordinador de Innovación');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (20, 'Gerente de E-commerce');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (20, 'Asistente de E-commerce');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (21, 'Desarrollador de Negocios');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (21, 'Analista de Desarrollo de Negocios');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (22, 'Especialista en Planeación Estratégica');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (22, 'Asistente de Planeación Estratégica');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (23, 'Capacitador Corporativo');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (23, 'Coordinador de Capacitación');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (24, 'Especialista en Comunicación Corporativa');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (24, 'Asistente de Comunicación');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (25, 'Administrador General');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (25, 'Asistente Administrativo');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (26, 'Analista de Datos');
+INSERT INTO PuestosTrabajo (id_departamento, nombre) VALUES (26, 'Científico de Datos');
+
+SELECT * FROM PuestosTrabajo WHERE id_departamento = 1;
+SELECT * FROM PuestosTrabajo WHERE nombre LIKE '%Gerente%';
+SELECT nombre FROM PuestosTrabajo WHERE id_puesto BETWEEN 1 AND 10;
+SELECT id_puesto, nombre FROM PuestosTrabajo ORDER BY nombre DESC;
+SELECT COUNT(*) AS TotalPuestos FROM PuestosTrabajo WHERE id_departamento = 5;
+
+UPDATE PuestosTrabajo SET nombre = 'Gerente de Recursos Humanos Senior' WHERE nombre = 'Gerente de Recursos Humanos';
+UPDATE PuestosTrabajo SET nombre = 'Analista Financiero Junior' WHERE nombre = 'Analista Financiero';
+UPDATE PuestosTrabajo SET nombre = 'Desarrollador de Software Senior' WHERE nombre = 'Desarrollador de Software';
+UPDATE PuestosTrabajo SET nombre = 'Especialista en Marketing Digital' WHERE nombre = 'Gerente de Marketing';
+UPDATE PuestosTrabajo SET nombre = 'Supervisor de Ventas' WHERE nombre = 'Coordinador de Ventas';
+
+
+DELETE FROM PuestosTrabajo WHERE nombre = 'Supervisor de Almacén';
+DELETE FROM PuestosTrabajo WHERE nombre = 'Asistente de Compras';
+DELETE FROM PuestosTrabajo WHERE id_puesto = 30;
+DELETE FROM PuestosTrabajo WHERE id_puesto = 35;
+DELETE FROM PuestosTrabajo WHERE nombre = 'Asistente Legal';
+
+DROP TABLE PuestosTrabajo;
+
+-- 3. TABLA HorariosTrabajo 
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (1, 'Lunes', '09:00', '17:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (1, 'Martes', '09:00', '17:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (1, 'Miércoles', '09:00', '17:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (1, 'Jueves', '09:00', '17:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (1, 'Viernes', '09:00', '17:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (2, 'Lunes', '08:00', '16:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (2, 'Martes', '08:00', '16:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (2, 'Miércoles', '08:00', '16:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (2, 'Jueves', '08:00', '16:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (2, 'Viernes', '08:00', '16:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (3, 'Lunes', '10:00', '18:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (3, 'Martes', '10:00', '18:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (3, 'Miércoles', '10:00', '18:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (3, 'Jueves', '10:00', '18:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (3, 'Viernes', '10:00', '18:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (4, 'Lunes', '07:00', '15:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (4, 'Martes', '07:00', '15:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (4, 'Miércoles', '07:00', '15:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (4, 'Jueves', '07:00', '15:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (4, 'Viernes', '07:00', '15:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (5, 'Lunes', '12:00', '20:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (5, 'Martes', '12:00', '20:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (5, 'Miércoles', '12:00', '20:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (5, 'Jueves', '12:00', '20:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (5, 'Viernes', '12:00', '20:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (6, 'Sábado', '09:00', '17:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (6, 'Domingo', '09:00', '17:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (7, 'Lunes', '06:00', '14:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (7, 'Martes', '06:00', '14:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (7, 'Miércoles', '06:00', '14:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (7, 'Jueves', '06:00', '14:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (7, 'Viernes', '06:00', '14:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (8, 'Lunes', '11:00', '19:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (8, 'Martes', '11:00', '19:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (8, 'Miércoles', '11:00', '19:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (8, 'Jueves', '11:00', '19:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (8, 'Viernes', '11:00', '19:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (9, 'Lunes', '08:30', '16:30');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (9, 'Martes', '08:30', '16:30');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (9, 'Miércoles', '08:30', '16:30');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (9, 'Jueves', '08:30', '16:30');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (9, 'Viernes', '08:30', '16:30');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (10, 'Sábado', '10:00', '18:00');
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida) VALUES (10, 'Domingo', '10:00', '18:00');
+
+SELECT * FROM HorariosTrabajo WHERE dia = 'Lunes';
+SELECT * FROM HorariosTrabajo WHERE id_empleado = 5;
+SELECT dia, hora_entrada, hora_salida FROM HorariosTrabajo WHERE id_horario BETWEEN 1 AND 10;
+SELECT id_horario, dia, hora_entrada, hora_salida FROM HorariosTrabajo ORDER BY dia ASC;
+SELECT COUNT(*) AS TotalHorarios FROM HorariosTrabajo WHERE id_empleado = 2;
+
+UPDATE HorariosTrabajo SET hora_entrada = '08:00', hora_salida = '16:00' WHERE id_horario = 1;
+UPDATE HorariosTrabajo SET hora_entrada = '09:00', hora_salida = '17:00' WHERE id_horario = 6;
+UPDATE HorariosTrabajo SET hora_entrada = '07:00', hora_salida = '15:00' WHERE id_horario = 11;
+UPDATE HorariosTrabajo SET hora_entrada = '06:00', hora_salida = '14:00' WHERE id_horario = 16;
+UPDATE HorariosTrabajo SET hora_entrada = '10:00', hora_salida = '18:00' WHERE id_horario = 21;
+
+DELETE FROM HorariosTrabajo WHERE dia = 'Domingo';
+DELETE FROM HorariosTrabajo WHERE id_empleado = 4;
+DELETE FROM HorariosTrabajo WHERE id_horario = 25;
+DELETE FROM HorariosTrabajo WHERE id_horario = 30;
+DELETE FROM HorariosTrabajo WHERE dia = 'Sábado' AND id_empleado
+
+-- 4. TABLA FlotasTransporte 
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones de Carga Pesada');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Furgonetas de Reparto');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Motocicletas de Mensajería');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Servicio Técnico');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camionetas de Inspección');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones Refrigerados');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Empresa');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Autobuses de Personal');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Taxis Corporativos');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos Eléctricos');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Tractocamiones');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Remolques');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones de Plataforma');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Gruas');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Emergencia');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camionetas 4x4');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Supervisión');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos Híbridos');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Barcos de Carga');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Lanchas de Servicio');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Drones de Entrega');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Carretillas Elevadoras');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Cargadores Frontal');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Minicargadoras');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones de Basura');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Cisternas de Agua');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones de Combustible');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Tractores Agrícolas');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Trenes de Carga');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones Tolva');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones de Volteo');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos Autónomos');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Seguridad');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Inspección Técnica');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camionetas de Transporte Ligero');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos para Transporte de Animales');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camionetas Blindadas');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones de Cemento');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camionetas de Entrega Rápida');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Atención Médica');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones para Materiales Peligrosos');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Mantenimiento Vial');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Bicicletas de Reparto');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Tránsito');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones de Rescate');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Exploración');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Turismo');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Camiones de Entrega de Alimentos');
+INSERT INTO FlotasTransporte (descripcion) VALUES ('Vehículos de Carga Ligeros');
+
+SELECT * FROM FlotasTransporte WHERE descripcion LIKE '%Camiones%';
+SELECT * FROM FlotasTransporte WHERE id_flota BETWEEN 1 AND 10;
+SELECT descripcion FROM FlotasTransporte WHERE descripcion LIKE '%Vehículos%';
+SELECT id_flota, descripcion FROM FlotasTransporte ORDER BY descripcion ASC;
+SELECT COUNT(*) AS TotalFlotas FROM FlotasTransporte;
+
+UPDATE FlotasTransporte SET descripcion = 'Camiones de Carga Pesada y Liviana' WHERE descripcion = 'Camiones de Carga Pesada';
+UPDATE FlotasTransporte SET descripcion = 'Furgonetas de Reparto Urbano' WHERE descripcion = 'Furgonetas de Reparto';
+UPDATE FlotasTransporte SET descripcion = 'Motocicletas de Mensajería Exprés' WHERE descripcion = 'Motocicletas de Mensajería';
+UPDATE FlotasTransporte SET descripcion = 'Vehículos de Servicio Técnico y Reparación' WHERE descripcion = 'Vehículos de Servicio Técnico';
+UPDATE FlotasTransporte SET descripcion = 'Camionetas de Inspección de Campo' WHERE descripcion = 'Camionetas de Inspección';
+
+DELETE FROM FlotasTransporte WHERE descripcion = 'Gruas';
+DELETE FROM FlotasTransporte WHERE descripcion = 'Barcos de Carga';
+DELETE FROM FlotasTransporte WHERE id_flota = 25;
+DELETE FROM FlotasTransporte WHERE id_flota = 30;
+DELETE FROM FlotasTransporte WHERE descripcion = 'Vehículos de Exploración';
+
+DROP TABLE FlotasTransporte;
+
+
+-- 5. TABLA RutasDistribucion 
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Norte');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Sur');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Este');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Oeste');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Centro');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Costa');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Montaña');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Internacional 1');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Internacional 2');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Metropolitana');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Periférica');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Rural');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Urbana');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Comercial');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Residencial');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Nocturna');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Diurna');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Express');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Regular');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Temporal');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Permanente');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Emergencia');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Verano');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Invierno');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Escolar');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Universitaria');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Industrial');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta Agrícola');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Transporte Público');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Transporte Privado');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Envíos Rápidos');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Recolección');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Entregas Programadas');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Carga Pesada');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Carga Ligera');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Exportación');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Importación');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Inspección');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Mantenimiento');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Abastecimiento');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Suministros');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Alimentos');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Bebidas');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Materiales Peligrosos');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Productos Congelados');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Productos Frescos');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Medicamentos');
+INSERT INTO RutasDistribucion (descripcion) VALUES ('Ruta de Equipos Médicos');
+
+SELECT * FROM RutasDistribucion WHERE descripcion LIKE '%Norte%';
+SELECT * FROM RutasDistribucion WHERE id_ruta BETWEEN 1 AND 10;
+SELECT descripcion FROM RutasDistribucion WHERE descripcion LIKE '%Ruta%';
+SELECT id_ruta, descripcion FROM RutasDistribucion ORDER BY descripcion ASC;
+SELECT COUNT(*) AS TotalRutas FROM RutasDistribucion;
+
+UPDATE RutasDistribucion SET descripcion = 'Ruta Norte Extendida' WHERE descripcion = 'Ruta Norte';
+UPDATE RutasDistribucion SET descripcion = 'Ruta Sur Acortada' WHERE descripcion = 'Ruta Sur';
+UPDATE RutasDistribucion SET descripcion = 'Ruta Este Actualizada' WHERE descripcion = 'Ruta Este';
+UPDATE RutasDistribucion SET descripcion = 'Ruta Oeste Nueva' WHERE descripcion = 'Ruta Oeste';
+UPDATE RutasDistribucion SET descripcion = 'Ruta Centro Especial' WHERE descripcion = 'Ruta Centro';
+
+DELETE FROM RutasDistribucion WHERE descripcion = 'Ruta de Verano';
+DELETE FROM RutasDistribucion WHERE descripcion = 'Ruta de Invierno';
+DELETE FROM RutasDistribucion WHERE id_ruta = 25;
+DELETE FROM RutasDistribucion WHERE id_ruta = 30;
+DELETE FROM RutasDistribucion WHERE descripcion = 'Ruta de Mantenimiento';
+
+DROP TABLE RutasDistribucion;
+
+
+
+-- 6. TABLA Despachos 
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (1, 1, '2024-05-01 08:00:00', '2024-05-01 12:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (2, 2, '2024-05-02 09:00:00', '2024-05-02 13:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (3, 3, '2024-05-03 10:00:00', '2024-05-03 14:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (4, 4, '2024-05-04 11:00:00', '2024-05-04 15:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (5, 5, '2024-05-05 12:00:00', '2024-05-05 16:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (1, 6, '2024-05-06 08:00:00', '2024-05-06 12:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (2, 7, '2024-05-07 09:00:00', '2024-05-07 13:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (3, 8, '2024-05-08 10:00:00', '2024-05-08 14:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (4, 9, '2024-05-09 11:00:00', '2024-05-09 15:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (5, 10, '2024-05-10 12:00:00', '2024-05-10 16:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (1, 11, '2024-05-11 08:00:00', '2024-05-11 12:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (2, 12, '2024-05-12 09:00:00', '2024-05-12 13:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (3, 13, '2024-05-13 10:00:00', '2024-05-13 14:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (4, 14, '2024-05-14 11:00:00', '2024-05-14 15:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (5, 15, '2024-05-15 12:00:00', '2024-05-15 16:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (1, 16, '2024-05-16 08:00:00', '2024-05-16 12:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (2, 17, '2024-05-17 09:00:00', '2024-05-17 13:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (3, 18, '2024-05-18 10:00:00', '2024-05-18 14:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (4, 19, '2024-05-19 11:00:00', '2024-05-19 15:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (5, 20, '2024-05-20 12:00:00', '2024-05-20 16:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (1, 21, '2024-05-21 08:00:00', '2024-05-21 12:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (2, 22, '2024-05-22 09:00:00', '2024-05-22 13:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (3, 23, '2024-05-23 10:00:00', '2024-05-23 14:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (4, 24, '2024-05-24 11:00:00', '2024-05-24 15:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (5, 25, '2024-05-25 12:00:00', '2024-05-25 16:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (1, 26, '2024-05-26 08:00:00', '2024-05-26 12:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (2, 27, '2024-05-27 09:00:00', '2024-05-27 13:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (3, 28, '2024-05-28 10:00:00', '2024-05-28 14:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (4, 29, '2024-05-29 11:00:00', '2024-05-29 15:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (5, 30, '2024-05-30 12:00:00', '2024-05-30 16:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (1, 31, '2024-06-01 08:00:00', '2024-06-01 12:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (2, 32, '2024-06-02 09:00:00', '2024-06-02 13:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (3, 33, '2024-06-03 10:00:00', '2024-06-03 14:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (4, 34, '2024-06-04 11:00:00', '2024-06-04 15:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (5, 35, '2024-06-05 12:00:00', '2024-06-05 16:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (1, 36, '2024-06-06 08:00:00', '2024-06-06 12:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (2, 37, '2024-06-07 09:00:00', '2024-06-07 13:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (3, 38, '2024-06-08 10:00:00', '2024-06-08 14:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (4, 39, '2024-06-09 11:00:00', '2024-06-09 15:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (5, 40, '2024-06-10 12:00:00', '2024-06-10 16:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (1, 41, '2024-06-11 08:00:00', '2024-06-11 12:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (2, 42, '2024-06-12 09:00:00', '2024-06-12 13:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (3, 43, '2024-06-13 10:00:00', '2024-06-13 14:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (4, 44, '2024-06-14 11:00:00', '2024-06-14 15:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (5, 45, '2024-06-15 12:00:00', '2024-06-15 16:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (1, 46, '2024-06-16 08:00:00', '2024-06-16 12:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (2, 47, '2024-06-17 09:00:00', '2024-06-17 13:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (3, 48, '2024-06-18 10:00:00', '2024-06-18 14:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (4, 49, '2024-06-19 11:00:00', '2024-06-19 15:00:00');
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada) VALUES (5, 50, '2024-06-20 12:00:00', '2024-06-20 16:00:00');
+
+SELECT * FROM Despachos WHERE id_almacen = 1;
+SELECT * FROM Despachos WHERE id_ruta BETWEEN 1 AND 10;
+SELECT id_despacho, fecha_salida, fecha_llegada FROM Despachos WHERE fecha_salida > '2024-05-10';
+SELECT id_despacho, id_almacen, id_ruta FROM Despachos ORDER BY fecha_salida ASC;
+SELECT COUNT(*) AS TotalDespachos FROM Despachos;
+
+UPDATE Despachos SET fecha_llegada = '2024-05-01 13:00:00' WHERE id_despacho = 1;
+UPDATE Despachos SET id_almacen = 3 WHERE id_despacho = 2;
+UPDATE Despachos SET id_ruta = 5 WHERE id_despacho = 3;
+UPDATE Despachos SET fecha_salida = '2024-05-04 07:00:00' WHERE id_despacho = 4;
+UPDATE Despachos SET fecha_llegada = '2024-05-05 17:00:00' WHERE id_despacho = 5;
+
+DELETE FROM Despachos WHERE id_despacho = 10;
+DELETE FROM Despachos WHERE id_ruta = 20;
+DELETE FROM Despachos WHERE fecha_salida < '2024-05-01';
+DELETE FROM Despachos WHERE id_almacen = 5 AND id_ruta = 15;
+DELETE FROM Despachos WHERE fecha_llegada > '2024-06-01';
+
+DROP TABLE Despachos;
+
+-- 7. TABLA Proveedores
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor A', 'Contacto A', '1234567890', 'Calle 1, Ciudad A');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor B', 'Contacto B', '0987654321', 'Calle 2, Ciudad B');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor C', 'Contacto C', '1112223333', 'Calle 3, Ciudad C');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor D', 'Contacto D', '4445556666', 'Calle 4, Ciudad D');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor E', 'Contacto E', '7778889999', 'Calle 5, Ciudad E');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor F', 'Contacto F', '1231231234', 'Calle 6, Ciudad F');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor G', 'Contacto G', '3213214321', 'Calle 7, Ciudad G');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor H', 'Contacto H', '5556667777', 'Calle 8, Ciudad H');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor I', 'Contacto I', '8889990000', 'Calle 9, Ciudad I');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor J', 'Contacto J', '2223334444', 'Calle 10, Ciudad J');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor K', 'Contacto K', '6667778888', 'Calle 11, Ciudad K');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor L', 'Contacto L', '9990001111', 'Calle 12, Ciudad L');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor M', 'Contacto M', '3334445555', 'Calle 13, Ciudad M');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor N', 'Contacto N', '7778889990', 'Calle 14, Ciudad N');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor O', 'Contacto O', '1234567891', 'Calle 15, Ciudad O');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor P', 'Contacto P', '9876543210', 'Calle 16, Ciudad P');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor Q', 'Contacto Q', '1112223334', 'Calle 17, Ciudad Q');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor R', 'Contacto R', '4445556667', 'Calle 18, Ciudad R');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor S', 'Contacto S', '7778889991', 'Calle 19, Ciudad S');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor T', 'Contacto T', '1231231235', 'Calle 20, Ciudad T');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor U', 'Contacto U', '3213214322', 'Calle 21, Ciudad U');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor V', 'Contacto V', '5556667778', 'Calle 22, Ciudad V');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor W', 'Contacto W', '8889990001', 'Calle 23, Ciudad W');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor X', 'Contacto X', '2223334445', 'Calle 24, Ciudad X');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor Y', 'Contacto Y', '6667778889', 'Calle 25, Ciudad Y');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor Z', 'Contacto Z', '9990001112', 'Calle 26, Ciudad Z');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor AA', 'Contacto AA', '3334445556', 'Calle 27, Ciudad AA');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor BB', 'Contacto BB', '7778889992', 'Calle 28, Ciudad BB');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor CC', 'Contacto CC', '1234567892', 'Calle 29, Ciudad CC');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor DD', 'Contacto DD', '9876543211', 'Calle 30, Ciudad DD');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor EE', 'Contacto EE', '1112223335', 'Calle 31, Ciudad EE');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor FF', 'Contacto FF', '4445556668', 'Calle 32, Ciudad FF');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor GG', 'Contacto GG', '7778889993', 'Calle 33, Ciudad GG');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor HH', 'Contacto HH', '1231231236', 'Calle 34, Ciudad HH');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor II', 'Contacto II', '3213214323', 'Calle 35, Ciudad II');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor JJ', 'Contacto JJ', '5556667779', 'Calle 36, Ciudad JJ');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor KK', 'Contacto KK', '8889990002', 'Calle 37, Ciudad KK');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor LL', 'Contacto LL', '2223334446', 'Calle 38, Ciudad LL');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor MM', 'Contacto MM', '6667778890', 'Calle 39, Ciudad MM');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor NN', 'Contacto NN', '9990001113', 'Calle 40, Ciudad NN');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor OO', 'Contacto OO', '3334445557', 'Calle 41, Ciudad OO');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor PP', 'Contacto PP', '7778889994', 'Calle 42, Ciudad PP');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor QQ', 'Contacto QQ', '1234567893', 'Calle 43, Ciudad QQ');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor RR', 'Contacto RR', '9876543212', 'Calle 44, Ciudad RR');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor SS', 'Contacto SS', '1112223336', 'Calle 45, Ciudad SS');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor TT', 'Contacto TT', '4445556669', 'Calle 46, Ciudad TT');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor UU', 'Contacto UU', '7778889995', 'Calle 47, Ciudad UU');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor VV', 'Contacto VV', '1231231237', 'Calle 48, Ciudad VV');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor WW', 'Contacto WW', '3213214324', 'Calle 49, Ciudad WW');
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion) VALUES ('Proveedor XX', 'Contacto XX', '5556667780', 'Calle 50, Ciudad XX');
+
+SELECT * FROM Proveedores WHERE nombre LIKE '%A%';
+SELECT * FROM Proveedores WHERE id_proveedor BETWEEN 1 AND 10;
+SELECT nombre, contacto FROM Proveedores WHERE telefono IS NOT NULL;
+SELECT id_proveedor, nombre, direccion FROM Proveedores ORDER BY nombre ASC;
+SELECT COUNT(*) AS TotalProveedores FROM Proveedores;
+
+UPDATE Proveedores SET telefono = '5555555555' WHERE id_proveedor = 1;
+UPDATE Proveedores SET contacto = 'Nuevo Contacto B' WHERE id_proveedor = 2;
+UPDATE Proveedores SET direccion = 'Nueva Calle 3, Nueva Ciudad C' WHERE id_proveedor = 3;
+UPDATE Proveedores SET nombre = 'Proveedor Modificado D' WHERE id_proveedor = 4;
+UPDATE Proveedores SET contacto = 'Nuevo Contacto E', telefono = '0001112222' WHERE id_proveedor = 5;
+
+DELETE FROM Proveedores WHERE id_proveedor = 10;
+DELETE FROM Proveedores WHERE nombre LIKE 'Proveedor %F%';
+DELETE FROM Proveedores WHERE telefono IS NULL;
+DELETE FROM Proveedores WHERE direccion LIKE '%Calle 20%';
+DELETE FROM Proveedores WHERE id_proveedor BETWEEN 30 AND 35;
+
+DROP TABLE Proveedores;
+-- 8. TABLA CuentasPorCobrar 
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (1, 100.00, '2024-05-01 08:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (2, 150.50, '2024-05-02 09:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (3, 200.25, '2024-05-03 10:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (4, 300.75, '2024-05-04 11:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (5, 400.80, '2024-05-05 12:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (1, 250.00, '2024-05-06 08:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (2, 180.30, '2024-05-07 09:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (3, 210.75, '2024-05-08 10:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (4, 280.50, '2024-05-09 11:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (5, 350.90, '2024-05-10 12:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (1, 320.00, '2024-05-11 08:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (2, 410.25, '2024-05-12 09:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (3, 500.70, '2024-05-13 10:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (4, 600.40, '2024-05-14 11:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (5, 700.20, '2024-05-15 12:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (1, 450.60, '2024-05-16 08:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (2, 560.90, '2024-05-17 09:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (3, 680.75, '2024-05-18 10:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (4, 790.30, '2024-05-19 11:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (5, 890.50, '2024-05-20 12:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (1, 920.00, '2024-05-21 08:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (2, 870.25, '2024-05-22 09:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (3, 830.50, '2024-05-23 10:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (4, 780.20, '2024-05-24 11:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (5, 730.80, '2024-05-25 12:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (1, 680.60, '2024-05-26 08:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (2, 630.90, '2024-05-27 09:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (3, 580.75, '2024-05-28 10:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (4, 530.30, '2024-05-29 11:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto, fecha) VALUES (5, 480.50, '2024-05-30 12:00:00');
+INSERT INTO CuentasPorCobrar (id_cliente, monto) VALUES (1, 1000.00);
+
+SELECT * FROM CuentasPorCobrar WHERE monto > 500;
+SELECT * FROM CuentasPorCobrar WHERE id_cuenta BETWEEN 1 AND 10;
+SELECT id_cliente, SUM(monto) AS TotalMonto FROM CuentasPorCobrar GROUP BY id_cliente;
+SELECT id_cuenta, monto, fecha FROM CuentasPorCobrar WHERE fecha >= '2024-05-15' ORDER BY fecha DESC;
+SELECT COUNT(*) AS TotalCuentas FROM CuentasPorCobrar;
+
+UPDATE CuentasPorCobrar SET monto = 1200.00 WHERE id_cuenta = 1;
+UPDATE CuentasPorCobrar SET fecha = '2024-05-01 09:00:00' WHERE id_cuenta = 2;
+UPDATE CuentasPorCobrar SET monto = 180.00, fecha = '2024-05-02 10:00:00' WHERE id_cuenta = 3;
+UPDATE CuentasPorCobrar SET monto = 250.50, fecha = '2024-05-03 11:00:00' WHERE id_cuenta = 4;
+UPDATE CuentasPorCobrar SET monto = 360.75, fecha = '2024-05-04 12:00:00' WHERE id_cuenta = 5;
+
+DELETE FROM CuentasPorCobrar WHERE id_cuenta = 10;
+DELETE FROM CuentasPorCobrar WHERE monto < 200;
+DELETE FROM CuentasPorCobrar WHERE fecha < '2024-05-15';
+
+DROP TABLE CuentasPorCobrar;
+
+
+-- 9. TABLA CuentasPorPagar 
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (1, 500.00);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (2, 700.50);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (3, 900.25);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (4, 1200.75);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (5, 1500.80);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (6, 2000.00);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (7, 2200.50);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (8, 2500.25);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (9, 2800.75);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (10, 3000.80);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (11, 3200.00);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (12, 3500.50);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (13, 3800.25);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (14, 4100.75);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (15, 4400.80);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (16, 4700.00);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (17, 5000.50);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (18, 5300.25);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (19, 5600.75);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (20, 5900.80);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (21, 6200.00);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (22, 6500.50);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (23, 6800.25);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (24, 7100.75);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (25, 7400.80);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (26, 7700.00);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (27, 8000.50);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (28, 8300.25);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (29, 8600.75);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (30, 8900.80);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (31, 9200.00);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (32, 9500.50);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (33, 9800.25);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (34, 10100.75);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (35, 10400.80);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (36, 10700.00);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (37, 11000.50);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (38, 11300.25);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (39, 11600.75);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (40, 11900.80);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (41, 12200.00);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (42, 12500.50);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (43, 12800.25);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (44, 13100.75);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (45, 13400.80);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (46, 13700.00);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (47, 14000.50);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (48, 14300.25);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (49, 14600.75);
+INSERT INTO CuentasPorPagar (id_proveedor, monto) VALUES (50, 14900.80);
+
+SELECT * FROM CuentasPorPagar;
+SELECT * FROM CuentasPorPagar WHERE monto > 2000;
+SELECT * FROM CuentasPorPagar WHERE id_proveedor = 5;
+SELECT COUNT(*) AS TotalCuentasPorPagar FROM CuentasPorPagar;
+
+UPDATE CuentasPorPagar SET monto = 1200.00 WHERE id_cuenta = 1;
+UPDATE CuentasPorPagar SET id_proveedor = 5 WHERE id_cuenta = 2;
+UPDATE CuentasPorPagar SET fecha = '2024-05-20' WHERE id_cuenta = 3;
+UPDATE CuentasPorPagar SET monto = 800.00, fecha = '2024-05-25' WHERE id_cuenta = 4;
+
+DELETE FROM CuentasPorPagar WHERE monto = 500;
+DELETE FROM CuentasPorPagar WHERE id_proveedor = 2;
+DELETE FROM CuentasPorPagar WHERE monto > 1000;
+DELETE FROM CuentasPorPagar WHERE id_cuenta = 10;
+
+DROP TABLE CuentasPorPagar;
+
+-- 10. TABLA RequisicionesInventario
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (1, 1, 50, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (2, 2, 30, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (3, 3, 20, 'rechazada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (4, 4, 40, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (5, 5, 25, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (1, 6, 35, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (2, 7, 45, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (3, 8, 60, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (4, 9, 55, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (5, 10, 70, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (1, 1, 50, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (2, 2, 30, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (3, 3, 20, 'rechazada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (4, 14, 40, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (5, 15, 25, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (1, 16, 35, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (2, 17, 45, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (3, 18, 60, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (4, 19, 55, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (5, 20, 70, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (1, 21, 50, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (2, 22, 30, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (3, 23, 20, 'rechazada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (4, 24, 40, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (5, 25, 25, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (1, 26, 35, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (2, 27, 45, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (3, 28, 60, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (4, 29, 55, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (5, 30, 70, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (1, 31, 50, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (2, 32, 30, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (3, 33, 20, 'rechazada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (4, 34, 40, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (5, 35, 25, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (1, 36, 35, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (2, 37, 45, 'aprobada');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (3, 38, 60, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (4, 39, 55, 'pendiente');
+INSERT INTO RequisicionesInventario (id_almacen, id_producto, cantidad, estado) VALUES (5, 40, 70, 'aprobada');
+
+SELECT * FROM RequisicionesInventario WHERE estado = 'pendiente';
+SELECT * FROM RequisicionesInventario WHERE cantidad > 40;
+SELECT id_requisicion, fecha, estado FROM RequisicionesInventario WHERE fecha >= '2024-05-15';
+SELECT id_almacen, COUNT(*) AS TotalRequisiciones FROM RequisicionesInventario GROUP BY id_almacen;
+SELECT COUNT(*) AS TotalRequisiciones FROM RequisicionesInventario WHERE estado = 'aprobada';
+
+UPDATE RequisicionesInventario SET estado = 'aprobada' WHERE id_requisicion = 1;
+UPDATE RequisicionesInventario SET cantidad = 60 WHERE id_requisicion = 2;
+UPDATE RequisicionesInventario SET estado = 'rechazada' WHERE id_requisicion = 3;
+UPDATE RequisicionesInventario SET cantidad = 50, estado = 'aprobada' WHERE id_requisicion = 4;
+UPDATE RequisicionesInventario SET cantidad = 80 WHERE id_requisicion = 5;
+
+DELETE FROM RequisicionesInventario WHERE id_requisicion = 10;
+DELETE FROM RequisicionesInventario WHERE cantidad < 30;
+DELETE FROM RequisicionesInventario WHERE estado = 'rechazada';
+DELETE FROM RequisicionesInventario WHERE fecha < '2024-05-01';
+
+DROP TABLE RequisicionesInventario;
+
+
+-- 11. TABLA OrdenesCompra 
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (1, 'pendiente', 500.00);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (2, 'pendiente', 700.50);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (3, 'pendiente', 900.25);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (4, 'pendiente', 1200.75);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (5, 'pendiente', 1500.80);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (6, 'pendiente', 2000.00);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (7, 'pendiente', 2200.50);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (8, 'pendiente', 2500.25);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (9, 'pendiente', 2800.75);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (10, 'pendiente', 3000.80);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (11, 'pendiente', 3200.00);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (12, 'pendiente', 3500.50);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (13, 'pendiente', 3800.25);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (14, 'pendiente', 4100.75);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (15, 'pendiente', 4400.80);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (16, 'pendiente', 4700.00);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (17, 'pendiente', 5000.50);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (18, 'pendiente', 5300.25);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (19, 'pendiente', 5600.75);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (20, 'pendiente', 5900.80);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (21, 'pendiente', 6200.00);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (22, 'pendiente', 6500.50);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (23, 'pendiente', 6800.25);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (24, 'pendiente', 7100.75);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (25, 'pendiente', 7400.80);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (26, 'pendiente', 7700.00);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (27, 'pendiente', 8000.50);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (28, 'pendiente', 8300.25);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (29, 'pendiente', 8600.75);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (30, 'pendiente', 8900.80);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (31, 'pendiente', 9200.00);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (32, 'pendiente', 9500.50);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (33, 'pendiente', 9800.25);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (34, 'pendiente', 10100.75);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (35, 'pendiente', 10400.80);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (36, 'pendiente', 10700.00);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (37, 'pendiente', 11000.50);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (38, 'pendiente', 11300.25);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (39, 'pendiente', 11600.75);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (40, 'pendiente', 11900.80);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (41, 'pendiente', 12200.00);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (42, 'pendiente', 12500.50);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (43, 'pendiente', 12800.25);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (44, 'pendiente', 13100.75);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (45, 'pendiente', 13400.80);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (46, 'pendiente', 13700.00);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (47, 'pendiente', 14000.50);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (48, 'pendiente', 14300.25);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (49, 'pendiente', 14600.75);
+INSERT INTO OrdenesCompra (id_proveedor, estado, total) VALUES (50, 'pendiente', 14900.80);
+
+DELETE FROM OrdenesCompra WHERE id_orden = 1;
+DELETE FROM OrdenesCompra WHERE estado = 'cancelada';
+DELETE FROM OrdenesCompra WHERE total > 2000;
+DELETE FROM OrdenesCompra WHERE fecha < '2024-05-01';
+
+UPDATE OrdenesCompra SET estado = 'completada' WHERE id_orden = 2;
+UPDATE OrdenesCompra SET total = 1500.00 WHERE id_orden = 3;
+UPDATE OrdenesCompra SET id_proveedor = 15 WHERE id_orden = 4;
+UPDATE OrdenesCompra SET estado = 'pendiente', total = 1800.00 WHERE id_orden = 5;
+
+DROP TABLE OrdenesCompra;
+
+-- 12. TABLA DetallesOrdenCompra
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (1, 1, 5, 10.50);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (1, 2, 10, 15.75);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (2, 3, 8, 20.25);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (2, 4, 15, 8.90);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (3, 5, 20, 12.30);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (3, 6, 12, 18.60);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (4, 7, 7, 25.40);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (4, 8, 9, 30.80);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (5, 9, 25, 9.75);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (5, 10, 18, 14.20);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (6, 11, 6, 22.60);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (6, 12, 14, 17.90);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (7, 13, 30, 11.50);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (7, 14, 10, 28.75);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (8, 15, 5, 35.20);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (8, 16, 20, 16.30);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (9, 17, 12, 21.80);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (9, 18, 15, 10.60);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (10, 19, 8, 27.90);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (10, 20, 22, 13.40);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (11, 21, 16, 18.50);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (11, 22, 18, 23.70);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (12, 23, 10, 30.90);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (12, 24, 20, 15.80);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (13, 25, 15, 12.60);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (13, 26, 25, 19.20);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (14, 27, 18, 22.30);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (14, 28, 22, 17.40);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (15, 29, 30, 14.70);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (15, 30, 10, 26.50);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (16, 31, 8, 29.80);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (16, 32, 16, 21.90);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (17, 33, 25, 18.60);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (17, 34, 20, 24.70);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (18, 35, 12, 32.40);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (18, 36, 18, 27.30);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (19, 37, 15, 19.60);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (19, 38, 20, 16.50);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (20, 39, 10, 35.80);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (20, 40, 30, 12.90);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (21, 41, 20, 28.60);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (21, 42, 15, 20.70);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (22, 43, 25, 23.40);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (22, 44, 18, 26.50);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (23, 45, 12, 30.60);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (23, 46, 22, 17.80);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (24, 47, 8, 25.90);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (24, 48, 16, 19.70);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (25, 49, 30, 14.20);
+INSERT INTO DetallesOrdenCompra (id_orden, id_producto, cantidad, precio_unitario) VALUES (25, 50, 25, 21.30);
+
+SELECT * FROM DetallesOrdenCompra;
+SELECT * FROM DetallesOrdenCompra WHERE id_orden = 1;
+SELECT * FROM DetallesOrdenCompra WHERE id_producto = 5;
+SELECT COUNT(*) AS TotalDetallesOrdenCompra FROM DetallesOrdenCompra;
+
+DELETE FROM DetallesOrdenCompra WHERE id_detalle = 1;
+DELETE FROM DetallesOrdenCompra WHERE id_orden = 2;
+DELETE FROM DetallesOrdenCompra WHERE id_producto = 10;
+DELETE FROM DetallesOrdenCompra;
+
+UPDATE DetallesOrdenCompra SET cantidad = 10 WHERE id_detalle = 2;
+UPDATE DetallesOrdenCompra SET precio_unitario = 25.00 WHERE id_detalle = 3;
+UPDATE DetallesOrdenCompra SET cantidad = 20, precio_unitario = 15.50 WHERE id_detalle = 4;
+UPDATE DetallesOrdenCompra SET id_orden = 3 WHERE id_detalle = 5;
+
+DROP TABLE DetallesOrdenCompra;
+
+-- 13. TABLA RecepcionProductos 
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (1, 20);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (2, 25);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (3, 30);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (4, 15);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (5, 18);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (6, 22);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (7, 28);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (8, 12);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (9, 16);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (10, 21);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (11, 19);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (12, 24);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (13, 29);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (14, 17);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (15, 23);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (16, 27);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (17, 31);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (18, 26);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (19, 20);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (20, 15);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (21, 18);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (22, 22);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (23, 29);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (24, 14);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (25, 25);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (26, 30);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (27, 19);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (28, 23);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (29, 27);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (30, 16);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (31, 20);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (32, 24);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (33, 18);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (34, 21);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (35, 25);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (36, 17);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (37, 22);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (38, 28);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (39, 13);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (40, 26);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (41, 30);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (42, 19);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (43, 23);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (44, 20);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (45, 15);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (46, 18);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (47, 22);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (48, 29);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (49, 14);
+INSERT INTO RecepcionProductos (id_orden, cantidad) VALUES (50, 27);
+
+
+SELECT * FROM RecepcionProductos;
+SELECT cantidad FROM RecepcionProductos WHERE id_orden = 1;
+SELECT * FROM RecepcionProductos WHERE cantidad > 20;
+SELECT SUM(cantidad) AS TotalCantidadRecibida FROM RecepcionProductos;
+
+DELETE FROM RecepcionProductos WHERE id_recepcion = 1;
+DELETE FROM RecepcionProductos WHERE id_orden = 2;
+DELETE FROM RecepcionProductos WHERE cantidad <= 15;
+DELETE FROM RecepcionProductos;
+
+UPDATE RecepcionProductos SET cantidad = 30 WHERE id_orden = 10;
+UPDATE RecepcionProductos SET fecha = '2024-05-25 08:00:00' WHERE id_orden = 15;
+UPDATE RecepcionProductos SET cantidad = 35 WHERE id_orden = 20;
+UPDATE RecepcionProductos SET fecha = '2024-05-30 12:00:00' WHERE id_orden = 25;
+
+DROP TABLE RecepcionProductos;
+
+-- 14. TABLA DevolucionesClientes 
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (1, 'Producto defectuoso', 25.50);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (2, 'Talla incorrecta', 15.75);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (3, 'No era lo que esperaba', 30.20);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (4, 'Dañado durante el envío', 20.00);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (5, 'Cambio de opinión', 10.50);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (6, 'Producto no recibido', 35.80);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (7, 'Problema de calidad', 28.90);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (8, 'No coincide con la descripción', 17.40);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (9, 'Defectos estéticos', 22.60);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (10, 'Producto no deseado', 19.30);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (11, 'No era lo esperado', 24.70);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (12, 'Dañado al recibir', 12.80);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (13, 'Tamaño incorrecto', 18.90);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (14, 'Problemas de funcionamiento', 27.50);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (15, 'Producto no recibido', 30.00);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (16, 'Defectos de fabricación', 16.20);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (17, 'Producto no deseado', 21.80);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (18, 'No encaja correctamente', 14.50);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (19, 'Producto defectuoso', 19.90);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (20, 'Dañado durante el envío', 25.70);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (21, 'Cambio de opinión', 11.40);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (22, 'No era lo que esperaba', 26.30);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (23, 'Producto no recibido', 17.60);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (24, 'Problema de calidad', 23.90);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (25, 'No coincide con la descripción', 18.20);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (26, 'Defectos estéticos', 13.70);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (27, 'Producto no deseado', 20.40);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (28, 'No era lo esperado', 15.60);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (29, 'Dañado al recibir', 28.30);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (30, 'Tamaño incorrecto', 24.10);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (31, 'Problemas de funcionamiento', 19.80);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (32, 'Producto no recibido', 16.50);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (33, 'Defectos de fabricación', 22.70);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (34, 'Producto no deseado', 14.20);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (35, 'No encaja correctamente', 21.30);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (36, 'Producto defectuoso', 27.40);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (37, 'Dañado durante el envío', 18.50);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (38, 'Cambio de opinión', 12.70);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (39, 'No era lo que esperaba', 20.90);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (40, 'Producto no recibido', 25.60);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (41, 'Problema de calidad', 17.80);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (42, 'No coincide con la descripción', 23.40);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (43, 'Defectos estéticos', 15.20);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (44, 'Producto no deseado', 18.90);
+INSERT INTO DevolucionesClientes (id_venta, motivo, monto) VALUES (45, 'No era lo esperado', 14.60);
+
+SELECT * FROM DevolucionesClientes;
+SELECT * FROM DevolucionesClientes WHERE id_venta = 1;
+SELECT * FROM DevolucionesClientes WHERE monto > 20;
+SELECT SUM(monto) AS TotalDevoluciones FROM DevolucionesClientes;
+
+DELETE FROM DevolucionesClientes WHERE id_devolucion = 1;
+DELETE FROM DevolucionesClientes WHERE id_venta = 2;
+DELETE FROM DevolucionesClientes;
+DELETE FROM DevolucionesClientes WHERE monto <= 15.00;
+
+UPDATE DevolucionesClientes SET motivo = 'Producto no conforme' WHERE id_devolucion = 3;
+UPDATE DevolucionesClientes SET monto = 22.50 WHERE id_devolucion = 4;
+UPDATE DevolucionesClientes SET motivo = 'Producto defectuoso' WHERE id_devolucion = 6;
+UPDATE DevolucionesClientes SET monto = 26.00 WHERE id_devolucion = 7;
+
+DROP TABLE DevolucionesClientes;
+
+-- Departamentos
+INSERT INTO Departamentos (nombre)
+VALUES
+('Departamento 1'), ('Departamento 2'), ('Departamento 3'), ('Departamento 4'), ('Departamento 5'),
+('Departamento 6'), ('Departamento 7'), ('Departamento 8'), ('Departamento 9'), ('Departamento 10'),
+('Departamento 11'), ('Departamento 12'), ('Departamento 13'), ('Departamento 14'), ('Departamento 15'),
+('Departamento 16'), ('Departamento 17'), ('Departamento 18'), ('Departamento 19'), ('Departamento 20'),
+('Departamento 21'), ('Departamento 22'), ('Departamento 23'), ('Departamento 24'), ('Departamento 25'),
+('Departamento 26'), ('Departamento 27'), ('Departamento 28'), ('Departamento 29'), ('Departamento 30'),
+('Departamento 31'), ('Departamento 32'), ('Departamento 33'), ('Departamento 34'), ('Departamento 35'),
+('Departamento 36'), ('Departamento 37'), ('Departamento 38'), ('Departamento 39'), ('Departamento 40'),
+('Departamento 41'), ('Departamento 42'), ('Departamento 43'), ('Departamento 44'), ('Departamento 45'),
+('Departamento 46'), ('Departamento 47'), ('Departamento 48'), ('Departamento 49'), ('Departamento 50');
+
+SELECT * FROM Departamentos;
+
+SELECT nombre FROM Departamentos;
+
+SELECT * FROM Departamentos ORDER BY nombre;
+
+SELECT COUNT(*) AS total_departamentos FROM Departamentos;
+
+SELECT * FROM Departamentos WHERE id_departamento = 1;
+
+UPDATE Departamentos
+SET nombre = 'Recursos Humanos'
+WHERE id_departamento = 1;
+
+UPDATE Departamentos
+SET nombre = 'Operaciones'
+WHERE nombre = 'Departamento 2';
+
+UPDATE Departamentos
+SET nombre = CONCAT('Dep. ', nombre);
+
+UPDATE Departamentos
+SET nombre = 'Finanzas', descripcion = 'Departamento encargado de las finanzas de la empresa'
+WHERE id_departamento = 3;
+
+UPDATE Departamentos
+SET nombre = 'Ingeniería'
+WHERE descripcion LIKE '%ingeniería%';
+
+DELETE FROM Departamentos WHERE id_departamento = 1;
+
+DELETE FROM Departamentos WHERE nombre = 'Ventas';
+
+DELETE FROM Departamentos WHERE descripcion LIKE '%departamento cerrado%';
+
+DELETE FROM Departamentos;
+
+DELETE TOP(5) FROM Departamentos;
+
+DROP TABLE Departamentos;
+
+
+-- PuestosTrabajo
+INSERT INTO PuestosTrabajo (nombre)
+VALUES
+('Puesto 1'), ('Puesto 2'), ('Puesto 3'), ('Puesto 4'), ('Puesto 5'),
+('Puesto 6'), ('Puesto 7'), ('Puesto 8'), ('Puesto 9'), ('Puesto 10'),
+('Puesto 11'), ('Puesto 12'), ('Puesto 13'), ('Puesto 14'), ('Puesto 15'),
+('Puesto 16'), ('Puesto 17'), ('Puesto 18'), ('Puesto 19'), ('Puesto 20'),
+('Puesto 21'), ('Puesto 22'), ('Puesto 23'), ('Puesto 24'), ('Puesto 25'),
+('Puesto 26'), ('Puesto 27'), ('Puesto 28'), ('Puesto 29'), ('Puesto 30'),
+('Puesto 31'), ('Puesto 32'), ('Puesto 33'), ('Puesto 34'), ('Puesto 35'),
+('Puesto 36'), ('Puesto 37'), ('Puesto 38'), ('Puesto 39'), ('Puesto 40'),
+('Puesto 41'), ('Puesto 42'), ('Puesto 43'), ('Puesto 44'), ('Puesto 45'),
+('Puesto 46'), ('Puesto 47'), ('Puesto 48'), ('Puesto 49'), ('Puesto 50');
+
+SELECT * FROM PuestosTrabajo;
+
+SELECT nombre FROM PuestosTrabajo;
+
+SELECT * FROM PuestosTrabajo ORDER BY nombre;
+
+SELECT id_departamento, COUNT(*) AS total_puestos
+FROM PuestosTrabajo
+GROUP BY id_departamento;
+
+SELECT * FROM PuestosTrabajo WHERE id_puesto = 1;
+
+UPDATE PuestosTrabajo
+SET nombre = 'Gerente de Recursos Humanos'
+WHERE id_puesto = 1;
+
+UPDATE PuestosTrabajo
+SET id_departamento = 2
+WHERE id_puesto = 1;
+
+UPDATE PuestosTrabajo
+SET nombre = 'Analista de Datos', id_departamento = 3
+WHERE id_puesto = 2;
+
+UPDATE PuestosTrabajo
+SET id_departamento = 4
+WHERE nombre LIKE '%Asistente%';
+
+UPDATE PuestosTrabajo
+SET nombre = 'Empleado de Soporte'
+WHERE id_departamento = 5;
+
+DELETE FROM PuestosTrabajo WHERE id_puesto = 1;
+
+DELETE FROM PuestosTrabajo WHERE id_departamento = 2;
+
+DELETE FROM PuestosTrabajo WHERE nombre LIKE '%Asistente%';
+
+DELETE FROM PuestosTrabajo;
+
+DELETE TOP(5) FROM PuestosTrabajo;
+
+DROP TABLE PuestosTrabajo;
+
+-- HorariosTrabajo
+
+INSERT INTO HorariosTrabajo (id_empleado, dia, hora_entrada, hora_salida)
+VALUES
+(1, 'Lunes', '09:00', '17:00'),
+(1, 'Martes', '09:00', '17:00'),
+(1, 'Miércoles', '09:00', '17:00'),
+(1, 'Jueves', '09:00', '17:00'),
+(1, 'Viernes', '09:00', '17:00'),
+(2, 'Lunes', '08:00', '16:00'),
+(2, 'Martes', '08:00', '16:00'),
+(2, 'Miércoles', '08:00', '16:00'),
+(2, 'Jueves', '08:00', '16:00'),
+(2, 'Viernes', '08:00', '16:00'),
+(3, 'Lunes', '10:00', '18:00'),
+(3, 'Martes', '10:00', '18:00'),
+(3, 'Miércoles', '10:00', '18:00'),
+(3, 'Jueves', '10:00', '18:00'),
+(3, 'Viernes', '10:00', '18:00'),
+(4, 'Lunes', '09:30', '17:30'),
+(4, 'Martes', '09:30', '17:30'),
+(4, 'Miércoles', '09:30', '17:30'),
+(4, 'Jueves', '09:30', '17:30'),
+(4, 'Viernes', '09:30', '17:30'),
+(5, 'Lunes', '08:30', '16:30'),
+(5, 'Martes', '08:30', '16:30'),
+(5, 'Miércoles', '08:30', '16:30'),
+(5, 'Jueves', '08:30', '16:30'),
+(5, 'Viernes', '08:30', '16:30'),
+(6, 'Lunes', '07:00', '15:00'),
+(6, 'Martes', '07:00', '15:00'),
+(6, 'Miércoles', '07:00', '15:00'),
+(6, 'Jueves', '07:00', '15:00'),
+(6, 'Viernes', '07:00', '15:00'),
+(7, 'Lunes', '11:00', '19:00'),
+(7, 'Martes', '11:00', '19:00'),
+(7, 'Miércoles', '11:00', '19:00'),
+(7, 'Jueves', '11:00', '19:00'),
+(7, 'Viernes', '11:00', '19:00'),
+(8, 'Lunes', '06:00', '14:00'),
+(8, 'Martes', '06:00', '14:00'),
+(8, 'Miércoles', '06:00', '14:00'),
+(8, 'Jueves', '06:00', '14:00'),
+(8, 'Viernes', '06:00', '14:00'),
+(9, 'Lunes', '12:00', '20:00'),
+(9, 'Martes', '12:00', '20:00'),
+(9, 'Miércoles', '12:00', '20:00'),
+(9, 'Jueves', '12:00', '20:00'),
+(9, 'Viernes', '12:00', '20:00'),
+(10, 'Lunes', '13:00', '21:00'),
+(10, 'Martes', '13:00', '21:00');
+
+SELECT * FROM HorariosTrabajo WHERE id_empleado = 1;
+
+SELECT * FROM HorariosTrabajo;
+
+SELECT * FROM HorariosTrabajo WHERE dia = 'Lunes';
+
+SELECT * FROM HorariosTrabajo WHERE hora_entrada > '09:00:00';
+
+SELECT * FROM HorariosTrabajo ORDER BY dia, hora_entrada;
+
+UPDATE HorariosTrabajo
+SET hora_entrada = '08:30:00'
+WHERE id_horario = 1;
+
+UPDATE HorariosTrabajo
+SET hora_salida = '17:00:00'
+WHERE id_horario = 2;
+
+UPDATE HorariosTrabajo
+SET dia = 'Viernes'
+WHERE id_horario = 3;
+
+UPDATE HorariosTrabajo
+SET hora_entrada = '09:00:00', hora_salida = '18:00:00'
+WHERE id_horario = 4;
+
+UPDATE HorariosTrabajo
+SET dia = 'Lunes'
+WHERE hora_entrada < '09:00:00';
+
+DELETE FROM HorariosTrabajo WHERE id_horario = 1;
+
+DELETE FROM HorariosTrabajo WHERE id_empleado = 1;
+
+DELETE FROM HorariosTrabajo WHERE dia = 'Lunes';
+
+DELETE FROM HorariosTrabajo WHERE hora_entrada > '09:00:00';
+
+DELETE FROM HorariosTrabajo;
+
+DROP TABLE HorariosTrabajo;
+
+-- FlotasTransporte
+
+INSERT INTO FlotasTransporte (descripcion)
+VALUES
+('Flota 1'), ('Flota 2'), ('Flota 3'), ('Flota 4'), ('Flota 5'),
+('Flota 6'), ('Flota 7'), ('Flota 8'), ('Flota 9'), ('Flota 10'),
+('Flota 11'), ('Flota 12'), ('Flota 13'), ('Flota 14'), ('Flota 15'),
+('Flota 16'), ('Flota 17'), ('Flota 18'), ('Flota 19'), ('Flota 20'),
+('Flota 21'), ('Flota 22'), ('Flota 23'), ('Flota 24'), ('Flota 25'),
+('Flota 26'), ('Flota 27'), ('Flota 28'), ('Flota 29'), ('Flota 30'),
+('Flota 31'), ('Flota 32'), ('Flota 33'), ('Flota 34'), ('Flota 35'),
+('Flota 36'), ('Flota 37'), ('Flota 38'), ('Flota 39'), ('Flota 40'),
+('Flota 41'), ('Flota 42'), ('Flota 43'), ('Flota 44'), ('Flota 45'),
+('Flota 46'), ('Flota 47'), ('Flota 48'), ('Flota 49'), ('Flota 50');
+
+SELECT * FROM FlotasTransporte;
+
+SELECT * FROM FlotasTransporte WHERE id_flota = 1;
+
+SELECT * FROM FlotasTransporte WHERE descripcion LIKE '%Camiones%';
+
+SELECT COUNT(*) AS total_flotas FROM FlotasTransporte;
+
+SELECT * FROM FlotasTransporte ORDER BY descripcion;
+
+UPDATE FlotasTransporte
+SET descripcion = 'Flota de Camiones Medianos'
+WHERE id_flota = 1;
+
+UPDATE FlotasTransporte
+SET descripcion = 'Flota de Camiones'
+WHERE descripcion LIKE '%Camiones%';
+
+UPDATE FlotasTransporte
+SET descripcion = CONCAT('Transporte ', descripcion)
+WHERE id_flota = 2;
+
+UPDATE FlotasTransporte
+SET descripcion = REPLACE(descripcion, 'Camiones', 'Furgonetas')
+WHERE id_flota = 3;
+
+UPDATE FlotasTransporte
+SET descripcion = 'Flota de vehículos de transporte de mercancías'
+
+DELETE FROM FlotasTransporte WHERE id_flota = 1;
+
+DELETE FROM FlotasTransporte WHERE descripcion LIKE '%Desuso%';
+
+DELETE FROM FlotasTransporte;
+
+DELETE TOP(5) FROM FlotasTransporte;
+
+DELETE FROM FlotasTransporte
+WHERE id_flota NOT IN (
+    SELECT TOP(10) id_flota FROM FlotasTransporte ORDER BY id_flota DESC
+);
+
+DROP TABLE FlotasTransporte;
+
+
+-- RutasDistribucion
+INSERT INTO RutasDistribucion (descripcion)
+VALUES
+('Ruta 1'), ('Ruta 2'), ('Ruta 3'), ('Ruta 4'), ('Ruta 5'),
+('Ruta 6'), ('Ruta 7'), ('Ruta 8'), ('Ruta 9'), ('Ruta 10'),
+('Ruta 11'), ('Ruta 12'), ('Ruta 13'), ('Ruta 14'), ('Ruta 15'),
+('Ruta 16'), ('Ruta 17'), ('Ruta 18'), ('Ruta 19'), ('Ruta 20'),
+('Ruta 21'), ('Ruta 22'), ('Ruta 23'), ('Ruta 24'), ('Ruta 25'),
+('Ruta 26'), ('Ruta 27'), ('Ruta 28'), ('Ruta 29'), ('Ruta 30'),
+('Ruta 31'), ('Ruta 32'), ('Ruta 33'), ('Ruta 34'), ('Ruta 35'),
+('Ruta 36'), ('Ruta 37'), ('Ruta 38'), ('Ruta 39'), ('Ruta 40'),
+('Ruta 41'), ('Ruta 42'), ('Ruta 43'), ('Ruta 44'), ('Ruta 45'),
+('Ruta 46'), ('Ruta 47'), ('Ruta 48'), ('Ruta 49'), ('Ruta 50');
+
+SELECT * FROM RutasDistribucion;
+
+SELECT * FROM RutasDistribucion WHERE id_ruta = 1;
+
+SELECT * FROM RutasDistribucion WHERE descripcion LIKE '%local%';
+
+SELECT COUNT(*) AS total_rutas FROM RutasDistribucion;
+
+SELECT * FROM RutasDistribucion ORDER BY descripcion;
+
+UPDATE RutasDistribucion
+SET descripcion = 'Ruta de distribución nacional'
+WHERE id_ruta = 1;
+
+UPDATE RutasDistribucion
+SET descripcion = 'Ruta de distribución regional'
+WHERE descripcion LIKE '%regional%';
+
+UPDATE RutasDistribucion
+SET descripcion = CONCAT('Ruta de ', descripcion)
+WHERE id_ruta = 2;
+
+UPDATE RutasDistribucion
+SET descripcion = REPLACE(descripcion, 'local', 'nacional')
+WHERE id_ruta = 3;
+
+UPDATE RutasDistribucion
+SET descripcion = 'Ruta de distribución internacional';
+
+DELETE FROM RutasDistribucion WHERE id_ruta = 1;
+
+DELETE FROM RutasDistribucion WHERE descripcion LIKE '%obsoleta%';
+
+DELETE FROM RutasDistribucion;
+
+DELETE TOP(5) FROM RutasDistribucion;
+
+DELETE FROM RutasDistribucion
+WHERE id_ruta NOT IN (
+    SELECT TOP(10) id_ruta FROM RutasDistribucion ORDER BY id_ruta DESC
+);
+
+DROP TABLE RutasDistribucion;
+
+--- Despachos
+
+INSERT INTO Despachos (id_almacen, id_ruta, fecha_salida, fecha_llegada)
+VALUES
+(1, 1, '2024-01-01 08:00:00', '2024-01-01 12:00:00'),
+(2, 2, '2024-01-02 09:00:00', '2024-01-02 13:00:00'),
+(3, 3, '2024-01-03 10:00:00', '2024-01-03 14:00:00'),
+(4, 4, '2024-01-04 11:00:00', '2024-01-04 15:00:00'),
+(5, 5, '2024-01-05 12:00:00', '2024-01-05 16:00:00'),
+(6, 6, '2024-01-06 08:30:00', '2024-01-06 12:30:00'),
+(7, 7, '2024-01-07 09:30:00', '2024-01-07 13:30:00'),
+(8, 8, '2024-01-08 10:30:00', '2024-01-08 14:30:00'),
+(9, 9, '2024-01-09 11:30:00', '2024-01-09 15:30:00'),
+(10, 10, '2024-01-10 12:30:00', '2024-01-10 16:30:00'),
+(1, 2, '2024-01-11 08:00:00', '2024-01-11 12:00:00'),
+(2, 3, '2024-01-12 09:00:00', '2024-01-12 13:00:00'),
+(3, 4, '2024-01-13 10:00:00', '2024-01-13 14:00:00'),
+(4, 5, '2024-01-14 11:00:00', '2024-01-14 15:00:00'),
+(5, 6, '2024-01-15 12:00:00', '2024-01-15 16:00:00'),
+(6, 7, '2024-01-16 08:30:00', '2024-01-16 12:30:00'),
+(7, 8, '2024-01-17 09:30:00', '2024-01-17 13:30:00'),
+(8, 9, '2024-01-18 10:30:00', '2024-01-18 14:30:00'),
+(9, 10, '2024-01-19 11:30:00', '2024-01-19 15:30:00'),
+(10, 1, '2024-01-20 12:30:00', '2024-01-20 16:30:00'),
+(1, 3, '2024-01-21 08:00:00', '2024-01-21 12:00:00'),
+(2, 4, '2024-01-22 09:00:00', '2024-01-22 13:00:00'),
+(3, 5, '2024-01-23 10:00:00', '2024-01-23 14:00:00'),
+(4, 6, '2024-01-24 11:00:00', '2024-01-24 15:00:00'),
+(5, 7, '2024-01-25 12:00:00', '2024-01-25 16:00:00'),
+(6, 8, '2024-01-26 08:30:00', '2024-01-26 12:30:00'),
+(7, 9, '2024-01-27 09:30:00', '2024-01-27 13:30:00'),
+(8, 10, '2024-01-28 10:30:00', '2024-01-28 14:30:00'),
+(9, 1, '2024-01-29 11:30:00', '2024-01-29 15:30:00'),
+(10, 2, '2024-01-30 12:30:00', '2024-01-30 16:30:00'),
+(1, 4, '2024-01-31 08:00:00', '2024-01-31 12:00:00'),
+(2, 5, '2024-02-01 09:00:00', '2024-02-01 13:00:00'),
+(3, 6, '2024-02-02 10:00:00', '2024-02-02 14:00:00'),
+(4, 7, '2024-02-03 11:00:00', '2024-02-03 15:00:00'),
+(5, 8, '2024-02-04 12:00:00', '2024-02-04 16:00:00'),
+(6, 9, '2024-02-05 08:30:00', '2024-02-05 12:30:00'),
+(7, 10, '2024-02-06 09:30:00', '2024-02-06 13:30:00'),
+(8, 1, '2024-02-07 10:30:00', '2024-02-07 14:30:00'),
+(9, 2, '2024-02-08 11:30:00', '2024-02-08 15:30:00'),
+(10, 3, '2024-02-09 12:30:00', '2024-02-09 16:30:00'),
+(1, 5, '2024-02-10 08:00:00', '2024-02-10 12:00:00'),
+(2, 6, '2024-02-11 09:00:00', '2024-02-11 13:00:00'),
+(3, 7, '2024-02-12 10:00:00', '2024-02-12 14:00:00'),
+(4, 8, '2024-02-13 11:00:00', '2024-02-13 15:00:00'),
+(5, 9, '2024-02-14 12:00:00', '2024-02-14 16:00:00');
+
+SELECT * FROM Despachos;
+
+SELECT * FROM Despachos WHERE id_despacho = 1;
+
+SELECT * FROM Despachos WHERE CAST(fecha_salida AS DATE) = '2024-05-28';
+
+SELECT * FROM Despachos WHERE fecha_salida BETWEEN '2024-05-01' AND '2024-05-31';
+
+SELECT * FROM Despachos WHERE id_almacen = 1;
+
+UPDATE Despachos
+SET fecha_salida = '2024-06-01 08:00:00'
+WHERE id_despacho = 1;
+
+UPDATE Despachos
+SET fecha_llegada = '2024-06-01 15:00:00'
+WHERE id_despacho = 2;
+
+UPDATE Despachos
+SET id_ruta = 3
+WHERE id_despacho = 3;
+
+UPDATE Despachos
+SET fecha_salida = DATEADD(HOUR, 2, fecha_salida), fecha_llegada = DATEADD(HOUR, 2, fecha_llegada)
+WHERE id_despacho = 4;
+
+UPDATE Despachos
+SET id_almacen = 2
+WHERE id_despacho = 5;
+
+DELETE FROM Despachos WHERE id_despacho = 1;
+
+DELETE FROM Despachos WHERE CAST(fecha_salida AS DATE) = '2024-05-28';
+
+DELETE FROM Despachos WHERE id_ruta = 1;
+
+DELETE FROM Despachos WHERE fecha_salida < '2024-05-01';
+
+DELETE FROM Despachos;
+
+DROP TABLE Despachos;
+
+-- Proveedores
+
+INSERT INTO Proveedores (nombre, contacto, telefono, direccion)
+VALUES
+('Proveedor 1', 'Contacto 1', '123-456-7890', 'Direccion 1'),
+('Proveedor 2', 'Contacto 2', '123-456-7891', 'Direccion 2'),
+('Proveedor 3', 'Contacto 3', '123-456-7892', 'Direccion 3'),
+('Proveedor 4', 'Contacto 4', '123-456-7893', 'Direccion 4'),
+('Proveedor 5', 'Contacto 5', '123-456-7894', 'Direccion 5'),
+('Proveedor 6', 'Contacto 6', '123-456-7895', 'Direccion 6'),
+('Proveedor 7', 'Contacto 7', '123-456-7896', 'Direccion 7'),
+('Proveedor 8', 'Contacto 8', '123-456-7897', 'Direccion 8'),
+('Proveedor 9', 'Contacto 9', '123-456-7898', 'Direccion 9'),
+('Proveedor 10', 'Contacto 10', '123-456-7899', 'Direccion 10'),
+('Proveedor 11', 'Contacto 11', '123-456-7800', 'Direccion 11'),
+('Proveedor 12', 'Contacto 12', '123-456-7801', 'Direccion 12'),
+('Proveedor 13', 'Contacto 13', '123-456-7802', 'Direccion 13'),
+('Proveedor 14', 'Contacto 14', '123-456-7803', 'Direccion 14'),
+('Proveedor 15', 'Contacto 15', '123-456-7804', 'Direccion 15'),
+('Proveedor 16', 'Contacto 16', '123-456-7805', 'Direccion 16'),
+('Proveedor 17', 'Contacto 17', '123-456-7806', 'Direccion 17'),
+('Proveedor 18', 'Contacto 18', '123-456-7807', 'Direccion 18'),
+('Proveedor 19', 'Contacto 19', '123-456-7808', 'Direccion 19'),
+('Proveedor 20', 'Contacto 20', '123-456-7809', 'Direccion 20'),
+('Proveedor 21', 'Contacto 21', '123-456-7810', 'Direccion 21'),
+('Proveedor 22', 'Contacto 22', '123-456-7811', 'Direccion 22'),
+('Proveedor 23', 'Contacto 23', '123-456-7812', 'Direccion 23'),
+('Proveedor 24', 'Contacto 24', '123-456-7813', 'Direccion 24'),
+('Proveedor 25', 'Contacto 25', '123-456-7814', 'Direccion 25'),
+('Proveedor 26', 'Contacto 26', '123-456-7815', 'Direccion 26'),
+('Proveedor 27', 'Contacto 27', '123-456-7816', 'Direccion 27'),
+('Proveedor 28', 'Contacto 28', '123-456-7817', 'Direccion 28'),
+('Proveedor 29', 'Contacto 29', '123-456-7818', 'Direccion 29'),
+('Proveedor 30', 'Contacto 30', '123-456-7819', 'Direccion 30'),
+('Proveedor 31', 'Contacto 31', '123-456-7820', 'Direccion 31'),
+('Proveedor 32', 'Contacto 32', '123-456-7821', 'Direccion 32'),
+('Proveedor 33', 'Contacto 33', '123-456-7822', 'Direccion 33'),
+('Proveedor 34', 'Contacto 34', '123-456-7823', 'Direccion 34'),
+('Proveedor 35', 'Contacto 35', '123-456-7824', 'Direccion 35'),
+('Proveedor 36', 'Contacto 36', '123-456-7825', 'Direccion 36'),
+('Proveedor 37', 'Contacto 37', '123-456-7826', 'Direccion 37'),
+('Proveedor 38', 'Contacto 38', '123-456-7827', 'Direccion 38'),
+('Proveedor 39', 'Contacto 39', '123-456-7828', 'Direccion 39'),
+('Proveedor 40', 'Contacto 40', '123-456-7829', 'Direccion 40'),
+('Proveedor 41', 'Contacto 41', '123-456-7830', 'Direccion 41'),
+('Proveedor 42', 'Contacto 42', '123-456-7831', 'Direccion 42'),
+('Proveedor 43', 'Contacto 43', '123-456-7832', 'Direccion 43'),
+('Proveedor 44', 'Contacto 44', '123-456-7833', 'Direccion 44'),
+('Proveedor 45', 'Contacto 45', '123-456-7834', 'Direccion 45'),
+('Proveedor 46', 'Contacto 46', '123-456-7835', 'Direccion 46'),
+('Proveedor 47', 'Contacto 47', '123-456-7836', 'Direccion 47'),
+('Proveedor 48', 'Contacto 48', '123-456-7837', 'Direccion 48'),
+('Proveedor 49', 'Contacto 49', '123-456-7838', 'Direccion 49'),
+('Proveedor 50', 'Contacto 50', '123-456-7839', 'Direccion 50');
+
+SELECT * FROM Proveedores;
+
+SELECT * FROM Proveedores WHERE id_proveedor = 1;
+
+SELECT * FROM Proveedores WHERE nombre = 'Proveedor A';
+
+SELECT * FROM Proveedores WHERE contacto IS NOT NULL;
+
+SELECT * FROM Proveedores WHERE direccion LIKE '%calle%';
+
+UPDATE Proveedores
+SET nombre = 'Nuevo Nombre'
+WHERE id_proveedor = 1;
+
+UPDATE Proveedores
+SET contacto = 'nuevo_contacto@example.com'
+WHERE nombre = 'Proveedor A';
+
+UPDATE Proveedores
+SET telefono = '555-1234'
+WHERE contacto = 'Juan Pérez';
+
+UPDATE Proveedores
+SET direccion = 'Nueva Dirección, 123'
+WHERE direccion LIKE '%Antigua Calle%';
+
+UPDATE Proveedores
+SET nombre = 'Proveedor Modificado', telefono = '555-6789'
+WHERE id_proveedor = 2;
+
+DELETE FROM Proveedores WHERE id_proveedor = 1;
+
+DELETE FROM Proveedores WHERE nombre = 'Proveedor A';
+
+DELETE FROM Proveedores WHERE direccion LIKE '%calle%';
+
+DELETE FROM Proveedores WHERE telefono IS NULL;
+
+DELETE FROM Proveedores;
+
+DROP TABLE Proveedores;
+
+-- AnalisisMercado
+
+INSERT INTO AnalisisMercado (descripcion, resultados)
+VALUES
+('Descripción del análisis 1', 'Resultados del análisis 1'),
+('Descripción del análisis 2', 'Resultados del análisis 2'),
+('Descripción del análisis 3', 'Resultados del análisis 3'),
+('Descripción del análisis 4', 'Resultados del análisis 4'),
+('Descripción del análisis 5', 'Resultados del análisis 5'),
+('Descripción del análisis 6', 'Resultados del análisis 6'),
+('Descripción del análisis 7', 'Resultados del análisis 7'),
+('Descripción del análisis 8', 'Resultados del análisis 8'),
+('Descripción del análisis 9', 'Resultados del análisis 9'),
+('Descripción del análisis 10', 'Resultados del análisis 10'),
+('Descripción del análisis 11', 'Resultados del análisis 11'),
+('Descripción del análisis 12', 'Resultados del análisis 12'),
+('Descripción del análisis 13', 'Resultados del análisis 13'),
+('Descripción del análisis 14', 'Resultados del análisis 14'),
+('Descripción del análisis 15', 'Resultados del análisis 15'),
+('Descripción del análisis 16', 'Resultados del análisis 16'),
+('Descripción del análisis 17', 'Resultados del análisis 17'),
+('Descripción del análisis 18', 'Resultados del análisis 18'),
+('Descripción del análisis 19', 'Resultados del análisis 19'),
+('Descripción del análisis 20', 'Resultados del análisis 20'),
+('Descripción del análisis 21', 'Resultados del análisis 21'),
+('Descripción del análisis 22', 'Resultados del análisis 22'),
+('Descripción del análisis 23', 'Resultados del análisis 23'),
+('Descripción del análisis 24', 'Resultados del análisis 24'),
+('Descripción del análisis 25', 'Resultados del análisis 25'),
+('Descripción del análisis 26', 'Resultados del análisis 26'),
+('Descripción del análisis 27', 'Resultados del análisis 27'),
+('Descripción del análisis 28', 'Resultados del análisis 28'),
+('Descripción del análisis 29', 'Resultados del análisis 29'),
+('Descripción del análisis 30', 'Resultados del análisis 30'),
+('Descripción del análisis 31', 'Resultados del análisis 31'),
+('Descripción del análisis 32', 'Resultados del análisis 32'),
+('Descripción del análisis 33', 'Resultados del análisis 33'),
+('Descripción del análisis 34', 'Resultados del análisis 34'),
+('Descripción del análisis 35', 'Resultados del análisis 35'),
+('Descripción del análisis 36', 'Resultados del análisis 36'),
+('Descripción del análisis 37', 'Resultados del análisis 37'),
+('Descripción del análisis 38', 'Resultados del análisis 38'),
+('Descripción del análisis 39', 'Resultados del análisis 39'),
+('Descripción del análisis 40', 'Resultados del análisis 40'),
+('Descripción del análisis 41', 'Resultados del análisis 41'),
+('Descripción del análisis 42', 'Resultados del análisis 42'),
+('Descripción del análisis 43', 'Resultados del análisis 43'),
+('Descripción del análisis 44', 'Resultados del análisis 44'),
+('Descripción del análisis 45', 'Resultados del análisis 45'),
+('Descripción del análisis 46', 'Resultados del análisis 46'),
+('Descripción del análisis 47', 'Resultados del análisis 47'),
+('Descripción del análisis 48', 'Resultados del análisis 48'),
+('Descripción del análisis 49', 'Resultados del análisis 49'),
+('Descripción del análisis 50', 'Resultados del análisis 50');
+
+SELECT * FROM AnalisisMercado;
+
+SELECT * FROM AnalisisMercado WHERE id_analisis = 1;
+
+SELECT * FROM AnalisisMercado WHERE fecha BETWEEN '2024-01-01' AND '2024-12-31';
+
+SELECT descripcion FROM AnalisisMercado;
+
+SELECT COUNT(*) AS total_analisis FROM AnalisisMercado;
+
+UPDATE AnalisisMercado
+SET descripcion = 'Descripción actualizada del análisis'
+WHERE id_analisis = 1;
+
+UPDATE AnalisisMercado
+SET resultados = 'Resultados actualizados del análisis'
+WHERE id_analisis = 2;
+
+UPDATE AnalisisMercado
+SET fecha = '2024-06-01 10:00:00'
+WHERE id_analisis = 3;
+
+UPDATE AnalisisMercado
+SET descripcion = 'Nueva descripción', resultados = 'Nuevos resultados'
+WHERE id_analisis = 4;
+
+UPDATE AnalisisMercado
+SET descripcion = 'Descripción común actualizada'
+WHERE CAST(fecha AS DATE) = '2024-05-01';
+
+DELETE FROM AnalisisMercado WHERE id_analisis = 1;
+
+DELETE FROM AnalisisMercado WHERE CAST(fecha AS DATE) = '2024-05-01';
+
+DELETE FROM AnalisisMercado WHERE descripcion = 'Descripción específica';
+
+DELETE FROM AnalisisMercado WHERE resultados LIKE '%palabra clave%';
+
+DELETE FROM AnalisisMercado WHERE fecha < '2024-01-01';
+
+DROP TABLE AnalisisMercado;
+
+-- EncuestasSatisfaccion
+
+INSERT INTO EncuestasSatisfaccion (id_cliente, puntuacion, comentarios)
+VALUES
+(1, 5, 'Muy satisfecho con el servicio'),
+(2, 4, 'Satisfecho, pero hay margen de mejora'),
+(3, 3, 'Neutral, el servicio fue promedio'),
+(4, 2, 'Insatisfecho con algunos aspectos del servicio'),
+(5, 1, 'Muy insatisfecho con el servicio'),
+(6, 5, 'Excelente servicio, superó mis expectativas'),
+(7, 4, 'Buena atención, pero podría ser mejor'),
+(8, 3, 'Servicio promedio, nada destacable'),
+(9, 2, 'No me gustó la atención recibida'),
+(10, 1, 'Muy mala experiencia, no lo recomendaría'),
+(11, 5, 'Servicio rápido y eficiente'),
+(12, 4, 'Buena calidad, pero un poco caro'),
+(13, 3, 'Servicio estándar, esperaba más'),
+(14, 2, 'No me atendieron bien'),
+(15, 1, 'Experiencia muy negativa'),
+(16, 5, 'Totalmente satisfecho con el producto'),
+(17, 4, 'Producto bueno, atención decente'),
+(18, 3, 'Nada fuera de lo común'),
+(19, 2, 'Tuve varios problemas con el servicio'),
+(20, 1, 'Definitivamente no volveré'),
+(21, 5, 'Increíble atención y calidad'),
+(22, 4, 'Servicio bueno, pero podría mejorar'),
+(23, 3, 'Aceptable, pero no sobresaliente'),
+(24, 2, 'Mala experiencia en general'),
+(25, 1, 'No estoy satisfecho para nada'),
+(26, 5, 'Excelente, seguiré siendo cliente'),
+(27, 4, 'Bien, pero hay áreas de mejora'),
+(28, 3, 'Neutral, servicio promedio'),
+(29, 2, 'No me gustó la calidad del servicio'),
+(30, 1, 'Muy mal servicio'),
+(31, 5, 'Muy satisfecho, superó mis expectativas'),
+(32, 4, 'Buen servicio, pero puede mejorar'),
+(33, 3, 'Servicio regular'),
+(34, 2, 'Insatisfecho con la experiencia'),
+(35, 1, 'Muy mala experiencia, no volveré'),
+(36, 5, 'Servicio excelente, altamente recomendado'),
+(37, 4, 'Buen servicio, pero con algunos problemas'),
+(38, 3, 'Servicio normal, no destacó'),
+(39, 2, 'Mala calidad en el servicio'),
+(40, 1, 'Muy insatisfecho, no recomendaría'),
+(41, 5, 'Excelente atención y producto'),
+(42, 4, 'Servicio bueno, pero caro'),
+(43, 3, 'Servicio estándar, esperaba más'),
+(44, 2, 'Problemas con el servicio recibido'),
+(45, 1, 'No volveré, muy mala experiencia')
+
+SELECT * FROM EncuestasSatisfaccion;
+
+SELECT * FROM EncuestasSatisfaccion WHERE id_encuesta = 1;
+
+SELECT * FROM EncuestasSatisfaccion WHERE id_cliente = 1;
+
+SELECT * FROM EncuestasSatisfaccion WHERE CAST(fecha AS DATE) = '2024-05-01';
+
+SELECT * FROM EncuestasSatisfaccion WHERE puntuacion >= 4;
+
+UPDATE EncuestasSatisfaccion
+SET puntuacion = 5
+WHERE id_encuesta = 1;
+
+UPDATE EncuestasSatisfaccion
+SET comentarios = 'Comentarios actualizados'
+WHERE id_encuesta = 2;
+
+UPDATE EncuestasSatisfaccion
+SET fecha = '2024-06-01 10:00:00'
+WHERE id_encuesta = 3;
+
+UPDATE EncuestasSatisfaccion
+SET puntuacion = 3, comentarios = 'Nuevos comentarios'
+WHERE id_encuesta = 4;
+
+UPDATE EncuestasSatisfaccion
+SET puntuacion = 4
+WHERE id_cliente = 1;
+
+DELETE FROM EncuestasSatisfaccion WHERE id_encuesta = 1;
+
+DELETE FROM EncuestasSatisfaccion WHERE id_cliente = 2;
+
+DELETE FROM EncuestasSatisfaccion WHERE CAST(fecha AS DATE) = '2024-05-01';
+
+DELETE FROM EncuestasSatisfaccion WHERE puntuacion < 3;
+
+DELETE FROM EncuestasSatisfaccion WHERE comentarios IS NULL OR comentarios = '';
+
+DROP TABLE EncuestasSatisfaccion;
+
+-- Eventos
+
+INSERT INTO Eventos (nombre, descripcion, ubicacion)
+VALUES
+('Evento 1', 'Descripción del evento 1', 'Ubicación 1'),
+('Evento 2', 'Descripción del evento 2', 'Ubicación 2'),
+('Evento 3', 'Descripción del evento 3', 'Ubicación 3'),
+('Evento 4', 'Descripción del evento 4', 'Ubicación 4'),
+('Evento 5', 'Descripción del evento 5', 'Ubicación 5'),
+('Evento 6', 'Descripción del evento 6', 'Ubicación 6'),
+('Evento 7', 'Descripción del evento 7', 'Ubicación 7'),
+('Evento 8', 'Descripción del evento 8', 'Ubicación 8'),
+('Evento 9', 'Descripción del evento 9', 'Ubicación 9'),
+('Evento 10', 'Descripción del evento 10', 'Ubicación 10'),
+('Evento 11', 'Descripción del evento 11', 'Ubicación 11'),
+('Evento 12', 'Descripción del evento 12', 'Ubicación 12'),
+('Evento 13', 'Descripción del evento 13', 'Ubicación 13'),
+('Evento 14', 'Descripción del evento 14', 'Ubicación 14'),
+('Evento 15', 'Descripción del evento 15', 'Ubicación 15'),
+('Evento 16', 'Descripción del evento 16', 'Ubicación 16'),
+('Evento 17', 'Descripción del evento 17', 'Ubicación 17'),
+('Evento 18', 'Descripción del evento 18', 'Ubicación 18'),
+('Evento 19', 'Descripción del evento 19', 'Ubicación 19'),
+('Evento 20', 'Descripción del evento 20', 'Ubicación 20'),
+('Evento 21', 'Descripción del evento 21', 'Ubicación 21'),
+('Evento 22', 'Descripción del evento 22', 'Ubicación 22'),
+('Evento 23', 'Descripción del evento 23', 'Ubicación 23'),
+('Evento 24', 'Descripción del evento 24', 'Ubicación 24'),
+('Evento 25', 'Descripción del evento 25', 'Ubicación 25'),
+('Evento 26', 'Descripción del evento 26', 'Ubicación 26'),
+('Evento 27', 'Descripción del evento 27', 'Ubicación 27'),
+('Evento 28', 'Descripción del evento 28', 'Ubicación 28'),
+('Evento 29', 'Descripción del evento 29', 'Ubicación 29'),
+('Evento 30', 'Descripción del evento 30', 'Ubicación 30'),
+('Evento 31', 'Descripción del evento 31', 'Ubicación 31'),
+('Evento 32', 'Descripción del evento 32', 'Ubicación 32'),
+('Evento 33', 'Descripción del evento 33', 'Ubicación 33'),
+('Evento 34', 'Descripción del evento 34', 'Ubicación 34'),
+('Evento 35', 'Descripción del evento 35', 'Ubicación 35'),
+('Evento 36', 'Descripción del evento 36', 'Ubicación 36'),
+('Evento 37', 'Descripción del evento 37', 'Ubicación 37'),
+('Evento 38', 'Descripción del evento 38', 'Ubicación 38'),
+('Evento 39', 'Descripción del evento 39', 'Ubicación 39'),
+('Evento 40', 'Descripción del evento 40', 'Ubicación 40'),
+('Evento 41', 'Descripción del evento 41', 'Ubicación 41'),
+('Evento 42', 'Descripción del evento 42', 'Ubicación 42'),
+('Evento 43', 'Descripción del evento 43', 'Ubicación 43'),
+('Evento 44', 'Descripción del evento 44', 'Ubicación 44'),
+('Evento 45', 'Descripción del evento 45', 'Ubicación 45'),
+('Evento 46', 'Descripción del evento 46', 'Ubicación 46'),
+('Evento 47', 'Descripción del evento 47', 'Ubicación 47'),
+('Evento 48', 'Descripción del evento 48', 'Ubicación 48'),
+('Evento 49', 'Descripción del evento 49', 'Ubicación 49'),
+('Evento 50', 'Descripción del evento 50', 'Ubicación 50');
+
+SELECT * FROM Eventos;
+
+SELECT * FROM Eventos WHERE nombre = 'Evento A';
+
+SELECT * FROM Eventos WHERE CAST(fecha AS DATE) = '2024-05-01';
+
+SELECT * FROM Eventos WHERE ubicacion LIKE '%Centro de Convenciones%';
+
+SELECT * FROM Eventos WHERE descripcion LIKE '%conferencia%';
+
+UPDATE Eventos
+SET nombre = 'Nuevo nombre de evento'
+WHERE id_evento = 1;
+
+UPDATE Eventos
+SET descripcion = 'Nueva descripción del evento'
+WHERE id_evento = 2;
+
+UPDATE Eventos
+SET ubicacion = 'Nuevo lugar'
+WHERE fecha < '2024-01-01';
+
+UPDATE Eventos
+SET ubicacion = 'Nuevo Centro'
+WHERE YEAR(fecha) = 2024;
+
+UPDATE Eventos
+SET descripcion = 'Descripción Actualizada'
+WHERE descripcion LIKE '%conferencia%';
+
+DELETE FROM Eventos WHERE id_evento = 1;
+
+DELETE FROM Eventos WHERE CAST(fecha AS DATE) = '2024-05-01';
+
+DELETE FROM Eventos WHERE descripcion = 'Descripción del Evento';
+
+DELETE FROM Eventos WHERE ubicacion LIKE '%Centro de Convenciones%';
+
+DELETE FROM Eventos WHERE fecha < '2024-01-01';
+
+DROP TABLE Eventos;
+
+-- Patrocinios
+
+INSERT INTO Patrocinios (nombre, descripcion, monto)
+VALUES
+('Patrocinio 1', 'Descripción del patrocinio 1', 1000.00),
+('Patrocinio 2', 'Descripción del patrocinio 2', 1500.50),
+('Patrocinio 3', 'Descripción del patrocinio 3', 2000.75),
+('Patrocinio 4', 'Descripción del patrocinio 4', 2500.25),
+('Patrocinio 5', 'Descripción del patrocinio 5', 3000.00),
+('Patrocinio 6', 'Descripción del patrocinio 6', 3500.50),
+('Patrocinio 7', 'Descripción del patrocinio 7', 4000.75),
+('Patrocinio 8', 'Descripción del patrocinio 8', 4500.25),
+('Patrocinio 9', 'Descripción del patrocinio 9', 5000.00),
+('Patrocinio 10', 'Descripción del patrocinio 10', 5500.50),
+('Patrocinio 11', 'Descripción del patrocinio 11', 6000.75),
+('Patrocinio 12', 'Descripción del patrocinio 12', 6500.25),
+('Patrocinio 13', 'Descripción del patrocinio 13', 7000.00),
+('Patrocinio 14', 'Descripción del patrocinio 14', 7500.50),
+('Patrocinio 15', 'Descripción del patrocinio 15', 8000.75),
+('Patrocinio 16', 'Descripción del patrocinio 16', 8500.25),
+('Patrocinio 17', 'Descripción del patrocinio 17', 9000.00),
+('Patrocinio 18', 'Descripción del patrocinio 18', 9500.50),
+('Patrocinio 19', 'Descripción del patrocinio 19', 10000.75),
+('Patrocinio 20', 'Descripción del patrocinio 20', 10500.25),
+('Patrocinio 21', 'Descripción del patrocinio 21', 11000.00),
+('Patrocinio 22', 'Descripción del patrocinio 22', 11500.50),
+('Patrocinio 23', 'Descripción del patrocinio 23', 12000.75),
+('Patrocinio 24', 'Descripción del patrocinio 24', 12500.25),
+('Patrocinio 25', 'Descripción del patrocinio 25', 13000.00),
+('Patrocinio 26', 'Descripción del patrocinio 26', 13500.50),
+('Patrocinio 27', 'Descripción del patrocinio 27', 14000.75),
+('Patrocinio 28', 'Descripción del patrocinio 28', 14500.25),
+('Patrocinio 29', 'Descripción del patrocinio 29', 15000.00),
+('Patrocinio 30', 'Descripción del patrocinio 30', 15500.50),
+('Patrocinio 31', 'Descripción del patrocinio 31', 16000.75),
+('Patrocinio 32', 'Descripción del patrocinio 32', 16500.25),
+('Patrocinio 33', 'Descripción del patrocinio 33', 17000.00),
+('Patrocinio 34', 'Descripción del patrocinio 34', 17500.50),
+('Patrocinio 35', 'Descripción del patrocinio 35', 18000.75),
+('Patrocinio 36', 'Descripción del patrocinio 36', 18500.25),
+('Patrocinio 37', 'Descripción del patrocinio 37', 19000.00),
+('Patrocinio 38', 'Descripción del patrocinio 38', 19500.50),
+('Patrocinio 39', 'Descripción del patrocinio 39', 20000.75),
+('Patrocinio 40', 'Descripción del patrocinio 40', 20500.25),
+('Patrocinio 41', 'Descripción del patrocinio 41', 21000.00),
+('Patrocinio 42', 'Descripción del patrocinio 42', 21500.50),
+('Patrocinio 43', 'Descripción del patrocinio 43', 22000.75),
+('Patrocinio 44', 'Descripción del patrocinio 44', 22500.25),
+('Patrocinio 45', 'Descripción del patrocinio 45', 23000.00),
+('Patrocinio 46', 'Descripción del patrocinio 46', 23500.50),
+('Patrocinio 47', 'Descripción del patrocinio 47', 24000.75)
+
+SELECT * FROM Patrocinios;
+
+SELECT * FROM Patrocinios WHERE nombre = 'Patrocinio A';
+
+SELECT * FROM Patrocinios WHERE monto > 1000;
+
+SELECT * FROM Patrocinios WHERE descripcion LIKE '%evento%';
+
+SELECT nombre, monto FROM Patrocinios ORDER BY monto DESC;
+
+UPDATE Patrocinios
+SET nombre = 'Nuevo Nombre del Patrocinio'
+WHERE id_patrocinio = 1;
+
+UPDATE Patrocinios
+SET descripcion = 'Nueva Descripción del Patrocinio'
+WHERE id_patrocinio = 2;
+
+UPDATE Patrocinios
+SET monto = 1500
+WHERE id_patrocinio = 3;
+
+UPDATE Patrocinios
+SET monto = monto * 1.1
+WHERE monto IS NOT NULL;
+
+UPDATE Patrocinios
+SET descripcion = 'Descripción Actualizada'
+WHERE descripcion LIKE '%evento%';
+
+DELETE FROM Patrocinios WHERE id_patrocinio = 1;
+
+DELETE FROM Patrocinios WHERE monto < 1000;
+
+DELETE FROM Patrocinios WHERE descripcion = 'Patrocinio con Descripción';
+
+DELETE FROM Patrocinios WHERE descripcion IS NULL OR descripcion = '';
+
+DELETE FROM Patrocinios WHERE nombre LIKE '%evento%';
+
+DROP TABLE Patrocinios;
+
+-- AuditoriasInternas
+SELECT * FROM AuditoriasInternas;
+
+INSERT INTO AuditoriasInternas (descripcion, resultados) VALUES
+('Evaluación de cumplimiento normativo', 'Cumplimiento total'),
+('Revisión de gestión de riesgos', 'Riesgos identificados y mitigados'),
+('Auditoría financiera', 'Sin irregularidades detectadas'),
+('Inspección de instalaciones', 'Reparaciones menores requeridas'),
+('Auditoría de sistemas de información', 'Actualizaciones recomendadas'),
+('Revisión de control de calidad', 'Procedimientos optimizados'),
+('Auditoría de recursos humanos', 'Procesos eficientes'),
+('Inspección de seguridad informática', 'Implementación de nuevas políticas sugerida'),
+('Revisión de inventarios', 'Desviaciones mínimas encontradas'),
+('Auditoría de cumplimiento ambiental', 'Conformidad total'),
+('Evaluación de procesos administrativos', 'Requiere mejoras'),
+('Auditoría de compras y contrataciones', 'Proveedores verificados'),
+('Revisión de políticas internas', 'Actualización necesaria'),
+('Auditoría de comunicación interna', 'Efectiva'),
+('Inspección de mantenimiento', 'Calendario de mantenimiento adecuado'),
+('Revisión de proyectos en curso', 'Cumplimiento de plazos'),
+('Auditoría de logística', 'Eficiencia en el transporte'),
+('Revisión de servicio al cliente', 'Altos niveles de satisfacción'),
+('Auditoría de marketing', 'Estrategias efectivas'),
+('Evaluación de productividad', 'Índices mejorados'),
+('Revisión de sistemas de reporte', 'Precisión en los datos'),
+('Auditoría de cumplimiento legal', 'Sin infracciones detectadas'),
+('Inspección de equipo de trabajo', 'Funcionamiento óptimo'),
+('Revisión de relaciones laborales', 'Ambiente positivo'),
+('Auditoría de planes estratégicos', 'Objetivos alcanzados'),
+('Evaluación de programas de capacitación', 'Efectividad comprobada'),
+('Revisión de políticas de privacidad', 'Cumplimiento con normativas'),
+('Auditoría de control interno', 'Controles robustos'),
+('Inspección de vehículos corporativos', 'Mantenimiento al día'),
+('Revisión de seguridad en el trabajo', 'Prácticas seguras'),
+('Auditoría de procesos contables', 'Exactitud confirmada'),
+('Evaluación de sostenibilidad', 'Prácticas ecoamigables'),
+('Revisión de eficiencia energética', 'Ahorro significativo'),
+('Auditoría de gestión documental', 'Archivos ordenados'),
+('Inspección de medidas anti-fraude', 'Medidas efectivas'),
+('Revisión de procedimientos operativos', 'Optimización necesaria'),
+('Auditoría de tecnología', 'Innovación en marcha'),
+('Evaluación de satisfacción del empleado', 'Alto nivel de compromiso'),
+('Revisión de gestión de activos', 'Control adecuado'),
+('Auditoría de estrategias de ventas', 'Crecimiento notable'),
+('Inspección de productos terminados', 'Alta calidad'),
+('Revisión de cumplimiento fiscal', 'Declaraciones precisas'),
+('Auditoría de planificación financiera', 'Proyecciones realistas'),
+('Evaluación de relaciones con proveedores', 'Colaboración eficaz'),
+('Revisión de políticas de seguridad', 'Normativas cumplidas'),
+('Auditoría de planes de emergencia', 'Preparación adecuada'),
+('Inspección de cadena de suministro', 'Flujo continuo'),
+('Revisión de innovación y desarrollo', 'Proyectos avanzando'),
+('Auditoría de gestión de cambios', 'Implementación exitosa'),
+('Evaluación de gestión del tiempo', 'Eficiencia mejorada');
+
+UPDATE AuditoriasInternas
+SET descripcion = 'Auditoría de cumplimiento'
+WHERE id_auditoria = 1;
+
+DELETE FROM AuditoriasInternas
+WHERE id_auditoria = 50;
+
+-- DROP
+DROP TABLE AuditoriasInternas;
+
+-- AccesosUsuario
+
+SELECT * FROM AccesosUsuario;
+
+INSERT INTO AccesosUsuario (id_empleado, usuario, contrasena) VALUES
+(1, 'usuario1', 'contrasena1'),
+(2, 'usuario2', 'contrasena2'),
+(3, 'usuario3', 'contrasena3'),
+(4, 'usuario4', 'contrasena4'),
+(5, 'usuario5', 'contrasena5'),
+(6, 'usuario6', 'contrasena6'),
+(7, 'usuario7', 'contrasena7'),
+(8, 'usuario8', 'contrasena8'),
+(9, 'usuario9', 'contrasena9'),
+(10, 'usuario10', 'contrasena10'),
+(11, 'usuario11', 'contrasena11'),
+(12, 'usuario12', 'contrasena12'),
+(13, 'usuario13', 'contrasena13'),
+(14, 'usuario14', 'contrasena14'),
+(15, 'usuario15', 'contrasena15'),
+(16, 'usuario16', 'contrasena16'),
+(17, 'usuario17', 'contrasena17'),
+(18, 'usuario18', 'contrasena18'),
+(19, 'usuario19', 'contrasena19'),
+(20, 'usuario20', 'contrasena20'),
+(21, 'usuario21', 'contrasena21'),
+(22, 'usuario22', 'contrasena22'),
+(23, 'usuario23', 'contrasena23'),
+(24, 'usuario24', 'contrasena24'),
+(25, 'usuario25', 'contrasena25'),
+(26, 'usuario26', 'contrasena26'),
+(27, 'usuario27', 'contrasena27'),
+(28, 'usuario28', 'contrasena28'),
+(29, 'usuario29', 'contrasena29'),
+(30, 'usuario30', 'contrasena30'),
+(31, 'usuario31', 'contrasena31'),
+(32, 'usuario32', 'contrasena32'),
+(33, 'usuario33', 'contrasena33'),
+(34, 'usuario34', 'contrasena34')
+
+UPDATE AccesosUsuario
+SET contrasena = 'nueva_contrasena'
+WHERE id_acceso = 1;
+
+DELETE FROM AccesosUsuario
+WHERE id_acceso = 50;
+
+DROP TABLE AccesosUsuario;
+
+CREATE TABLE RolesPermisos (
+    id_rol INT PRIMARY KEY IDENTITY(1, 1),
+    nombre VARCHAR(50)
+);
+
+SELECT * FROM RolesPermisos;
+
+INSERT INTO RolesPermisos (nombre) VALUES
+('Superusuario'),
+('Moderador'),
+('Invitado'),
+('Analista'),
+('Desarrollador'),
+('Tester'),
+('Soporte Técnico'),
+('Auditor'),
+('Gerente de Proyecto'),
+('Consultor'),
+('Especialista en Seguridad'),
+('Líder de Equipo'),
+('Asistente Administrativo'),
+('Marketing'),
+('Ventas'),
+('Recursos Humanos'),
+('Finanzas'),
+('Logística'),
+('Compras'),
+('Atención al Cliente'),
+('Operaciones'),
+('Director General'),
+('Jefe de Departamento'),
+('Especialista en IT'),
+('Investigador'),
+('Formador'),
+('Planificador'),
+('Coordinador'),
+('Redactor'),
+('Diseñador'),
+('Editor'),
+('Productor'),
+('Publicista'),
+('Relaciones Públicas'),
+('Estratega'),
+('Administrador de Redes'),
+('Analista de Datos'),
+('Ingeniero de Software'),
+('Desarrollador Front-End'),
+('Desarrollador Back-End'),
+('Administrador de Base de Datos'),
+('Arquitecto de Soluciones'),
+('Científico de Datos'),
+('Ingeniero DevOps'),
+('Especialista en UX/UI'),
+('Especialista en SEO'),
+('Consultor Técnico'),
+('Gestor de Contenidos'),
+('Responsable de Calidad'),
+('Ingeniero de Sistemas');
+
+UPDATE RolesPermisos
+SET nombre = 'SuperUsuario'
+WHERE id_rol = 1;
+
+
+DELETE FROM RolesPermisos
+WHERE id_rol = 50;
+
+DROP TABLE RolesPermisos;
+
+CREATE TABLE Permisos (
+    id_permiso INT PRIMARY KEY IDENTITY(1, 1),
+    descripcion VARCHAR(100)
+);
+
+
+-- Permisos
+SELECT * FROM Permisos; 
+
+INSERT INTO Permisos (descripcion) VALUES
+('Editar datos'),
+('Eliminar datos'),
+('Crear usuarios'),
+('Modificar usuarios'),
+('Eliminar usuarios'),
+('Acceso a reportes'),
+('Generar reportes'),
+('Configurar sistema'),
+('Administrar roles'),
+('Administrar permisos'),
+('Ver auditorías'),
+('Realizar auditorías'),
+('Acceso a panel de control'),
+('Gestionar inventarios'),
+('Ver finanzas'),
+('Modificar finanzas'),
+('Aprobar transacciones'),
+('Rechazar transacciones'),
+('Acceso a estadísticas'),
+('Configurar alertas'),
+('Administrar backups'),
+('Restaurar backups'),
+('Acceso a logs de sistema'),
+('Ver registros de actividad'),
+('Acceso a documentación'),
+('Editar documentación'),
+('Eliminar documentación'),
+('Administrar proyectos'),
+('Ver proyectos'),
+('Modificar proyectos'),
+('Asignar tareas'),
+('Modificar tareas'),
+('Eliminar tareas'),
+('Acceso a soporte técnico'),
+('Responder tickets de soporte'),
+('Crear tickets de soporte'),
+('Modificar tickets de soporte'),
+('Eliminar tickets de soporte'),
+('Acceso a base de conocimiento'),
+('Administrar base de conocimiento'),
+('Acceso a configuraciones avanzadas'),
+('Administrar configuraciones avanzadas'),
+('Ver políticas de seguridad'),
+('Modificar políticas de seguridad'),
+('Implementar políticas de seguridad'),
+('Acceso a configuración de red'),
+('Modificar configuración de red'),
+('Monitorear red'),
+('Administrar dispositivos de red');
+
+
+UPDATE Permisos
+SET descripcion = 'Acceso total'
+WHERE id_permiso = 1;
+
+DELETE FROM Permisos
+WHERE id_permiso = 50;
+
+DROP TABLE Permisos;
+
+--RolesUsuarios
+SELECT * FROM RolesUsuarios;
+
+INSERT INTO RolesUsuarios (id_acceso, id_rol) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10),
+(11, 11),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15),
+(16, 16),
+(17, 17),
+(18, 18),
+(19, 19),
+(20, 20),
+(21, 21),
+(22, 22),
+(23, 23),
+(24, 24),
+(25, 25),
+(26, 26),
+(27, 27),
+(28, 28),
+(29, 29),
+(30, 30),
+(31, 31),
+(32, 32),
+(33, 33),
+(34, 34)
+
+UPDATE RolesUsuarios
+SET id_rol = 1
+WHERE id_rol_usuario = 1;
+
+DELETE FROM RolesUsuarios
+WHERE id_rol_usuario = 50;
+
+DROP TABLE RolesUsuarios;
+
+--PermisosRoles
+SELECT * FROM PermisosRoles;
+INSERT INTO PermisosRoles (id_rol, id_permiso) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10),
+(11, 11),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15),
+(16, 16),
+(17, 17),
+(18, 18),
+(19, 19),
+(20, 20),
+(21, 21),
+(22, 22),
+(23, 23),
+(24, 24),
+(25, 25),
+(26, 26),
+(27, 27),
+(28, 28),
+(29, 29),
+(30, 30),
+(31, 31),
+(32, 32),
+(33, 33),
+(34, 34)
+
+UPDATE PermisosRoles
+SET id_permiso = 1
+WHERE id_permiso_rol = 1;
+
+DELETE FROM PermisosRoles
+WHERE id_permiso_rol = 50;
+
+
+DROP TABLE PermisosRoles;
+
+-- LogsActividades
+SELECT * FROM LogsActividades;
+
+INSERT INTO LogsActividades (id_acceso, actividad) VALUES
+(1, 'Visualización de reportes'),
+(2, 'Visualización de reportes'),
+(3, 'Visualización de reportes'),
+(4, 'Modificación de datos'),
+(5, 'Eliminación de datos'),
+(6, 'Creación de usuario'),
+(7, 'Actualización de perfil'),
+(8, 'Cambio de contraseña'),
+(9, 'Desbloqueo de cuenta'),
+(10, 'Generación de informe'),
+(11, 'Aprobación de solicitud'),
+(12, 'Rechazo de solicitud'),
+(13, 'Acceso a configuraciones'),
+(14, 'Respaldo de datos'),
+(15, 'Restauración de datos'),
+(16, 'Consulta de registros'),
+(17, 'Carga de archivos'),
+(18, 'Descarga de archivos'),
+(19, 'Asignación de roles'),
+(20, 'Revocación de permisos'),
+(21, 'Acceso a módulo de auditoría'),
+(22, 'Edición de políticas'),
+(23, 'Implementación de cambios'),
+(24, 'Actualización de sistema'),
+(25, 'Reinicio de sistema'),
+(26, 'Cierre de sistema'),
+(27, 'Monitoreo de actividad'),
+(28, 'Evaluación de rendimiento'),
+(29, 'Acceso a base de datos'),
+(30, 'Modificación de base de datos'),
+(31, 'Eliminación de registros'),
+(32, 'Añadir registros'),
+(33, 'Acceso a soporte técnico'),
+(34, 'Actualización de tickets')
+
+
+UPDATE LogsActividades
+SET actividad = 'Actualización de perfil'
+WHERE id_log = 1;
+
+DELETE FROM LogsActividades
+WHERE id_log = 50;
+
+DROP TABLE LogsActividades;
+
+-- IncidentesSeguridad
+SELECT * FROM IncidentesSeguridad;
+
+INSERT INTO IncidentesSeguridad (descripcion, id_empleado) VALUES
+('Acceso no autorizado detectado', 1),
+('Acceso no autorizado detectado', 2),
+('Acceso no autorizado detectado', 3),
+('Phishing detectado', 4),
+('Malware detectado', 5),
+('Pérdida de datos', 6),
+('Falla en el sistema', 7),
+('Intento de suplantación de identidad', 8),
+('Ataque DDoS mitigado', 9),
+('Robo de dispositivo', 10),
+('Violación de políticas de seguridad', 11),
+('Acceso físico no autorizado', 12),
+('Fuga de información', 13),
+('Uso indebido de recursos', 14),
+('Modificación no autorizada de datos', 15),
+('Denegación de servicio', 16),
+('Intrusión de red detectada', 17),
+('Ejecución de código malicioso', 18),
+('Falla en medidas de seguridad', 19),
+('Sospecha de espionaje industrial', 20),
+('Extracción no autorizada de datos', 21),
+('Vulnerabilidad explotada', 22),
+('Desconfiguración de sistemas', 23),
+('Acceso indebido a información sensible', 24),
+('Intento de acceso a sistemas restringidos', 25),
+('Correo sospechoso recibido', 26),
+('Comportamiento anómalo detectado', 27),
+('Exposición de datos personales', 28),
+('Escaneo de puertos no autorizado', 29),
+('Conexión desde IP sospechosa', 30),
+('Uso indebido de privilegios', 31),
+('Modificación de registros de auditoría', 32),
+('Acceso no autorizado a la base de datos', 33),
+('Descarga no autorizada de archivos', 34)
+
+UPDATE IncidentesSeguridad
+SET descripcion = 'Incidente crítico'
+WHERE id_incidente = 1;
+
+DELETE FROM IncidentesSeguridad
+WHERE id_incidente = 50;
+
+DROP TABLE IncidentesSeguridad;
+
+
+-- ControlPerdidas
+SELECT * FROM ControlPerdidas;
+
+INSERT INTO ControlPerdidas (id_producto, cantidad, motivo) VALUES
+(3, 8, 'Daño en transporte'),
+(4, 3, 'Caducidad'),
+(5, 15, 'Defecto de fabricación'),
+(6, 7, 'Extraviado en almacén'),
+(7, 2, 'Error de inventario'),
+(8, 20, 'Fallo en control de calidad'),
+(9, 6, 'Condiciones de almacenamiento inapropiadas'),
+(10, 12, 'Desperdicio en producción'),
+(11, 4, 'Error en envío'),
+(12, 9, 'Retiro del mercado'),
+(13, 11, 'Falla técnica'),
+(14, 5, 'Accidente en almacén'),
+(15, 1, 'Devolución por cliente'),
+(16, 8, 'Contaminación'),
+(17, 3, 'Manejo inadecuado'),
+(18, 14, 'Derrame'),
+(19, 6, 'Sobrestock'),
+(20, 10, 'Pérdida de documentación'),
+(21, 7, 'Cambio de normativa'),
+(22, 2, 'Obsolescencia'),
+(23, 13, 'Error humano'),
+(24, 4, 'Mal almacenamiento'),
+(25, 9, 'Pérdida durante auditoría'),
+(26, 5, 'Error en proceso de producción'),
+(27, 7, 'Insectos/roedores'),
+(28, 1, 'Incendio'),
+(29, 10, 'Inundación'),
+(30, 3, 'Falta de mantenimiento'),
+(31, 8, 'Manipulación inadecuada'),
+(32, 4, 'Sustracción interna'),
+(33, 6, 'Desviación de inventario'),
+(34, 12, 'Descomposición'),
+(35, 2, 'Sobredemanda'),
+(36, 11, 'Suministro defectuoso'),
+(37, 5, 'Temperatura inadecuada'),
+(38, 9, 'Defecto de diseño'),
+(39, 7, 'Intercambio de productos'),
+(40, 4, 'Error de conteo'),
+(41, 6, 'Impacto físico'),
+(42, 3, 'Desperfecto en embalaje'),
+(43, 8, 'Error administrativo'),
+(44, 2, 'Cancelación de orden'),
+(45, 10, 'Reciclaje'),
+(46, 5, 'Falla de energía'),
+(47, 7, 'Vandalismo'),
+(48, 1, 'Defecto en materiales'),
+(49, 6, 'Falta de espacio de almacenamiento'),
+(50, 4, 'Condiciones climáticas extremas')
+
+
+UPDATE ControlPerdidas
+SET motivo = 'Desgaste'
+WHERE id_control = 1;
+
+
+DELETE FROM ControlPerdidas
+WHERE id_control = 50;
+
+DROP TABLE ControlPerdidas;
+
+
+-- CampanasMarketing
+SELECT * FROM CampanasMarketing;
+INSERT INTO CampanasMarketing (nombre, descripcion, fecha_inicio, fecha_fin, presupuesto, estado) VALUES
+('Campaña 3', 'Descripción 3', '2024-03-01', '2024-03-31', 20000.00, 'activa'),
+('Campaña 4', 'Descripción 4', '2024-04-01', '2024-04-30', 25000.00, 'inactiva'),
+('Campaña 5', 'Descripción 5', '2024-05-01', '2024-05-31', 30000.00, 'activa'),
+('Campaña 6', 'Descripción 6', '2024-06-01', '2024-06-30', 35000.00, 'inactiva'),
+('Campaña 7', 'Descripción 7', '2024-07-01', '2024-07-31', 40000.00, 'activa'),
+('Campaña 8', 'Descripción 8', '2024-08-01', '2024-08-31', 45000.00, 'inactiva'),
+('Campaña 9', 'Descripción 9', '2024-09-01', '2024-09-30', 50000.00, 'activa'),
+('Campaña 10', 'Descripción 10', '2024-10-01', '2024-10-31', 55000.00, 'inactiva'),
+('Campaña 11', 'Descripción 11', '2024-11-01', '2024-11-30', 60000.00, 'activa'),
+('Campaña 12', 'Descripción 12', '2024-12-01', '2024-12-31', 65000.00, 'inactiva'),
+('Campaña 13', 'Descripción 13', '2025-01-01', '2025-01-31', 70000.00, 'activa'),
+('Campaña 14', 'Descripción 14', '2025-02-01', '2025-02-28', 75000.00, 'inactiva'),
+('Campaña 15', 'Descripción 15', '2025-03-01', '2025-03-31', 80000.00, 'activa'),
+('Campaña 16', 'Descripción 16', '2025-04-01', '2025-04-30', 85000.00, 'inactiva'),
+('Campaña 17', 'Descripción 17', '2025-05-01', '2025-05-31', 90000.00, 'activa'),
+('Campaña 18', 'Descripción 18', '2025-06-01', '2025-06-30', 95000.00, 'inactiva'),
+('Campaña 19', 'Descripción 19', '2025-07-01', '2025-07-31', 100000.00, 'activa'),
+('Campaña 20', 'Descripción 20', '2025-08-01', '2025-08-31', 105000.00, 'inactiva'),
+('Campaña 21', 'Descripción 21', '2025-09-01', '2025-09-30', 110000.00, 'activa'),
+('Campaña 22', 'Descripción 22', '2025-10-01', '2025-10-31', 115000.00, 'inactiva'),
+('Campaña 23', 'Descripción 23', '2025-11-01', '2025-11-30', 120000.00, 'activa'),
+('Campaña 24', 'Descripción 24', '2025-12-01', '2025-12-31', 125000.00, 'inactiva'),
+('Campaña 25', 'Descripción 25', '2026-01-01', '2026-01-31', 130000.00, 'activa'),
+('Campaña 26', 'Descripción 26', '2026-02-01', '2026-02-28', 135000.00, 'inactiva'),
+('Campaña 27', 'Descripción 27', '2026-03-01', '2026-03-31', 140000.00, 'activa'),
+('Campaña 28', 'Descripción 28', '2026-04-01', '2026-04-30', 145000.00, 'inactiva'),
+('Campaña 29', 'Descripción 29', '2026-05-01', '2026-05-31', 150000.00, 'activa'),
+('Campaña 30', 'Descripción 30', '2026-06-01', '2026-06-30', 155000.00, 'inactiva'),
+('Campaña 31', 'Descripción 31', '2026-07-01', '2026-07-31', 160000.00, 'activa'),
+('Campaña 32', 'Descripción 32', '2026-08-01', '2026-08-31', 165000.00, 'inactiva'),
+('Campaña 33', 'Descripción 33', '2026-09-01', '2026-09-30', 170000.00, 'activa'),
+('Campaña 34', 'Descripción 34', '2026-10-01', '2026-10-31', 175000.00, 'inactiva'),
+('Campaña 35', 'Descripción 35', '2026-11-01', '2026-11-30', 180000.00, 'activa'),
+('Campaña 36', 'Descripción 36', '2026-12-01', '2026-12-31', 185000.00, 'inactiva'),
+('Campaña 37', 'Descripción 37', '2027-01-01', '2027-01-31', 190000.00, 'activa'),
+('Campaña 38', 'Descripción 38', '2027-02-01', '2027-02-28', 195000.00, 'inactiva'),
+('Campaña 39', 'Descripción 39', '2027-03-01', '2027-03-31', 200000.00, 'activa'),
+('Campaña 40', 'Descripción 40', '2027-04-01', '2027-04-30', 205000.00, 'inactiva'),
+('Campaña 41', 'Descripción 41', '2027-05-01', '2027-05-31', 210000.00, 'activa'),
+('Campaña 42', 'Descripción 42', '2027-06-01', '2027-06-30', 215000.00, 'inactiva'),
+('Campaña 43', 'Descripción 43', '2027-07-01', '2027-07-31', 220000.00, 'activa'),
+('Campaña 44', 'Descripción 44', '2027-08-01', '2027-08-31', 225000.00, 'inactiva'),
+('Campaña 45', 'Descripción 45', '2027-09-01', '2027-09-30', 230000.00, 'activa'),
+('Campaña 46', 'Descripción 46', '2027-10-01', '2027-10-31', 235000.00, 'inactiva'),
+('Campaña 47', 'Descripción 47', '2027-11-01', '2027-11-30', 240000.00, 'activa'),
+('Campaña 48', 'Descripción 48', '2027-12-01', '2027-12-31', 245000.00, 'inactiva'),
+('Campaña 49', 'Descripción 49', '2028-01-01', '2028-01-31', 250000.00, 'activa'),
+('Campaña 50', 'Descripción 50', '2028-02-01', '2028-02-29', 255000.00, 'inactiva'),
+('Campaña 51', 'Descripción 51', '2028-03-01', '2028-03-31', 260000.00, 'activa'),
+('Campaña 52', 'Descripción 52', '2028-04-01', '2028-04-30', 265000.00, 'inactiva');
+
+
+UPDATE CampanasMarketing
+SET estado = 'inactiva'
+WHERE id_campana = 1;
+
+DELETE FROM CampanasMarketing
+WHERE id_campana = 50;
+
+DROP TABLE CampanasMarketing;
+
+-- MediosPublicidad
+SELECT * FROM MediosPublicidad;
+
+INSERT INTO MediosPublicidad (nombre, tipo) VALUES
+('Medio 3', 'Internet'),
+('Medio 4', 'Prensa'),
+('Medio 5', 'Redes Sociales'),
+('Medio 6', 'Publicidad Exterior'),
+('Medio 7', 'Revistas'),
+('Medio 8', 'Correo Electrónico'),
+('Medio 9', 'Cine'),
+('Medio 10', 'Eventos Patrocinados'),
+('Medio 11', 'Mailing'),
+('Medio 12', 'Ferias Comerciales'),
+('Medio 13', 'Vallas Publicitarias'),
+('Medio 14', 'Cupones'),
+('Medio 15', 'Marketing de Contenidos'),
+('Medio 16', 'Influencers'),
+('Medio 17', 'SEO'),
+('Medio 18', 'SEM'),
+('Medio 19', 'Programas de Afiliados'),
+('Medio 20', 'Marketing de Guerrilla'),
+('Medio 21', 'Publicidad Nativa'),
+('Medio 22', 'Televisión por Internet'),
+('Medio 23', 'Publicidad en Videojuegos'),
+('Medio 24', 'Marketing de Atracción'),
+('Medio 25', 'Patrocinios'),
+('Medio 26', 'Anuncios en Apps'),
+('Medio 27', 'SMS Marketing'),
+('Medio 28', 'Marketing de Eventos'),
+('Medio 29', 'Marketing de Proximidad'),
+('Medio 30', 'Blogs'),
+('Medio 31', 'Podcasts'),
+('Medio 32', 'Anuncios Nativos'),
+('Medio 33', 'Publicidad en Bases de Datos'),
+('Medio 34', 'Remarketing'),
+('Medio 35', 'Publicidad Interactiva'),
+('Medio 36', 'Marketing de Afiliación'),
+('Medio 37', 'Publicidad en Periódicos'),
+('Medio 38', 'Publicidad en TV Local'),
+('Medio 39', 'Publicidad en Radio Local'),
+('Medio 40', 'Publicidad en Páginas Web'),
+('Medio 41', 'Marketing de Mensajes Instantáneos'),
+('Medio 42', 'Publicidad en Video Online'),
+('Medio 43', 'Publicidad en Directorios Online'),
+('Medio 44', 'Publicidad en Redes Sociales Locales'),
+('Medio 45', 'Marketing de Contenidos Generados por Usuarios'),
+('Medio 46', 'Publicidad en Búsqueda Local'),
+('Medio 47', 'Marketing de Contenidos Colaborativos'),
+('Medio 48', 'Publicidad en Plataformas de Streaming'),
+('Medio 49', 'Publicidad en Aplicaciones Móviles'),
+('Medio 50', 'Publicidad en Buscadores');
+
+UPDATE MediosPublicidad
+SET tipo = 'Prensa'
+WHERE id_medio = 1;
+
+DELETE FROM MediosPublicidad
+WHERE id_medio = 50;
+
+
+DROP TABLE MediosPublicidad;
+
+-- AnalisisMercado
+SELECT * FROM AnalisisMercado;
+
+INSERT INTO AnalisisMercado (descripcion, resultados) VALUES
+('Análisis de tendencias', 'Tendencias favorables'),
+('Análisis de demanda', 'Demanda creciente'),
+('Evaluación de segmentación', 'Segmentos identificados'),
+('Estudio de clientes potenciales', 'Amplio mercado objetivo'),
+('Análisis de precios', 'Precios competitivos'),
+('Evaluación de satisfacción del cliente', 'Alta satisfacción'),
+('Análisis de distribución', 'Canales de distribución eficientes'),
+('Estudio de penetración de mercado', 'Potencial de crecimiento'),
+('Análisis de posicionamiento', 'Posicionamiento sólido'),
+('Evaluación de competidores indirectos', 'Competidores emergentes'),
+('Estudio de hábitos de consumo', 'Hábitos estables'),
+('Análisis de ciclo de vida del producto', 'Productos en fase de crecimiento'),
+('Estudio de percepción de marca', 'Marca reconocida'),
+('Análisis de barreras de entrada', 'Barreras bajas'),
+('Evaluación de riesgos del mercado', 'Riesgos controlables'),
+('Estudio de oportunidades de crecimiento', 'Oportunidades identificadas'),
+('Análisis de distribución geográfica', 'Cobertura extensa'),
+('Evaluación de fuerzas competitivas', 'Competencia equilibrada'),
+('Estudio de canales de comunicación', 'Canales efectivos'),
+('Análisis de lealtad de marca', 'Lealtad del cliente alta'),
+('Evaluación de tendencias del consumidor', 'Tendencias en aumento'),
+('Estudio de expectativas del consumidor', 'Expectativas alcanzables'),
+('Análisis de fidelización de clientes', 'Programas de fidelización exitosos'),
+('Evaluación de impacto de la marca', 'Marca impactante'),
+('Estudio de sensibilidad al precio', 'Sensibilidad moderada al precio'),
+('Análisis de ciclo económico', 'Economía estable'),
+('Evaluación de amenazas del mercado', 'Amenazas controlables'),
+('Estudio de innovaciones del mercado', 'Innovaciones prometedoras'),
+('Análisis de penetración de marca', 'Penetración efectiva'),
+('Evaluación de factores demográficos', 'Demografía favorable'),
+('Estudio de hábitos de compra', 'Hábitos de compra estables'),
+('Análisis de canales de venta', 'Canales de venta diversificados'),
+('Evaluación de eficacia de promociones', 'Promociones exitosas'),
+('Estudio de comportamiento del consumidor', 'Comportamiento predecible'),
+('Análisis de estacionalidad del mercado', 'Estacionalidad gestionable'),
+('Evaluación de influencia de opiniones', 'Opiniones positivas influyentes'),
+('Estudio de percepción del producto', 'Producto bien valorado'),
+('Análisis de adaptación al mercado', 'Adaptación exitosa'),
+('Evaluación de potencial de mercado', 'Potencial significativo'),
+('Estudio de ciclo de vida del cliente', 'Clientes fieles'),
+('Análisis de factores socioculturales', 'Factores estables'),
+('Evaluación de sensibilidad a la marca', 'Sensibilidad moderada a la marca'),
+('Estudio de preferencias del consumidor', 'Preferencias claras'),
+('Análisis de comportamiento de compra', 'Comportamiento consistente'),
+('Evaluación de impacto de eventos externos', 'Eventos externos gestionables'),
+('Estudio de factores económicos', 'Economía en crecimiento'),
+('Análisis de adaptación del producto', 'Producto adaptable'),
+('Evaluación de potencial de crecimiento', 'Crecimiento sostenible');
+
+UPDATE AnalisisMercado
+SET descripcion = 'Análisis de consumidores'
+WHERE id_analisis = 1;
+
+DELETE FROM AnalisisMercado
+WHERE id_analisis = 50;
+
+DROP TABLE AnalisisMercado;
+
+-- EncuestasSatisfaccion
+SELECT * FROM EncuestasSatisfaccion;
+
+INSERT INTO EncuestasSatisfaccion (id_cliente, puntuacion, comentarios) VALUES
+(3, 3, 'Neutral'),
+(4, 2, 'Poco satisfecho'),
+(5, 1, 'Insatisfecho'),
+(6, 5, 'Muy satisfecho'),
+(7, 4, 'Satisfecho'),
+(8, 3, 'Neutral'),
+(9, 2, 'Poco satisfecho'),
+(10, 1, 'Insatisfecho'),
+(11, 5, 'Muy satisfecho'),
+(12, 4, 'Satisfecho'),
+(13, 3, 'Neutral'),
+(14, 2, 'Poco satisfecho'),
+(15, 1, 'Insatisfecho'),
+(16, 5, 'Muy satisfecho'),
+(17, 4, 'Satisfecho'),
+(18, 3, 'Neutral'),
+(19, 2, 'Poco satisfecho'),
+(20, 1, 'Insatisfecho'),
+(21, 5, 'Muy satisfecho'),
+(22, 4, 'Satisfecho'),
+(23, 3, 'Neutral'),
+(24, 2, 'Poco satisfecho'),
+(25, 1, 'Insatisfecho'),
+(26, 5, 'Muy satisfecho'),
+(27, 4, 'Satisfecho'),
+(28, 3, 'Neutral'),
+(29, 2, 'Poco satisfecho'),
+(30, 1, 'Insatisfecho'),
+(31, 5, 'Muy satisfecho'),
+(32, 4, 'Satisfecho'),
+(33, 3, 'Neutral'),
+(34, 2, 'Poco satisfecho'),
+(35, 1, 'Insatisfecho'),
+(36, 5, 'Muy satisfecho'),
+(37, 4, 'Satisfecho'),
+(38, 3, 'Neutral'),
+(39, 2, 'Poco satisfecho'),
+(40, 1, 'Insatisfecho'),
+(41, 5, 'Muy satisfecho'),
+(42, 4, 'Satisfecho'),
+(43, 3, 'Neutral'),
+(44, 2, 'Poco satisfecho'),
+(45, 1, 'Insatisfecho')
+
+
+UPDATE EncuestasSatisfaccion
+SET comentarios = 'Muy insatisfecho'
+WHERE id_encuesta = 1;
+
+DELETE FROM EncuestasSatisfaccion
+WHERE id_encuesta = 50;
+
+DROP TABLE EncuestasSatisfaccion;
+
+-- Eventos
+SELECT * FROM Eventos;
+
+INSERT INTO Eventos (nombre, descripcion, ubicacion) VALUES
+('Evento 3', 'Descripción 3', 'Ubicación 3'),
+('Evento 4', 'Descripción 4', 'Ubicación 4'),
+('Evento 5', 'Descripción 5', 'Ubicación 5'),
+('Evento 6', 'Descripción 6', 'Ubicación 6'),
+('Evento 7', 'Descripción 7', 'Ubicación 7'),
+('Evento 8', 'Descripción 8', 'Ubicación 8'),
+('Evento 9', 'Descripción 9', 'Ubicación 9'),
+('Evento 10', 'Descripción 10', 'Ubicación 10'),
+('Evento 11', 'Descripción 11', 'Ubicación 11'),
+('Evento 12', 'Descripción 12', 'Ubicación 12'),
+('Evento 13', 'Descripción 13', 'Ubicación 13'),
+('Evento 14', 'Descripción 14', 'Ubicación 14'),
+('Evento 15', 'Descripción 15', 'Ubicación 15'),
+('Evento 16', 'Descripción 16', 'Ubicación 16'),
+('Evento 17', 'Descripción 17', 'Ubicación 17'),
+('Evento 18', 'Descripción 18', 'Ubicación 18'),
+('Evento 19', 'Descripción 19', 'Ubicación 19'),
+('Evento 20', 'Descripción 20', 'Ubicación 20'),
+('Evento 21', 'Descripción 21', 'Ubicación 21'),
+('Evento 22', 'Descripción 22', 'Ubicación 22'),
+('Evento 23', 'Descripción 23', 'Ubicación 23'),
+('Evento 24', 'Descripción 24', 'Ubicación 24'),
+('Evento 25', 'Descripción 25', 'Ubicación 25'),
+('Evento 26', 'Descripción 26', 'Ubicación 26'),
+('Evento 27', 'Descripción 27', 'Ubicación 27'),
+('Evento 28', 'Descripción 28', 'Ubicación 28'),
+('Evento 29', 'Descripción 29', 'Ubicación 29'),
+('Evento 30', 'Descripción 30', 'Ubicación 30'),
+('Evento 31', 'Descripción 31', 'Ubicación 31'),
+('Evento 32', 'Descripción 32', 'Ubicación 32'),
+('Evento 33', 'Descripción 33', 'Ubicación 33'),
+('Evento 34', 'Descripción 34', 'Ubicación 34'),
+('Evento 35', 'Descripción 35', 'Ubicación 35'),
+('Evento 36', 'Descripción 36', 'Ubicación 36'),
+('Evento 37', 'Descripción 37', 'Ubicación 37'),
+('Evento 38', 'Descripción 38', 'Ubicación 38'),
+('Evento 39', 'Descripción 39', 'Ubicación 39'),
+('Evento 40', 'Descripción 40', 'Ubicación 40'),
+('Evento 41', 'Descripción 41', 'Ubicación 41'),
+('Evento 42', 'Descripción 42', 'Ubicación 42'),
+('Evento 43', 'Descripción 43', 'Ubicación 43'),
+('Evento 44', 'Descripción 44', 'Ubicación 44'),
+('Evento 45', 'Descripción 45', 'Ubicación 45'),
+('Evento 46', 'Descripción 46', 'Ubicación 46'),
+('Evento 47', 'Descripción 47', 'Ubicación 47'),
+('Evento 48', 'Descripción 48', 'Ubicación 48'),
+('Evento 49', 'Descripción 49', 'Ubicación 49'),
+('Evento 50', 'Descripción 50', 'Ubicación 50');
+
+
+UPDATE Eventos
+SET ubicacion = 'Ubicación actualizada'
+WHERE id_evento = 1;
+
+DELETE FROM Eventos
+WHERE id_evento = 50;
+
+DROP TABLE Eventos;
 
 
 -- Insert EquiposMaquinaria
@@ -1783,30 +5604,6 @@ DELETE FROM Monedas WHERE nombre <> 'Dólar';
 
 -- Drop
 DROP TABLE Monedas;
-
-
--- Table: IncidentesMantenimiento
--- Insert
--- Select
--- Update
--- Delete
--- Drop
-
-
--- Table: IncidentesMantenimiento
--- Insert
--- Select
--- Update
--- Delete
--- Drop
-
-
--- Table: ContratosServicio
--- Insert
--- Select
--- Update
--- Delete
--- Drop
 
 
 -- creacion de schemas
