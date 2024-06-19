@@ -5927,3 +5927,867 @@ ADD FILE (
     MAXSIZE = UNLIMITED,
     FILEGROWTH = 10MB
 ) TO FILEGROUP MAINTENANCE;
+
+
+
+-- Funciones tabla
+
+use plaza_vea
+go
+
+CREATE FUNCTION dbo.fnt_AuditoriasPorFechaDescripcion
+(
+    @fechaInicio DATETIME,
+    @fechaFin DATETIME,
+    @descripcion NVARCHAR(MAX)
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT id_auditoria, fecha, descripcion, resultados
+    FROM AuditoriasInternas
+    WHERE fecha BETWEEN @fechaInicio AND @fechaFin
+      AND descripcion LIKE '%' + @descripcion + '%'
+)
+
+select  * from AuditoriasInternas
+select  * from dbo.fnt_AuditoriasPorFechaDescripcion('20230101','20240101','a')
+
+
+CREATE FUNCTION dbo.fnt_AccesosPorEmpleadoUsuario
+(
+    @idEmpleado INT,
+    @usuario NVARCHAR(50)
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT id_acceso, id_empleado, usuario, contrasena
+    FROM AccesosUsuario
+    WHERE id_empleado = @idEmpleado
+      AND usuario LIKE '%' + @usuario + '%'
+)
+
+select * from dbo.fnt_AccesosPorEmpleadoUsuario(1, 'a')
+
+
+CREATE FUNCTION dbo.fnt_RolesPorNombre
+(
+    @nombre NVARCHAR(50)
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT id_rol, nombre
+    FROM RolesPermisos
+    WHERE nombre LIKE '%' + @nombre + '%'
+)
+
+select * from dbo.fnt_RolesPorNombre('a')
+
+
+CREATE FUNCTION dbo.fnt_PermisosPorDescripcion
+(
+    @descripcion NVARCHAR(100)
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT id_permiso, descripcion
+    FROM Permisos
+    WHERE descripcion LIKE '%' + @descripcion + '%'
+)
+
+CREATE FUNCTION dbo.fnt_RolesUsuariosPorAcceso
+(
+    @idAcceso INT
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT id_rol_usuario, id_acceso, id_rol
+    FROM RolesUsuarios
+    WHERE id_acceso = @idAcceso
+)
+
+
+CREATE FUNCTION dbo.fnt_PermisosRolesPorRol
+(
+    @idRol INT
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT id_permiso_rol, id_rol, id_permiso
+    FROM PermisosRoles
+    WHERE id_rol = @idRol
+)
+
+CREATE FUNCTION dbo.fnt_LogsPorAccesoActividad
+(
+    @idAcceso INT,
+    @actividad NVARCHAR(200)
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT id_log, id_acceso, actividad, fecha
+    FROM LogsActividades
+    WHERE id_acceso = @idAcceso
+      AND actividad LIKE '%' + @actividad + '%'
+)
+
+
+CREATE FUNCTION dbo.fnt_IncidentesPorEmpleadoDescripcion
+(
+    @idEmpleado INT,
+    @descripcion NVARCHAR(MAX)
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT id_incidente, descripcion, fecha, id_empleado
+    FROM IncidentesSeguridad
+    WHERE id_empleado = @idEmpleado
+      AND descripcion LIKE '%' + @descripcion + '%'
+)
+
+
+CREATE FUNCTION dbo.fnt_ControlPerdidasPorProductoMotivo
+(
+    @idProducto INT,
+    @motivo NVARCHAR(200)
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT id_control, id_producto, cantidad, motivo, fecha
+    FROM ControlPerdidas
+    WHERE id_producto = @idProducto
+      AND motivo LIKE '%' + @motivo + '%'
+)
+
+CREATE FUNCTION dbo.fnt_CampanasPorNombreEstado
+(
+    @nombre NVARCHAR(100),
+    @estado VARCHAR(30)
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+    SELECT id_campana, nombre, descripcion, fecha_inicio, fecha_fin, presupuesto, estado
+    FROM CampanasMarketing
+    WHERE nombre LIKE '%' + @nombre + '%'
+      AND estado = @estado
+)
+
+
+-- Funciones escalares
+
+----------------------------------------- TABLA PROVEEDORES
+CREATE FUNCTION dbo.ObtenerNombreCompletoProveedor (@id_proveedor INT)
+RETURNS VARCHAR(200)
+AS
+BEGIN
+    DECLARE @nombreCompleto VARCHAR(200);
+
+    SELECT @nombreCompleto = nombre + ' - ' + contacto
+    FROM Proveedores
+    WHERE id_proveedor = @id_proveedor;
+
+    RETURN @nombreCompleto;
+END;
+
+SELECT dbo.ObtenerNombreCompletoProveedor(1) AS NombreCompleto;
+
+
+CREATE FUNCTION dbo.ActualizarDireccionProveedor (
+    @id_proveedor INT,
+    @nueva_direccion VARCHAR(200)
+)
+RETURNS VARCHAR(300)
+AS
+BEGIN
+    DECLARE @resultado VARCHAR(300);
+
+    SELECT @resultado = nombre + ' - ' + @nueva_direccion
+    FROM Proveedores
+    WHERE id_proveedor = @id_proveedor;
+
+    RETURN @resultado;
+END;
+
+SELECT dbo.ActualizarDireccionProveedor(1, 'Calle Nueva 123') AS DetalleProveedor;
+
+
+--------------------------------------TABLA PUESTOS DE TRABAJO
+
+CREATE FUNCTION dbo.ObtenerNombrePuestoYDepartamento (@id_puesto INT)
+RETURNS VARCHAR(200)
+AS
+BEGIN
+    DECLARE @nombrePuestoYDepartamento VARCHAR(200);
+
+    SELECT @nombrePuestoYDepartamento = PT.nombre + ' en ' + D.nombre
+    FROM PuestosTrabajo PT
+    JOIN Departamentos D ON PT.id_departamento = D.id_departamento
+    WHERE PT.id_puesto = @id_puesto;
+
+    RETURN @nombrePuestoYDepartamento;
+END;
+
+SELECT dbo.ObtenerNombrePuestoYDepartamento(1) AS NombrePuestoYDepartamento;
+
+
+
+--------------------------------------------TABLA EVENTOS
+
+CREATE FUNCTION dbo.ObtenerNombreUbicacionEvento (@id_evento INT)
+RETURNS VARCHAR(300)
+AS
+BEGIN
+    DECLARE @nombreUbicacion VARCHAR(300);
+
+    SELECT @nombreUbicacion = nombre + ' en ' + ubicacion
+    FROM Eventos
+    WHERE id_evento = @id_evento;
+
+    RETURN @nombreUbicacion;
+END;
+
+SELECT dbo.ObtenerNombreUbicacionEvento(1) AS NombreUbicacion;
+
+
+----------------------------TABLAS DESPACHO
+
+CREATE FUNCTION dbo.ActualizarFechasDespacho (
+    @id_despacho INT,
+    @nueva_fecha_salida DATETIME,
+    @nueva_fecha_llegada DATETIME
+)
+RETURNS VARCHAR(300)
+AS
+BEGIN
+    DECLARE @resultado VARCHAR(300);
+
+    SELECT @resultado = 'Despacho ID: ' + CAST(id_despacho AS VARCHAR) + 
+                        ' - Nueva Salida: ' + CAST(@nueva_fecha_salida AS VARCHAR) +
+                        ' - Nueva Llegada: ' + CAST(@nueva_fecha_llegada AS VARCHAR)
+    FROM Despachos
+    WHERE id_despacho = @id_despacho;
+
+    RETURN @resultado;
+END;
+
+SELECT dbo.ActualizarFechasDespacho(1, '2024-07-01 08:00:00', '2024-07-01 18:00:00') AS DetalleDespacho;
+
+
+--------------------------TABLA CLIENTES
+
+CREATE FUNCTION dbo.ActualizarTelefonoCliente (
+    @id_cliente INT,
+    @nuevo_telefono VARCHAR(20)
+)
+RETURNS VARCHAR(200)
+AS
+BEGIN
+    DECLARE @resultado VARCHAR(200);
+
+    SELECT @resultado = nombre + ' ' + apellido + ' - ' + @nuevo_telefono
+    FROM Clientes
+    WHERE id_cliente = @id_cliente;
+
+    RETURN @resultado;
+END;
+
+SELECT dbo.ActualizarTelefonoCliente(1, '555-1234') AS DetalleCliente;
+
+--------------------------TABLA AnalisisMercado
+
+CREATE FUNCTION dbo.ActualizarDetallesAnalisis (
+    @id_analisis INT,
+    @nueva_descripcion TEXT,
+    @nuevos_resultados TEXT
+)
+RETURNS VARCHAR(400)
+AS
+BEGIN
+    DECLARE @resultado VARCHAR(400);
+
+    SELECT @resultado = 'Análisis ID: ' + CAST(id_analisis AS VARCHAR) +
+                        ' - Descripción: ' + @nueva_descripcion +
+                        ' - Resultados: ' + @nuevos_resultados
+    FROM AnalisisMercado
+    WHERE id_analisis = @id_analisis;
+
+    RETURN @resultado;
+END;
+
+SELECT dbo.ActualizarDetallesAnalisis(1, 'Nueva descripción del análisis', 'Nuevos resultados del análisis') AS DetalleAnalisis;
+
+--------------------------TABLA EncuestasSatisfaccion
+
+CREATE FUNCTION dbo.ActualizarDetallesEncuesta (
+    @id_encuesta INT,
+    @nueva_puntuacion INT,
+    @nuevos_comentarios TEXT
+)
+RETURNS VARCHAR(400)
+AS
+BEGIN
+    DECLARE @resultado VARCHAR(400);
+
+    SELECT @resultado = 'Encuesta ID: ' + CAST(id_encuesta AS VARCHAR) +
+                        ' - Puntuación: ' + CAST(@nueva_puntuacion AS VARCHAR) +
+                        ' - Comentarios: ' + @nuevos_comentarios
+    FROM EncuestasSatisfaccion
+    WHERE id_encuesta = @id_encuesta;
+
+    RETURN @resultado;
+END;
+
+SELECT dbo.ActualizarDetallesEncuesta(1, 5, 'Excelentes servicios') AS DetalleEncuesta;
+
+
+--------------------------TABLA FlotasTransporte 
+
+CREATE FUNCTION dbo.ActualizarDescripcionFlota (
+    @id_flota INT,
+    @nueva_descripcion VARCHAR(100)
+)
+RETURNS VARCHAR(200)
+AS
+BEGIN
+    DECLARE @resultado VARCHAR(200);
+
+    SELECT @resultado = 'Flota ID: ' + CAST(id_flota AS VARCHAR) + 
+                        ' - Descripción: ' + @nueva_descripcion
+    FROM FlotasTransporte
+    WHERE id_flota = @id_flota;
+
+    RETURN @resultado;
+END;
+
+SELECT dbo.ActualizarDescripcionFlota(1, 'Nueva descripción de la flota') AS DetalleFlota;
+
+--------------------------TABLA RutasDistribucion 
+
+CREATE FUNCTION dbo.ActualizarDescripcionRuta (
+    @id_ruta INT,
+    @nueva_descripcion VARCHAR(100)
+)
+RETURNS VARCHAR(200)
+AS
+BEGIN
+    DECLARE @resultado VARCHAR(200);
+
+    SELECT @resultado = 'Ruta ID: ' + CAST(id_ruta AS VARCHAR) + 
+                        ' - Descripción: ' + @nueva_descripcion
+    FROM RutasDistribucion
+    WHERE id_ruta = @id_ruta;
+
+    RETURN @resultado;
+END;
+
+SELECT dbo.ActualizarDescripcionRuta(1, 'Nueva descripción de la ruta') AS DetalleRuta;
+
+
+-- Procedimienots almacenados
+
+---EJEMPLO 1:Insertar una nueva categoría
+CREATE PROCEDURE InsertarCategoria
+    @nombre VARCHAR(100)
+AS
+BEGIN
+    INSERT INTO Categorias (nombre)
+    VALUES (@nombre);
+END;
+select * from [dbo].[Categorias]
+--insertamos la categoria Coches
+exec [dbo].[InsertarCategoria] 'Coches'
+
+
+
+---EJEMPLO 2: Actualizar el precio de un producto
+CREATE PROCEDURE ActualizarPrecioProducto
+    @id_producto INT,
+    @nuevo_precio DECIMAL(10, 2)
+AS
+BEGIN
+    UPDATE Productos
+    SET precio = @nuevo_precio
+    WHERE id_producto = @id_producto;
+END;
+select*from [dbo].[Productos]
+--actualizamos el precio de un producto por medio del ID
+exec [dbo].[ActualizarPrecioProducto] '2','45.00'
+
+
+
+---EJEMPLO 3: Buscar los productos de plaza vea por su nombre
+create procedure BuscarProducto---creamos el procedimiento
+@buscar varchar(40)
+as
+begin
+select [id_producto], [nombre],[descripcion],[precio]from [dbo].[Productos]
+where [nombre] like @buscar
+end;
+select *from [dbo].[Productos]
+--buscamos producto llamado camisa:
+exec [dbo].[BuscarProducto] '%camisa%'
+
+
+
+---EJEMPLO 4: Insertar nuevo producto
+CREATE PROCEDURE InsertarProducto
+    @nombre VARCHAR(100),
+    @descripcion TEXT,
+    @id_subcategoria INT,
+    @id_marca INT,
+    @id_unidad INT,
+    @precio DECIMAL(10, 2),
+    @stock_minimo INT,
+    @stock_maximo INT
+AS
+BEGIN
+    INSERT INTO Productos (nombre, descripcion, id_subcategoria, id_marca, id_unidad, precio, stock_minimo, stock_maximo)
+    VALUES (@nombre, @descripcion, @id_subcategoria, @id_marca, @id_unidad, @precio, @stock_minimo, @stock_maximo);
+END;
+select*from [dbo].[Productos]
+      ---insertamos un producto llamado PC
+exec [dbo].[InsertarProducto] 'PC','Una PC muy potente',2,1,1,'2000.00',3,10
+
+
+
+---EJEMPLO 5: Consultar inventario de un producto
+create PROCEDURE ConsultarInventarioProducto
+    @id_producto INT
+AS
+BEGIN
+    SELECT [cantidad]
+    FROM [Inventarios].[InventarioGeneral] 
+    WHERE [id_producto] = @id_producto;
+END;
+select*from [Inventarios].[InventarioGeneral]
+   ---vemos el inventario del producto con el ID 1
+EXEC [dbo].[ConsultarInventarioProducto] 1 
+
+
+---EJEMPLO 6: Generar un informe de ventas por cliente en un rango de fechas
+CREATE PROCEDURE InformeVentasPorCliente
+    @id_cliente INT,
+    @fecha_inicio DATETIME,
+    @fecha_fin DATETIME
+AS
+BEGIN
+    SELECT 
+        v.id_venta,
+        v.fecha,
+        v.total,
+        dv.id_producto,
+        p.nombre AS producto,
+        dv.cantidad,
+        dv.precio_unitario,
+        (dv.cantidad * dv.precio_unitario) AS subtotal
+    FROM 
+        [Ventas].[Ventas] V
+        JOIN [Ventas].[DetallesVenta] dv ON V.id_venta = dv.id_venta
+        JOIN  [dbo].[Productos] P ON DV.id_producto = P.id_producto
+    WHERE 
+        v.id_cliente = @id_cliente
+        AND v.fecha BETWEEN @fecha_inicio AND @fecha_fin
+    ORDER BY 
+        v.fecha;
+END;
+select*from [Ventas].[Ventas]
+select*from[dbo].[Productos]
+select *from [Ventas].[DetallesVenta]
+EXEC [dbo].[InformeVentasPorCliente] 1,'20240101', '20241231'
+
+
+---EJEMPLO 7: Registrar asistencia de un empleado
+CREATE PROCEDURE RegistrarAsistencia
+    @idEmpleado INT,
+    @fecha DATE,
+    @horaEntrada TIME,
+    @horaSalida TIME
+AS
+BEGIN
+    -- Insertar registro de asistencia
+    INSERT INTO  [RecursosHumanos].[Asistencias](id_empleado, fecha, hora_entrada, hora_salida)
+    VALUES (@idEmpleado, @fecha, @horaEntrada, @horaSalida);
+END;
+select*from [RecursosHumanos].[Asistencias]
+---registramos una nueva asistencia
+exec [dbo].[RegistrarAsistencia] 1,'20240618', '08:00', '17:00'
+
+
+
+---EJEMPLO 8: Actualizar la informacion del cliente
+CREATE PROCEDURE ActualizarCliente
+    @idCliente INT,
+    @nombre NVARCHAR(100),
+    @apellido NVARCHAR(255),
+    @telefono NVARCHAR(20),
+    @correo NVARCHAR(100)
+AS
+BEGIN
+    UPDATE [Ventas].[Clientes]
+    SET  [nombre]= @nombre,  [apellido]= @apellido, [telefono] = @telefono, [correo] = @correo
+    WHERE[id_cliente] = @idCliente;
+END;
+select*from [Ventas].[Clientes]
+---cambiamos sus datos por medio del ID:
+EXEC [dbo].[ActualizarCliente] 1,'fABIOLA','Ancco','957771548','fabiolaancco386@gmail.com'
+
+
+
+---EJEMPLO 9: Eliminar clientes y sus ventas
+alter PROCEDURE EliminarCliente
+    @idCliente INT
+AS
+BEGIN
+    BEGIN TRANSACTION;
+
+    -- Eliminar detalles de devoluciones del cliente
+    DELETE FROM [Ventas].[DevolucionesClientes]
+    WHERE [id_venta] IN (SELECT [id_venta] FROM [Ventas].[Ventas] WHERE [id_cliente] = @idCliente);
+
+    -- Eliminar detalles de ventas del cliente
+    DELETE FROM [Ventas].[DetallesVenta]
+    WHERE [id_venta] IN (SELECT [id_venta] FROM [Ventas].[Ventas] WHERE [id_cliente] = @idCliente);
+
+    -- Eliminar ventas del cliente
+    DELETE FROM [Ventas].[Ventas]
+    WHERE [id_cliente] = @idCliente;
+
+    -- Eliminar cliente
+    DELETE FROM [Ventas].[Clientes]
+    WHERE [id_cliente] = @idCliente;
+
+    COMMIT TRANSACTION;
+END;
+
+select*from [Ventas].[Clientes]
+select*from [Ventas].[Ventas]
+EXEC [dbo].[EliminarCliente]  2
+
+
+---EJEMPLO 10: Obtener la lista de prodcutos por Categoria
+CREATE PROCEDURE ObtenerProductosPorCategoria
+    @nombreCategoria VARCHAR(100)
+AS
+BEGIN
+    SELECT P.id_producto, P.nombre AS nombre_producto, P.descripcion, C.nombre AS nombre_categoria
+    FROM [dbo].[Productos] P
+    INNER JOIN [dbo].[Subcategorias] S ON P.id_subcategoria = S.id_subcategoria
+    INNER JOIN [dbo].[Categorias] C ON S.id_categoria = C.id_categoria
+    WHERE C.nombre = @nombreCategoria;
+END;
+select*from [dbo].[Productos]
+select *from[dbo].[Categorias]
+select *from [dbo].[Subcategorias]
+   ----buscamos los productos que vienen de la categoria Electrónica
+   EXEC [dbo].[ObtenerProductosPorCategoria] 'Electrónica'
+
+-- Triggers
+
+
+-- 1. Trigger para actualizar el stock en InventarioGeneral después de una venta en DetallesVenta:
+CREATE TRIGGER tr_AfterInsert_DetallesVenta
+ON DetallesVenta
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_producto INT, @cantidad INT;
+    
+    SELECT @id_producto = inserted.id_producto, @cantidad = inserted.cantidad
+    FROM inserted;
+
+    UPDATE InventarioGeneral
+    SET cantidad = cantidad - @cantidad
+    WHERE id_producto = @id_producto;
+END;
+
+-- 2. Trigger para registrar un movimiento de entrada cuando se recibe un producto en RecepcionProductos:
+CREATE TRIGGER tr_AfterInsert_RecepcionProductos
+ON RecepcionProductos
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_producto INT, @cantidad INT;
+
+    SELECT @id_producto = id_producto, @cantidad = cantidad
+    FROM OrdenesCompra OC
+    JOIN inserted I ON OC.id_orden = I.id_orden;
+
+    INSERT INTO MovimientosInventario (id_producto, id_almacen, cantidad, tipo_movimiento)
+    VALUES (@id_producto, (SELECT id_almacen FROM DetallesOrdenCompra WHERE id_orden = inserted.id_orden), @cantidad, 'entrada');
+END;
+
+-- 3. Trigger para actualizar el estado de una orden de compra cuando todos los productos han sido recibidos:
+CREATE TRIGGER tr_AfterUpdate_RecepcionProductos
+ON RecepcionProductos
+AFTER UPDATE, INSERT
+AS
+BEGIN
+    DECLARE @id_orden INT;
+    
+    SELECT @id_orden = inserted.id_orden
+    FROM inserted;
+
+    IF NOT EXISTS (
+        SELECT 1
+        FROM DetallesOrdenCompra
+        WHERE id_orden = @id_orden AND id_detalle NOT IN (
+            SELECT id_detalle
+            FROM RecepcionProductos
+            WHERE id_orden = @id_orden
+        )
+    )
+    BEGIN
+        UPDATE OrdenesCompra
+        SET estado = 'completada'
+        WHERE id_orden = @id_orden;
+    END;
+END;
+
+
+-- 4. Trigger para registrar un log de actividades cuando un usuario accede al sistema:
+CREATE TRIGGER tr_AfterInsert_AccesosUsuario
+ON AccesosUsuario
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_acceso INT;
+    
+    SELECT @id_acceso = inserted.id_acceso
+    FROM inserted;
+
+    INSERT INTO LogsActividades (id_acceso, actividad)
+    VALUES (@id_acceso, 'Nuevo usuario creado');
+END;
+
+-- 5. Trigger para registrar un incidente de seguridad cuando se detecta una actividad sospechosa:
+CREATE TRIGGER tr_AfterInsert_IncidentesSeguridad
+ON IncidentesSeguridad
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_empleado INT, @descripcion TEXT;
+    
+    SELECT @id_empleado = inserted.id_empleado, @descripcion = inserted.descripcion
+    FROM inserted;
+
+    INSERT INTO LogsActividades (id_acceso, actividad)
+    VALUES (
+        (SELECT id_acceso FROM AccesosUsuario WHERE id_empleado = @id_empleado),
+        'Incidente de seguridad reportado: ' + @descripcion
+    );
+END;
+
+-- 6.Trigger para actualizar el estado de un permiso/licencia después de la revisión:
+CREATE TRIGGER tr_AfterUpdate_PermisosLicencias
+ON PermisosLicencias
+AFTER UPDATE
+AS
+BEGIN
+    DECLARE @id_permiso INT, @estado VARCHAR(30);
+
+    SELECT @id_permiso = inserted.id_permiso, @estado = inserted.estado
+    FROM inserted;
+
+    IF @estado = 'aprobado'
+    BEGIN
+        UPDATE Empleados
+        SET fecha_inicio_permiso = (SELECT fecha_inicio FROM PermisosLicencias WHERE id_permiso = @id_permiso),
+            fecha_fin_permiso = (SELECT fecha_fin FROM PermisosLicencias WHERE id_permiso = @id_permiso)
+        WHERE id_empleado = (SELECT id_empleado FROM PermisosLicencias WHERE id_permiso = @id_permiso);
+    END;
+END;
+
+
+-- 7. Trigger para calcular el salario neto en la tabla Nominas después de una inserción o actualización:
+
+CREATE TRIGGER tr_AfterInsertOrUpdate_Nominas
+ON Nominas
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    DECLARE @id_nomina INT;
+
+    SELECT @id_nomina = inserted.id_nomina
+    FROM inserted;
+
+    UPDATE Nominas
+    SET salario_neto = salario_base + bonos - deducciones
+    WHERE id_nomina = @id_nomina;
+END;
+
+select * from [dbo].[Nominas]
+
+update Nominas set salario_base=100 where id_nomina=1
+
+CREATE TRIGGER trg_UpdateStockOnInventoryMovement
+ON 
+
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_producto INT, @cantidad INT, @tipo_movimiento VARCHAR(30);
+    
+    SELECT @id_producto = i.id_producto, @cantidad = i.cantidad, @tipo_movimiento = i.tipo_movimiento
+    FROM inserted i;
+
+    IF @tipo_movimiento = 'entrada'
+    BEGIN
+        UPDATE InventarioGeneral
+        SET cantidad = cantidad + @cantidad
+        WHERE id_producto = @id_producto;
+    END
+    ELSE IF @tipo_movimiento = 'salida'
+    BEGIN
+        UPDATE InventarioGeneral
+        SET cantidad = cantidad - @cantidad
+        WHERE id_producto = @id_producto;
+    END
+END;
+
+CREATE TRIGGER trg_PreventNegativeStock
+ON MovimientosInventario
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_producto INT, @cantidad INT, @tipo_movimiento VARCHAR(30), @current_stock INT;
+    
+    SELECT @id_producto = i.id_producto, @cantidad = i.cantidad, @tipo_movimiento = i.tipo_movimiento
+    FROM inserted i;
+
+    SELECT @current_stock = cantidad
+    FROM InventarioGeneral
+    WHERE id_producto = @id_producto;
+
+    IF @tipo_movimiento = 'salida' AND @current_stock < @cantidad
+    BEGIN
+        ROLLBACK TRANSACTION;
+        RAISERROR ('Not enough stock to complete the movement.', 16, 1);
+    END
+END;
+
+CREATE TRIGGER trg_UpdateTotalOnDetailInsert
+ON DetallesVenta
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_venta INT;
+    
+    SELECT @id_venta = i.id_venta
+    FROM inserted i;
+
+    UPDATE Ventas
+    SET total = (
+        SELECT SUM(dv.cantidad * dv.precio_unitario)
+        FROM DetallesVenta dv
+        WHERE dv.id_venta = @id_venta
+    )
+    WHERE id_venta = @id_venta;
+END;
+
+CREATE TRIGGER trg_CalculateNetSalary
+ON Nominas
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_nomina INT, @salario_base DECIMAL(10, 2), @bonos DECIMAL(10, 2), @deducciones DECIMAL(10, 2);
+    
+    SELECT @id_nomina = i.id_nomina, @salario_base = i.salario_base, @bonos = i.bonos, @deducciones = i.deducciones
+    FROM inserted i;
+
+    UPDATE Nominas
+    SET salario_neto = @salario_base + @bonos - @deducciones
+    WHERE id_nomina = @id_nomina;
+END;
+
+CREATE TRIGGER trg_UpdateStockOnOrderDetailInsert
+ON DetallesOrdenCompra
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_producto INT, @cantidad INT;
+    
+    SELECT @id_producto = i.id_producto, @cantidad = i.cantidad
+    FROM inserted i;
+
+    UPDATE InventarioGeneral
+    SET cantidad = cantidad + @cantidad
+    WHERE id_producto = @id_producto;
+END;
+
+
+CREATE TRIGGER trg_RecordSaleMovement
+ON Ventas
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_venta INT;
+    
+    SELECT @id_venta = i.id_venta
+    FROM inserted i;
+
+    INSERT INTO MovimientosInventario (id_producto, id_almacen, cantidad, tipo_movimiento)
+    SELECT dv.id_producto, NULL, dv.cantidad, 'salida'
+    FROM DetallesVenta dv
+    WHERE dv.id_venta = @id_venta;
+END;
+
+
+CREATE TRIGGER trg_ValidatePromotionPeriod
+ON CuponesDescuentos
+BEFORE INSERT, UPDATE
+AS
+BEGIN
+    DECLARE @fecha_inicio DATE, @fecha_fin DATE;
+    
+    SELECT @fecha_inicio = i.fecha_inicio, @fecha_fin = i.fecha_fin
+    FROM inserted i;
+
+    IF @fecha_inicio > @fecha_fin
+    BEGIN
+        ROLLBACK TRANSACTION;
+        RAISERROR ('Promotion end date must be after the start date.', 16, 1);
+    END
+END;
+
+
+CREATE TABLE ActividadesUsuarios (
+    id_actividad INT PRIMARY KEY IDENTITY(1, 1),
+    id_acceso INT,
+    actividad VARCHAR(200),
+    fecha DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (id_acceso) REFERENCES AccesosUsuario(id_acceso)
+);
+
+CREATE TRIGGER trg_LogUserActivity
+ON LogsActividades
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @id_acceso INT, @actividad VARCHAR(200);
+    
+    SELECT @id_acceso = i.id_acceso, @actividad = i.actividad
+    FROM inserted i;
+
+    INSERT INTO ActividadesUsuarios (id_acceso, actividad)
+    VALUES (@id_acceso, @actividad);
+END;
+
