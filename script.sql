@@ -6791,3 +6791,84 @@ BEGIN
     VALUES (@id_acceso, @actividad);
 END;
 
+
+
+--A traves de PROCEDIMIENTOS ALMACENADOS ANTIGUOS:
+---Creacion de logins
+sp_addlogin 'usuario1', '123456', 'master';
+go
+sp_addlogin 'usuario2', '123456', 'master';
+go
+
+---Creacion de usuarios en nuestra base de datos
+USE plaza_vea;
+
+sp_adduser 'usuario1', 'usuario1'
+GO
+sp_adduser 'usuario2', 'usuario2'
+GO
+
+--- Mostrar información de los logins
+sp_helplogins;
+GO
+
+--A traves de Sentencias T-SQL Modernas:
+---Crear logins
+CREATE LOGIN empleado1 WITH PASSWORD = '123';
+CREATE LOGIN empleado2 WITH PASSWORD = '123';
+
+---Crear usuarios en la base de datos plaza_vea
+USE plaza_vea;
+CREATE USER empleado1 FOR LOGIN empleado1;
+CREATE USER empleado2 FOR LOGIN empleado2;
+
+--Asignar Roles de Servidor a un Login
+use master
+ALTER SERVER ROLE dbcreator ADD MEMBER usuario1;
+ALTER SERVER ROLE diskadmin ADD MEMBER usuario1;
+
+--Asignar Roles de Base de Datos a un Usuario
+USE plaza_vea;
+EXEC sp_addrolemember db_owner, usuario2;
+EXEC sp_addrolemember db_datareader, usuario2;
+EXEC sp_addrolemember db_datawriter, usuario2;
+
+--Otorgar permisos especificos a un usuario sobre una tabla
+GRANT SELECT, INSERT ON [dbo].[Productos] TO usuario1;
+--Quitamos permisos al usuario sobre una tabla
+REVOKE INSERT ON [dbo].[Productos] FROM usuario1;
+
+--Crear y Asignar un Rol Definido por el Usuario
+USE plaza_vea;
+CREATE ROLE rol_ventas; --creas el rol
+GRANT SELECT, INSERT, UPDATE ON [dbo].[Ventas] TO rol_ventas; --asignas permisos
+EXEC sp_addrolemember rol_ventas, usuario3; --- asignas el rol al usuario
+
+-- Crear un rol en la base de datos
+USE plaza_vea;
+CREATE ROLE rol_ventas;
+
+-- Asignar permisos al rol
+GRANT SELECT, INSERT, UPDATE ON [dbo].[Ventas] TO rol_ventas;
+
+-- Asignar el rol a un usuario
+EXEC sp_addrolemember N'rol_ventas', N'usuario_sql';
+
+grant select, insert, update on cliente to empleado1
+go
+
+revoke update on cliente to empleado1
+go
+
+grant select, insert, update on sala to empleado2
+go
+
+revoke update on sala to empleado2
+go
+
+grant select, insert, update on pelicula to empleado2
+go
+
+revoke update on pelicula to empleado2
+go
+
